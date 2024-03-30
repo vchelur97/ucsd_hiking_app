@@ -1,0 +1,11 @@
+# Ignore Missing frozen string literal comment.rubocop(Style/FrozenStringLiteralComment)
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+# Ignore Missing top-level class documentation comment.rubocop(Style/Documentation)
+Style/Documentation:
+  Enabled: false
+
+# Ignore Prefer single-quoted strings when you don't need string interpolation or special symbols.rubocop(Style/StringLiterals
+Style/StringLiterals:
+  Enabled: false
