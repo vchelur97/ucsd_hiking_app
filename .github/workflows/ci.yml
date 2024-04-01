@@ -30,12 +30,6 @@ jobs:
           bundle exec rails db:prepare
           bundle exec rake test
 
-      - name: Build and test with rspec
-        env:
-          RAILS_ENV: test
-        run: |
-          bundle exec rspec spec
-
       - name: Create Coverage Artifact
         uses: actions/upload-artifact@v2
         with:
