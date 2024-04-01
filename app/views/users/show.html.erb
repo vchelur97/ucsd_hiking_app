@@ -1,0 +1,4 @@
+<h2><%= @current_user.email %></h2>
+<h2><%= @current_user.full_name %></h2>
+  <%= image_tag(@current_user.avatar_url) %>
+  <%= button_to "Logout", '/user', data: {turbo: "false"}, method: :delete %>

@@ -71,3 +71,10 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+
+# Google login
+gem "dotenv-rails"
+gem "omniauth"
+gem "omniauth-google-oauth2"
+gem "omniauth-rails_csrf_protection"
+gem "tailwindcss-rails"
