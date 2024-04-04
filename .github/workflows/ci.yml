@@ -42,7 +42,7 @@ jobs:
           RAILS_ENV: test
           WITH_COVERAGE: true
           DISABLE_SPRING: 1
-          DATABASE_URL: postgres://postgres:postgres@localhost:5432/postgres
+          DATABASE_URL: postgres://postgres:postgres@localhost:5432/ucsd_hiking_app_test
         run: |
           bundle exec rails db:setup
           bundle exec rake test
