@@ -5,15 +5,31 @@ jobs:
   test:
     name: Test
     runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:12
+        env:
+          POSTGRES_DB: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_USER: postgres
+        ports:
+          - "5432:5432"
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-      
+
       - name: Install Dependencies
         uses: awalsh128/cache-apt-pkgs-action@latest
         with:
-          packages: sqlite3 libsqlite3-dev
-          version: 1.0
+          packages: libpq-dev
+          version: 2.0
 
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
@@ -21,13 +37,14 @@ jobs:
           ruby-version: 3.3.0
           bundler-cache: true
 
-      - name: Run tests
+      - name: Setup database and run test
         env:
           RAILS_ENV: test
           WITH_COVERAGE: true
           DISABLE_SPRING: 1
+          DATABASE_URL: postgres://postgres:postgres@localhost:5432/ucsd_hiking_app_test
         run: |
-          bundle exec rails db:prepare
+          bundle exec rails db:setup
           bundle exec rake test
 
       - name: Create Coverage Artifact
