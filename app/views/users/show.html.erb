@@ -1,4 +1,5 @@
-<h2><%= @current_user.email %></h2>
-<h2><%= @current_user.full_name %></h2>
-  <%= image_tag(@current_user.avatar_url) %>
-  <%= button_to "Logout", '/user', data: {turbo: "false"}, method: :delete %>
+<h2><%= @user.email %></h2>
+<h2><%= @user.full_name %></h2>
+<%= image_tag(@user.avatar_url) %>
+<%= button_to "Edit", edit_user_path, method: :get %>
+<%= button_to "Logout", user_session_path(cookies.signed[:session_id]), data: {turbo: "false"}, method: :delete %>

@@ -1,33 +1,29 @@
 class UsersController < ApplicationController
-  before_action :authenticate_user!, only: [:show]
-
-  def new
-    render :new
-  end
-
-  def create
-    user = User.from_omniauth(auth)
-    if user.present?
-      flash[:success] = t 'user.create.success', kind: 'Google'
-      session[:user_id] = user.id
-    else
-      flash[:alert] = t 'user.create.failure', kind: 'Google', reason: "#{auth.info.email} is not authorized."
-    end
-    redirect_to root_path
-  end
+  before_action :authenticate_user!
 
   def show
     render :show
   end
 
+  def edit
+    render :edit
+  end
+
+  def update
+    if @user.update(user_params)
+      redirect_to @user, notice: "User was successfully updated."
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
   def destroy
-    session[:user_id] = nil
     redirect_to root_path
   end
 
   private
 
-  def auth
-    @auth ||= request.env['omniauth.auth']
+  def user_params
+    params.require(:user).permit(:full_name, :avatar_url)
   end
 end

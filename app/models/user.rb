@@ -1,9 +1,10 @@
 class User < ApplicationRecord
-  def self.from_omniauth(auth)
-    where(email: auth.email).first_or_create do |user|
-      user.email = auth.info.email
-      user.full_name = auth.info.name # assuming the user model has a name
-      user.avatar_url = auth.info.image # assuming the user model has an image
-    end
+  has_many :sessions
+
+  def self.create_from_omniauth(auth)
+    user = find_by(email: auth.info.email)
+    first_time = user.nil?
+    user ||= create(email: auth.info.email, full_name: auth.info.name, avatar_url: auth.info.image)
+    [user, first_time]
   end
 end

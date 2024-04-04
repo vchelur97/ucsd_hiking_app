@@ -1,8 +1,10 @@
 Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-  resource :user, except: [:create]
+  resource :user, except: %i[new create] do
+    resources :sessions, only: %i[new create destroy]
+  end
   resolve('User') { [:user] }
-  get 'auth/google_oauth2/callback', to: 'users#create'
+  get 'auth/google_oauth2/callback', to: 'sessions#create'
   resources :hikes
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
