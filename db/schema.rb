@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_06_022557) do
+ActiveRecord::Schema[7.1].define(version: 2024_04_06_073446) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -29,8 +29,23 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_06_022557) do
     t.string "avatar_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "phone_no"
+    t.string "discord"
+    t.string "preferred_name"
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  create_table "waivers", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "ip_address", null: false
+    t.string "user_agent", null: false
+    t.integer "version", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id", "version"], name: "index_waivers_on_user_id_and_version", unique: true
+    t.index ["user_id"], name: "index_waivers_on_user_id"
+  end
+
   add_foreign_key "sessions", "users"
+  add_foreign_key "waivers", "users"
 end

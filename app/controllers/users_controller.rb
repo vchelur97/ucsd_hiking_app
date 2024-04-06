@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :authenticate_user!
+  skip_before_action :added_phone_number!
 
   def show
     render :show
@@ -11,9 +11,9 @@ class UsersController < ApplicationController
 
   def update
     if @user.update(user_params)
-      redirect_to @user, notice: "User was successfully updated."
+      redirect_to root_path, notice: "User was successfully updated."
     else
-      render :edit, status: :unprocessable_entity
+      render :edit, status: :unprocessable_entity, alert: "User could not be updated."
     end
   end
 
@@ -24,6 +24,6 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:full_name, :avatar_url)
+    params.require(:user).permit(:preferred_name, :phone_no, :discord)
   end
 end

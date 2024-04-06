@@ -1,0 +1,53 @@
+<section>
+  <div class="max-w-auto mx-auto lg:max-w pb-8">
+    <div class="flex flex-col text-center">
+      <center> <%= image_tag("hiking_logo", class: "size-48", alt: "Hiking Club Logo") %> </center>
+      <h1 class="text-3xl font-semibold tracking-tighter text-gray-900">
+        Welcome to UCSD Hiking
+      </h1>
+    </div>
+    <div class="px-8 py-2 text-md/relaxed rounded-lg bg-gray-100">
+      <p class="mt-2">
+        I, <%= @user.full_name %>, do hereby affirm and acknowledge that I have been fully informed of the inherent hazards and risks associated with hiking, transportation of equipment related to the activities, and traveling to and from activity sites, in which I am about to engage. Inherent hazards and risks include but are not limited to:
+      </p>
+      <ol class="mt-2 text-md/relaxed list-decimal">
+        <li> Risk of injury from the activity and equipment utilized is significant including the potential for permanent disability and death. </li>
+        <li> Falling, causing broken bones, severe injuries to the head, neck, and back which may result in severe impairment or even death </li>
+        <li> All "acts of nature," including but not limited to avalanche, rock fall, inclement weather, thunder and lighting, severe and or varied wind, temperature and other weather conditions </li>
+        <li> Risks associated with crossing, climbing or down-climbing of rock, snow and/or ice </li>
+        <li> Risks associated with river crossings, fordings, or portaging </li>
+        <li> Possible equipment failure and/or malfunction of my own or others' equipment, which may have been rented, borrowed, or personally owned </li>
+        <li> My own negligence and/or the negligence of others, including employees, agents, independent contractors or representatives of including but not limited to operator failure </li>
+        <li> Cold weather and heat related injuries and illness including but not limited to frostnip, frostbite, heat exhaustion, heatstroke,  sunburn, hypothermia and dehydration </li>
+        <li> Attack by or encounter with insects, reptiles, and/or animals </li>
+        <li> Accidents or illness occurring in remote places where there are no available medical facilities </li>
+        <li> Fatigue chill, and/or dizziness, which may diminish my/our reaction time and increase the risk of accident </li>
+        <li> My sense of balance, physical coordination, and ability to follow instructions </li>
+      </ol>
+      <p>
+        I understand the description of these risks is not complete and that unknown or unanticipated risks may result in injury, illness, or death.
+      </p>
+      <h4 class="mt-2 text-lg font-semibold tracking-tighter text-gray-900">
+        Release of Liability, Waiver of Claims and Indemnity Agreement
+      </h4>
+      <p>
+        In consideration for being permitted to participate in any way in hiking and related activities, I hereby agree, acknowledge and appreciate that:
+      </p>
+      <ol class="mt-2 text-md/relaxed list-decimal">
+        <li> I HEREBY RELEASE AND HOLD HARMLESS WITH RESPECT TO ANY AND ALL INJURY, DISABILITY, DEATH, or loss or damage to person or property, WHETHER CAUSED BY NEGLIGENCE OR OTHERWISE, the following named persons or entities, herein referred to as releases. 
+          <b> University of California: San Diego and the UCSD Hiking Group </b> </li>
+        <li> To release the releases, their officers, directors, employees, representatives, agents, and volunteers, from liability and responsibility whatsoever and for any claims or causes of action that I, my estate, heirs, survivors, executors, or assigns may have for personal injury, property damage, or wrongful death arising from the above activities whether caused by active or passive negligence of the releases or otherwise. By executing this document, I agree to hold the releases harmless and indemnify them in conjunction with any injury, disability, death, or loss or damage to person or property that may occur as a result of engaging in the above activities </li>
+        <li> By entering into this Agreement, I am not relying on any oral or written representation or statements made by the releases, other than what is set forth in this Agreement </li>
+      </ol>
+      <p class="mt-2">
+        This release shall be binding to the fullest extent permitted by law. If any provision of this release is found to be unenforceable, the remaining terms shall be enforceable. 
+        I HAVE READ THIS RELEASE OF LIABILITY AND ASSUMPTION OF RISK AGREEMENT, AND I FULLY UNDERSTAND ITS TERMS, AND UNDERSTAND THAT I HAVE GIVEN UP LEGAL RIGHTS BY SIGNING IT, AND I SIGN IT FREELY AND VOLUNTARILY WITHOUT ANY INDUCEMENT.
+      </p>
+      <div class="mt-4 text-center">
+        <%= form_with model: @waiver, url: user_waiver_path, method: "post" do |form| %>
+          <%= form.submit "Sign Waiver", class: "inline-block rounded bg-indigo-600 px-8 py-3 text-sm font-medium text-white transition hover:scale-110 hover:shadow-xl focus:outline-none focus:ring active:bg-indigo-500" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,15 @@
+<% flash.each do |type, msg| %>
+  <center>
+    <div class="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8" data-controller="flash" data-flash-type="<%= type %>">
+      <span class="inline-flex items-center justify-center rounded-full bg-green-100 px-2.5 py-0.5 text-green-700" data-flash-target="message">
+        <p class="whitespace-nowrap text-sm"><%= msg %></p>
+        <button class="-me-1 ms-1.5 inline-block rounded-full bg-green-200 p-0.5 text-green-700 transition hover:bg-green-300" data-action="click->flash#closeMessage" data-flash-target="closeButton">
+          <span class="sr-only">Remove badge</span>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-3 w-3" >
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </span>
+    </div>
+  </center>
+<% end %>
