@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-  resource :user, except: %i[new create] do
+  resource :user, except: %i[new create show] do
     resource :waiver, only: %i[new create]
     resources :sessions, only: %i[new create destroy]
   end

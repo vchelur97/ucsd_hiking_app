@@ -31,6 +31,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_06_073446) do
     t.datetime "updated_at", null: false
     t.string "phone_no"
     t.string "discord"
+    t.string "preferred_name"
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
@@ -41,6 +42,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_06_073446) do
     t.integer "version", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["user_id", "version"], name: "index_waivers_on_user_id_and_version", unique: true
     t.index ["user_id"], name: "index_waivers_on_user_id"
   end
 
