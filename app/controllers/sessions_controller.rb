@@ -5,7 +5,7 @@ class SessionsController < ApplicationController
 
   def create
     user, first_time = User.create_from_omniauth(auth)
-    session = user.sessions.create(status: 'active')
+    session = user.sessions.create
     cookies.signed[:session_id] = session.id
     if first_time
       redirect_to edit_user_path(user), notice: 'Welcome! Please complete your profile.'
@@ -16,7 +16,7 @@ class SessionsController < ApplicationController
 
   def destroy
     session = Session.find(cookies.signed[:session_id])
-    session.update(status: 'inactive')
+    session.destroy
     cookies.delete(:session_id)
     redirect_to root_path, notice: 'Logged out!'
   end

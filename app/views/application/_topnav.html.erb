@@ -1,0 +1,11 @@
+<div class="hidden md:flex lg:items-center lg:gap-6 text-lg">
+  <nav aria-label="Global">
+    <ul class="flex items-center gap-6 text-lg">
+      <% for item in menu_items %>
+        <li>
+          <%= link_to item[:title], item[:url], class:"text-gray-500 transition hover:text-gray-500/75" %>
+        </li>
+      <% end %>
+    </ul>
+  </nav>
+</div>
