@@ -6,7 +6,7 @@
     <div class="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
       <div class="flex h-16 items-center justify-between">
         <div class="block md:hidden relative">
-          <button class="rounded bg-gray-100 p-2 text-gray-600 transition hover:text-gray-600/75" data-navbar-target="sidebar" aria-label="Toggle navigation">
+          <button class="rounded bg-gray-100 p-2 text-gray-600 transition hover:text-gray-600/75" data-action="click->navbar#toggleSidebar" aria-label="Toggle navigation">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               class="h-5 w-5"
@@ -31,8 +31,8 @@
         <%= render partial: "topnav", locals: {menu_items: menu_items} %>
         <div class="flex items-center gap-4">
           <div class="relative">
-            <div class="sm:flex sm:gap-4">
-              <%= image_tag(@user.avatar_url, class: "size-10 rounded-full object-cover", alt: @user.full_name, data: {navbar_target: "avatar"}) %>
+            <div class="sm:flex sm:gap-4" data-action="click->navbar#toggleAvatarDropdown">
+              <%= image_tag(@user.avatar_url, class: "size-10 rounded-full object-cover", alt: @user.full_name) %>
             </div>
             <div data-navbar-target="avatarDropdown" class="hidden absolute end-0 z-10 mt-2 w-56 divide-y divide-gray-100 rounded-md border border-gray-100 bg-white shadow-lg" role="menu">
               <div class="p-2">

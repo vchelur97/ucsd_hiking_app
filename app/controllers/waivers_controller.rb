@@ -11,7 +11,7 @@ class WaiversController < ApplicationController
     if waiver.save
       redirect_to user_path, notice: "Waiver was successfully signed."
     else
-      render :show, status: :unprocessable_entity
+      render :show, status: :unprocessable_entity, alert: "Waiver could not be signed."
     end
   end
 end
