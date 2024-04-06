@@ -1,4 +1,4 @@
-<% if @user %>
+<% if @user && signed_waiver? %>
   <% menu_items = [
     { title: "Upcoming", url: root_path },
   ] %>

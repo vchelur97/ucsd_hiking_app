@@ -1,5 +1,6 @@
 class User < ApplicationRecord
-  has_many :sessions
+  has_many :sessions, dependent: :destroy
+  has_many :waivers, dependent: :destroy
 
   def self.create_from_omniauth(auth)
     user = find_by(email: auth.info.email)
