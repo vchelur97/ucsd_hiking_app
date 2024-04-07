@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_06_073446) do
+ActiveRecord::Schema[7.1].define(version: 2024_04_07_041428) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -19,6 +19,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_06_073446) do
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "push_endpoint"
+    t.string "push_p256dh"
+    t.string "push_auth"
     t.index ["user_id"], name: "index_sessions_on_user_id"
   end
 

@@ -15,6 +15,13 @@ class SessionsController < ApplicationController
     end
   end
 
+  def update
+    session = Session.find(cookies.signed[:session_id])
+    session.update!(push_endpoint: params[:push_endpoint], push_p256dh: params[:push_p256dh],
+                    push_auth: params[:push_auth])
+    render json: { status: 'success' }
+  end
+
   def destroy
     session = Session.find(cookies.signed[:session_id])
     session.destroy
