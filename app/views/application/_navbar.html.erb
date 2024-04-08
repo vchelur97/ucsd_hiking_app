@@ -2,14 +2,13 @@
   <div data-controller="push" data-application-server-key="<%= ENV['WEB_PUSH_PUBLIC_KEY'] %>">
   </div>
   <% menu_items = [
-    { title: "Upcoming", url: root_path },
+    { title: "Hikes", url: hikes_path },
   ] %>
-  <nav class="bg-white" data-controller="navbar">
-    <div class="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
-      <div class="flex h-16 items-center justify-between">
-        <div class="block md:hidden relative">
-          <button class="rounded bg-gray-100 p-2 text-gray-600 transition hover:text-gray-600/75" data-action="click->navbar#toggleSidebar" aria-label="Toggle navigation">
-            <svg
+  <nav class="bg-white container mx-auto" data-controller="navbar">
+    <div class="px-2 flex h-16 items-center justify-between">
+      <div class="md:hidden relative">
+        <button class="rounded bg-gray-100 p-2 text-gray-600 transition hover:text-gray-600/75" data-action="click->navbar#toggleSidebar" aria-label="Toggle navigation">
+          <svg
               xmlns="http://www.w3.org/2000/svg"
               class="h-5 w-5"
               fill="none"
@@ -17,35 +16,23 @@
               stroke="currentColor"
               stroke-width="2"
             >
-              <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
-          </button>
-          <%= render partial: "sidebar", locals: {menu_items: menu_items} %>
-        </div>
-        <div class="md:flex md:items-center md:gap-12 block text-teal-600">
-          <%= link_to(root_path) do %>
-            <span class="sr-only">Home</span>
-            <span class="h-8" viewBox="0 0 28 24">
-              <%= image_tag("hiking_logo", class: "size-16", alt: "Hiking Club Logo") %>
-            </span>
-          <% end %>
-        </div>
-        <%= render partial: "topnav", locals: {menu_items: menu_items} %>
-        <div class="flex items-center gap-4">
-          <div class="relative">
-            <div class="sm:flex sm:gap-4" data-action="click->navbar#toggleAvatarDropdown">
-              <%= image_tag(@user.avatar_url, class: "size-10 rounded-full object-cover", alt: @user.full_name) %>
-            </div>
-            <div data-navbar-target="avatarDropdown" class="hidden absolute end-0 z-10 mt-2 w-56 divide-y divide-gray-100 rounded-md border border-gray-100 bg-white shadow-lg" role="menu">
-              <div class="p-2">
-                <%= link_to "Edit Profile", edit_user_path, class: "block rounded-lg px-4 py-2 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700", role: "menuitem" %>
-              </div>
-              <div class="p-2">
-                <%= link_to "Log Out", user_session_path, class: "block rounded-lg px-4 py-2 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700", role: "menuitem", data: {turbo_method: :delete} %>
-              </div>
-            </div>
-          </div>
-        </div>
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+        <%= render partial: "sidebar", locals: {menu_items: menu_items} %>
       </div>
-    </nav>
-  <% end %>
+      <div class="md:flex md:items-center">
+        <%= link_to(root_path) do %>
+          <%= image_tag("hiking_logo.svg", class: "size-16", alt: "Hiking Club Logo") %>
+        <% end %>
+      </div>
+      <%= render partial: "topnav", locals: {menu_items: menu_items} %>
+      <div class="flex">
+        <%= link_to "Logout", user_session_path, class: "text-sm p-2 mx-2 my-auto bg-red-100 rounded-lg hover:bg-red-200", data: {turbo_method: :delete} %>
+        <%= link_to(user_path) do %>
+          <%= image_tag(@user.avatar_url, class: "size-12 rounded-full", alt: @user.full_name) %>
+        <% end %>
+      </div>
+    </div>
+  </nav>
+<% end %>

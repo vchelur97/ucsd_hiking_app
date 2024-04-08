@@ -3,17 +3,17 @@
     <%= form_with(model: @user, class: "mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8") do |form| %>
       <p class="text-center text-lg font-medium">Edit Profile</p>
       <div>
-        <%= form.label :full_name %>
-        <span class="place-content-center text-red-700">*</span>
-        <div class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm">
-          <%= @user.full_name %>
-        </div>
-      </div>
-      <div>
         <%= form.label :email %>
         <span class="place-content-center text-red-700">*</span>
         <div class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm">
           <%= @user.email %>
+        </div>
+      </div>
+      <div>
+        <%= form.label :full_name %>
+        <span class="place-content-center text-red-700">*</span>
+        <div class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm">
+          <%= @user.full_name %>
         </div>
       </div>
       <div>

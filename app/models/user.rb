@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   has_many :sessions, dependent: :destroy
   has_many :waivers, dependent: :destroy
+  has_many :cars, dependent: :destroy
   validates :email, presence: true, uniqueness: true
   validates :phone_no, presence: true, format: { with: /\A\d{10}\z/ }, on: :update
 

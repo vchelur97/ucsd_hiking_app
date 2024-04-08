@@ -1,8 +1,9 @@
 Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-  resource :user, except: %i[new create show] do
+  resource :user, except: %i[new create] do
     resource :waiver, only: %i[new create]
     resource :session, only: %i[new create update destroy]
+    resources :cars, only: %i[create update destroy]
   end
   resolve('User') { [:user] }
   get 'auth/google_oauth2/callback', to: 'sessions#create'

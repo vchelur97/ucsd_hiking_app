@@ -11,7 +11,7 @@ class SessionsController < ApplicationController
     if first_time
       redirect_to edit_user_path(user), notice: 'Welcome! Please complete your profile.'
     else
-      redirect_to root_path, notice: 'Logged in!'
+      redirect_to root_path
     end
   end
 
