@@ -7,12 +7,13 @@ class CarsController < ApplicationController
   end
 
   def edit
+    @car = @user.cars.find(params[:id])
   end
 
   def create
     @car = @user.cars.create!(car_params)
     if @car.save
-      redirect_to @user, notice: "Car was successfully created"
+      redirect_to @user, success: "Car was successfully created"
     else
       redirect_to @user, status: :unprocessable_entity, alert: "Car could not be created"
     end
@@ -20,7 +21,7 @@ class CarsController < ApplicationController
 
   def update
     if @car.update(car_params)
-      redirect_to @user, notice: "Car was successfully updated"
+      redirect_to @user, success: "Car was successfully updated"
     else
       redirect_to @user, status: :unprocessable_entity, alert: "Car could not be updated"
     end
@@ -28,7 +29,7 @@ class CarsController < ApplicationController
 
   def destroy
     @car.destroy!
-    redirect_to @user, notice: "Car was successfully removed"
+    redirect_to @user, success: "Car was successfully removed"
   end
 
   private

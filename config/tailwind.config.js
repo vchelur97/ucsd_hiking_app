@@ -1,4 +1,5 @@
-const defaultTheme = require('tailwindcss/defaultTheme')
+const defaultTheme = require('tailwindcss/defaultTheme');
+const colors = require("tailwindcss/colors");
 
 module.exports = {
   content: [
@@ -10,9 +11,11 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Inter var', ...defaultTheme.fontFamily.sans],
+        sans: ["Inter", ...defaultTheme.fontFamily.sans],
       },
       colors: {
+        primary: colors.blue,
+        secondary: colors.slate,
         google: {
           'text-gray': '#3c4043',
           'button-blue': '#1a73e8',

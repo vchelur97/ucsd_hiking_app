@@ -6,7 +6,9 @@
   </head>
   <body>
     <%= render "navbar" %>
-    <%= render "flash" %>
+    <turbo-frame id="flash">
+      <%= render "flash" %>
+    </turbo-frame>
     <main class="container mx-auto">
       <%= yield %>
     </main>
