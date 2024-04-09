@@ -24,6 +24,11 @@
     <%= form.text_field :mpg, class: "shadow rounded-lg border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
   </p>
   <div>
-    <%= form.submit class: "bottom-4 left-10 my-4 rounded-lg py-3 px-5 bg-gray-100 hover:bg-gray-200 inline-block font-medium" %>
+    <% if @car.persisted? %>
+      <%= form.submit class: "bottom-4 left-10 my-4 rounded-lg py-3 px-5 bg-gray-100 hover:bg-gray-200 inline-block font-medium" %>
+      <%= link_to "Delete car", user_car_path(car), data: {turbo_method: :delete, turbo_frame: "_top", turbo_confirm: "Are you sure you want to delete your car?"}, class: "my-4 inline-block ml-2 rounded-lg py-3 px-5 bg-red-100 hover:bg-red-200 font-medium" %>
+    <% else %>
+      <%= form.submit class: "bottom-4 left-10 my-4 rounded-lg py-3 px-5 bg-green-200 hover:bg-green-300 inline-block font-medium" %>
+    <% end %>
   </div>
 <% end %>

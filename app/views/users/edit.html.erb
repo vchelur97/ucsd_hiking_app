@@ -35,6 +35,7 @@
       </p>
       <div class="relative">
         <%= form.submit class:"mt-6 rounded-lg py-3 px-5 bg-gray-100 hover:bg-gray-200 inline-block font-medium" %>
+        <%= link_to "Delete profile", user_path, data: {turbo_method: :delete, turbo_frame: "_top", turbo_confirm: "Are you sure you want to delete your profile?"}, class: "inline-block ml-2 mt-6 rounded-lg py-3 px-5 bg-red-100 hover:bg-red-200 font-medium" %>
       </div>
     <% end %>
   <% end %>

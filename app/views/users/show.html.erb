@@ -4,7 +4,6 @@
     <%= turbo_frame_tag "user" do %>
       <%= render @user %>
       <%= link_to "Edit profile", edit_user_path, class: "mt-6 rounded-lg py-3 px-5 bg-gray-100 hover:bg-gray-200 inline-block font-medium" %>
-      <%= link_to "Delete profile", user_path, data: {turbo_method: :delete, turbo_frame: "_top"}, class: "inline-block ml-2 mt-6 rounded-lg py-3 px-5 bg-red-100 hover:bg-red-200 font-medium" %>
     <% end %>
   </div>
   <div class="relative min-h-36 w-full lg:w-2/5 mx-2 my-2 rounded-lg p-6 shadow-lg">
