@@ -1,42 +1,41 @@
 <div class="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
-  <div class="mx-auto max-w-lg">
-    <%= form_with(model: @user, class: "mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8") do |form| %>
-      <p class="text-center text-lg font-medium">Edit Profile</p>
-      <div>
-        <%= form.label :email %>
+  <%= turbo_frame_tag "user" do %>
+    <%= form_with(model: @user, local: true) do |form| %>
+      <p class="my-5">
+        <%= form.label :email, class: "font-medium" %>
         <span class="place-content-center text-red-700">*</span>
         <div class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm">
           <%= @user.email %>
         </div>
-      </div>
-      <div>
-        <%= form.label :full_name %>
+      </p>
+      <p class="my-5">
+        <%= form.label :full_name, class: "font-medium" %>
         <span class="place-content-center text-red-700">*</span>
         <div class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm">
           <%= @user.full_name %>
         </div>
-      </div>
-      <div>
-        <%= form.label :preferred_name %>
+      </p>
+      <p class="my-5">
+        <%= form.label :preferred_name, class: "font-medium" %>
         <%= form.text_field :preferred_name, class:"w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm" %>
-      </div>
-      <div>
+      </p>
+      <p class="my-5">
         <div class="relative">
-          <%= form.label :phone_no, "Phone number" %>
+          <%= form.label :phone_no, "Phone number", class: "font-medium" %>
           <% @user.errors.full_messages_for(:phone_no).each do |message| %>
             <span class="place-content-center text-red-700 text-sm"><%= message %></span>
           <% end %>
           <span class="place-content-center text-red-700">*</span>
         </div>
         <%= form.phone_field :phone_no, class:"w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm", pattern:"[0-9]{10}", placeholder:"1234567890" %>
-      </div>
-      <div>
-        <%= form.label :discord, "Discord username" %>
+      </p>
+      <p class="my-5">
+        <%= form.label :discord, "Discord username", class: "font-medium" %>
         <%= form.text_field :discord, class:"w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm" %>
-      </div>
+      </p>
       <div class="relative">
-        <%= form.submit class:"block w-full rounded-lg bg-indigo-600 px-5 py-3 text-sm font-medium text-white" %>
+        <%= form.submit class:"mt-6 rounded-lg py-3 px-5 bg-gray-100 hover:bg-gray-200 inline-block font-medium" %>
       </div>
     <% end %>
-  </div>
+  <% end %>
 </div>

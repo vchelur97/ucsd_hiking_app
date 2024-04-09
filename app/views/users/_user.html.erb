@@ -1,27 +1,30 @@
-<div id="<%= dom_id user %>">
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Email:</strong>
-    <%= user.email %>
-  </p>
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Full name:</strong>
-    <%= user.full_name %>
-  </p>
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Preferred name:</strong>
-    <%= user.preferred_name %>
-  </p>
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Phone number:</strong>
-    <%= user.phone_no %>
-  </p>
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Discord:</strong>
-    <%= user.discord %>
-  </p>
-  <% if action_name != "show" %>
-    <%= link_to "Show this user", user, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <%= link_to "Edit this user", edit_user_path(user), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
-    <hr class="mt-6">
-  <% end %>
-</div>
+<p class="my-2">
+  <strong class="font-medium">Email</strong>
+  <div class="w-full rounded-lg border border-gray-200 p-4 pe-12 text-sm shadow-sm">
+    <%= @user.email %>
+  </div>
+</p>
+<p class="my-2">
+  <strong class="font-medium">Full name</strong>
+  <div class="w-full rounded-lg border border-gray-200 p-4 pe-12 text-sm shadow-sm">
+    <%= @user.full_name %>
+  </div>
+</p>
+<p class="my-2">
+  <strong class="font-medium">Preferred name</strong>
+  <div class="w-full rounded-lg border border-gray-200 p-4 pe-12 text-sm shadow-sm">
+    <%= @user.preferred_name %>
+  </div>
+</p>
+<p class="my-2">
+  <strong class="font-medium">Phone number</strong>
+  <div class="w-full rounded-lg border border-gray-200 p-4 pe-12 text-sm shadow-sm">
+    <%= @user.phone_no %>
+  </div>
+</p>
+<p class="my-2">
+  <strong class="font-medium">Discord username</strong>
+  <div class="w-full rounded-lg border border-gray-200 p-4 pe-12 text-sm shadow-sm">
+    <%= @user.discord %>
+  </div>
+</p>

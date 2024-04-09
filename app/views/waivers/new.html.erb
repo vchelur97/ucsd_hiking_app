@@ -44,7 +44,7 @@
         I HAVE READ THIS RELEASE OF LIABILITY AND ASSUMPTION OF RISK AGREEMENT, AND I FULLY UNDERSTAND ITS TERMS, AND UNDERSTAND THAT I HAVE GIVEN UP LEGAL RIGHTS BY SIGNING IT, AND I SIGN IT FREELY AND VOLUNTARILY WITHOUT ANY INDUCEMENT.
       </p>
       <div class="mt-4 text-center">
-        <%= form_with model: @waiver, url: user_waiver_path, method: "post" do |form| %>
+        <%= form_with model: @waiver, local: true, url: user_waiver_path, method: "post" do |form| %>
           <%= form.submit "Sign Waiver", class: "inline-block rounded bg-indigo-600 px-8 py-3 text-sm font-medium text-white transition hover:scale-110 hover:shadow-xl focus:outline-none focus:ring active:bg-indigo-500" %>
         <% end %>
       </div>

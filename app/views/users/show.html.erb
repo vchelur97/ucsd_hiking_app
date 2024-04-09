@@ -1,21 +1,19 @@
-<div class="mx-auto md:w-2/3 w-full flex">
-  <div class="mx-auto">
-    <% if notice.present? %>
-      <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
+<div class="flex flex-wrap items-stretch justify-center my-4">
+  <div class="w-full min-h-96 md:w-2/5 mx-2 my-2 rounded-lg p-6 shadow-lg">
+    <h1 class="font-bold text-2xl">Profile</h1>
+    <%= turbo_frame_tag "user" do %>
+      <%= render @user %>
+      <%= link_to "Edit profile", edit_user_path, class: "mt-6 rounded-lg py-3 px-5 bg-gray-100 hover:bg-gray-200 inline-block font-medium" %>
+      <%= link_to "Delete profile", user_path, data: {turbo_method: :delete, turbo_frame: "_top"}, class: "inline-block ml-2 mt-6 rounded-lg py-3 px-5 bg-red-100 hover:bg-red-200 font-medium" %>
     <% end %>
-    <%= render @user %>
-    <%= link_to "Edit this user", edit_user_path(@user), class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <div class="inline-block ml-2">
-      <%= button_to "Destroy this user", user_path(@user), method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
+  </div>
+  <div class="relative min-h-36 w-full md:w-2/5 mx-2 my-2 rounded-lg p-6 shadow-lg">
+    <h1 class="font-bold text-2xl">Cars</h1>
+    <div id="cars" class="w-full">
+      <%= render @user.cars %>
     </div>
-  </div>
-</div>
-<div class="w-full">
-  <div class="flex justify-between items-center">
-    <h1 class="font-bold text-4xl">Cars</h1>
-    <div class="rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium">New car </div>
-  </div>
-  <div id="cars" class="min-w-full">
-    <%= render @user.cars %>
+    <%= turbo_frame_tag "new_car" do %>
+      <%= link_to "Add car", new_user_car_path, class: "absolute bottom-6 left-6 mt-2 rounded-lg py-3 px-5 bg-blue-500 hover:bg-blue-600 text-white inline-block font-medium" %>
+    <% end %>
   </div>
 </div>

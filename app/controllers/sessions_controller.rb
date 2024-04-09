@@ -1,7 +1,6 @@
 class SessionsController < ApplicationController
   skip_before_action :authenticate_user!, :signed_waiver!, :added_phone_number!
   def new
-    render :new
   end
 
   def create

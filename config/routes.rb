@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   resource :user, except: %i[new create] do
     resource :waiver, only: %i[new create]
     resource :session, only: %i[new create update destroy]
-    resources :cars, only: %i[create update destroy]
+    resources :cars, except: %i[index]
   end
   resolve('User') { [:user] }
   get 'auth/google_oauth2/callback', to: 'sessions#create'
