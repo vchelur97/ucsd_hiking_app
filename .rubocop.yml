@@ -9,3 +9,6 @@ Style/Documentation:
 # Ignore Prefer single-quoted strings when you don't need string interpolation or special symbols.rubocop(Style/StringLiterals
 Style/StringLiterals:
   Enabled: false
+
+Style/EmptyMethod:
+  Enabled: false

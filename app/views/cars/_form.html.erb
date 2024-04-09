@@ -1,0 +1,29 @@
+<%= form_with(model: [ @car.user, @car ], local: true, class: "border rounded-lg mt-2 pl-4 flex flex-wrap place-content-stretch") do |form| %>
+  <p class="my-2 w-full md:w-5/12 md:pr-4">
+    <%= form.label :make, class: "font-medium" %>
+    <%= form.text_field :make, class: "shadow rounded-lg border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+  </p>
+  <p class="my-2 w-full md:w-5/12 md:pl-4">
+    <%= form.label :model, class: "font-medium" %>
+    <%= form.text_field :model, class: "shadow rounded-lg border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+  </p>
+  <p class="my-2 w-full md:w-5/12 md:pr-4">
+    <%= form.label :color, class: "font-medium" %>
+    <%= form.text_field :color, class: "shadow rounded-lg border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+  </p>
+  <p class="my-2 w-full md:w-5/12 md:pl-4">
+    <%= form.label :capacity, class: "font-medium" %>
+    <%= form.number_field :capacity, class: "shadow rounded-lg border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+  </p>
+  <p class="my-2 w-full md:w-5/12 md:pr-4">
+    <%= form.label :license_plate, class: "font-medium" %>
+    <%= form.text_field :license_plate, class: "shadow rounded-lg border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+  </p>
+  <p class="my-2 w-full md:w-5/12 md:pl-4 pb-16">
+    <%= form.label :mpg, class: "font-medium" %>
+    <%= form.text_field :mpg, class: "shadow rounded-lg border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+  </p>
+  <div>
+    <%= form.submit class: "absolute bottom-4 left-10 my-4 rounded-lg py-3 px-5 bg-blue-500 hover:bg-blue-600 text-white inline-block font-medium" %>
+  </div>
+<% end %>

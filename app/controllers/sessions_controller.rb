@@ -1,7 +1,6 @@
 class SessionsController < ApplicationController
   skip_before_action :authenticate_user!, :signed_waiver!, :added_phone_number!
   def new
-    render :new
   end
 
   def create
@@ -11,7 +10,7 @@ class SessionsController < ApplicationController
     if first_time
       redirect_to edit_user_path(user), notice: 'Welcome! Please complete your profile.'
     else
-      redirect_to root_path, notice: 'Logged in!'
+      redirect_to root_path
     end
   end
 
