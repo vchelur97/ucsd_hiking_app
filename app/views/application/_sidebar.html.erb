@@ -1,11 +1,36 @@
-<div data-navbar-target="sidebar" class="hidden absolute md:flex lg:items-center z-10 w-56 divide-y divide-gray-100 lg:gap-6 rounded-md border border-gray-100 bg-white shadow-lg">
-  <nav aria-label="Global">
-    <ul class="space-y-1">
-      <% for item in menu_items %>
-        <li>
-          <%= link_to item[:title], item[:url], class:"block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700" %>
-        </li>
-      <% end %>
-    </ul>
-  </nav>
+<div
+    x-data="{
+                open: false,
+                toggle() {
+                    if (this.open) {
+                        return this.close()
+                    }
+                    this.$refs.sidebarHamburger.focus()
+                    this.open = true
+                },
+                close(focusAfter) {
+                    if (!this.open) return
+                    this.open = false
+                    focusAfter && focusAfter.focus()
+                }
+            }"
+    x-on:keydown.escape.prevent.stop="close($refs.sidebarHamburger)"
+    x-on:focusin.window="! $refs.sidebarPanel.contains($event.target) && close()"
+    x-id="['dropdown-button']"
+    class="md:hidden relative inline-block">
+  <button x-ref="sidebarHamburger" x-on:click="toggle()" :aria-expanded="open" :aria-controls="$id('dropdown-button')" type="button" class="group inline-flex w-12 h-12 text-slate-800 bg-white text-center items-center justify-center rounded transition" aria-pressed="false" onclick="this.setAttribute('aria-pressed', !(this.getAttribute('aria-pressed') === 'true'))">
+    <span class="sr-only">Menu</span>
+    <svg class="w-6 h-6 fill-current pointer-events-none" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+      <rect class="origin-center group-[[aria-pressed=true]]:rotate-[315deg] group-[[aria-pressed=true]]:[y:7] group-[[aria-pressed=true]]:[x:0] transition-all duration-300 ease-[cubic-bezier(.5,.85,.25,1.1)]" y="2" x="7" width="9" height="2" rx="1"></rect>
+      <rect class="origin-center group-[[aria-pressed=true]]:rotate-45 transition-all duration-300 ease-[cubic-bezier(.5,.85,.25,1.8)]" y="7" width="16" height="2" rx="1"></rect>
+      <rect class="origin-center group-[[aria-pressed=true]]:rotate-[135deg] group-[[aria-pressed=true]]:[y:7] group-[[aria-pressed=true]]:[x:0] transition-all duration-300 ease-[cubic-bezier(.5,.85,.25,1.1)]" y="12" width="9" height="2" rx="1"></rect>
+    </svg>
+  </button>
+  <div x-ref="sidebarPanel" x-show="open" x-transition.origin.top.left x-on:click.outside="close($refs.sidebarButton)" :id="$id('dropdown-button')" class="absolute left-0 z-10 mt-2 w-60 divide-y divide-gray-100 rounded-lg border border-gray-100 bg-white text-left text-sm shadow-lg">
+    <% for item in menu_items %>
+      <div class="p-1">
+        <%= link_to item[:title], item[:url], class:"flex w-full items-center gap-2 rounded-md px-3 py-2 text-gray-700 hover:bg-gray-100" %>
+      </div>
+    <% end %>
+  </div>
 </div>
