@@ -1,5 +1,5 @@
 class DashboardController < ApplicationController
   def index
-    @hikes = Hike.all
+    @hikes = Hike.where(status: 'published')
   end
 end

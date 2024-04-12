@@ -1,82 +1,60 @@
-<div id="<%= dom_id hike %>">
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Title:</strong>
-    <%= hike.title %>
-  </p>
-
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Description:</strong>
-    <%= hike.description %>
-  </p>
-
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Date:</strong>
-    <%= hike.date %>
-  </p>
-
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Time:</strong>
-    <%= hike.time %>
-  </p>
-
-  <p class="my-5">
-    <strong class="block font-medium mb-1">User:</strong>
-    <%= hike.user_id %>
-  </p>
-
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Length:</strong>
-    <%= hike.length %>
-  </p>
-
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Elevation:</strong>
-    <%= hike.elevation %>
-  </p>
-
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Route type:</strong>
-    <%= hike.route_type %>
-  </p>
-
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Duration:</strong>
-    <%= hike.duration %>
-  </p>
-
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Trailhead address:</strong>
-    <%= hike.trailhead_address %>
-  </p>
-
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Alltrails link:</strong>
-    <%= hike.alltrails_link %>
-  </p>
-
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Suggested items:</strong>
-    <%= hike.suggested_items %>
-  </p>
-
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Driver compensation type:</strong>
-    <%= hike.driver_compensation_type %>
-  </p>
-
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Notes:</strong>
-    <%= hike.notes %>
-  </p>
-
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Metadata:</strong>
-    <%= hike.metadata %>
-  </p>
-
-  <% if action_name != "show" %>
-    <%= link_to "Show this hike", hike, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <%= link_to "Edit this hike", edit_hike_path(hike), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
-    <hr class="mt-6">
-  <% end %>
+<div id=<%= dom_id hike %>" class="mt-4 md:grid md:grid-cols-2 md:gap-y-6 md:gap-x-8">
+  <div class="col-span-2" data-hike-target="alltrailsLink">
+    <strong class="font-medium">Alltrails link</strong>
+    <%= @hike.alltrails_link %>
+  </div>
+  <div>
+    <strong class="font-medium">Length</strong>
+    <%= @hike.length %>
+  </div>
+  <div>
+    <strong class="font-medium">Elevation</strong>
+    <%= @hike.elevation %>
+  </div>
+  <div>
+    <strong class="font-medium">Route type</strong>
+    <%= @hike.route_type %>
+  </div>
+  <div>
+    <strong class="font-medium">Duration</strong>
+    <%= @hike.duration %>
+  </div>
+  <div>
+    <strong class="font-medium">Difficulty</strong>
+    <%= @hike.difficulty %>
+  </div>
+  <div>
+    <strong class="font-medium">Driver compensation type</strong>
+    <div>
+      <%= @hike.driver_compensation_type %>
+    </div>
+  </div>
+  <div class="col-span-2">
+    <strong class="font-medium">Title</strong>
+    <%= @hike.title %>
+  </div>
+  <div class="col-span-2 row-span-3">
+    <strong class="font-medium">Description</strong>
+    <%= @hike.description %>
+  </div>
+  <div>
+    <strong class="font-medium">Date</strong>
+    <%= @hike.date %>
+  </div>
+  <div>
+    <strong class="font-medium">Time</strong>
+    <%= @hike.time %>
+  </div>
+  <div class="col-span-2">
+    <strong class="font-medium">Trailhead address</strong>
+    <%= @hike.trailhead_address %>
+  </div>
+  <div class="col-span-2">
+    <strong class="font-medium">Suggested Items</strong>
+    <%= @hike.suggested_items %>
+  </div>
+  <div class="col-span-2">
+    <strong class="font-medium">Notes</strong>
+    <%= @hike.notes %>
+  </div>
 </div>
