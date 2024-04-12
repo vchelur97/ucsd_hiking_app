@@ -21,7 +21,7 @@ class ApplicationController < ActionController::Base
   end
 
   def signed_waiver!
-    redirect_to new_user_waiver_path unless signed_waiver?
+    redirect_to new_user_waiver_path, info: "Please sign the waiver" unless signed_waiver?
   end
 
   def added_phone_number!

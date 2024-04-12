@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   resources :hikes
+  get 'hike_details' => 'hikes#hike_details', as: :get_hike_details
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   resource :user, except: %i[new create] do
     resource :waiver, only: %i[new create]
@@ -14,5 +15,5 @@ Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
 
   # Defines the root path route ("/")
-  root "hikes#index"
+  root "dashboard#index"
 end

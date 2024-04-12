@@ -1,70 +1,69 @@
 class HikesController < ApplicationController
-  before_action :set_hike, only: %i[ show edit update destroy ]
+  before_action :set_hike, only: %i[show edit update destroy]
+  DIFFICULTY_MAPPING = {
+    1 => 'Easy',
+    2 => 'Easy-Moderate',
+    3 => 'Moderate',
+    4 => 'Moderate-Hard',
+    5 => 'Hard'
+  }.freeze
 
-  # GET /hikes or /hikes.json
   def index
     @hikes = Hike.all
   end
 
-  # GET /hikes/1 or /hikes/1.json
   def show
   end
 
-  # GET /hikes/new
   def new
     @hike = Hike.new
   end
 
-  # GET /hikes/1/edit
   def edit
   end
 
-  # POST /hikes or /hikes.json
   def create
     @hike = Hike.new(hike_params)
 
-    respond_to do |format|
-      if @hike.save
-        format.html { redirect_to hike_url(@hike), notice: "Hike was successfully created." }
-        format.json { render :show, status: :created, location: @hike }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @hike.errors, status: :unprocessable_entity }
-      end
+    if @hike.save
+      redirect_to hike_url(@hike), notice: "Hike was successfully created."
+    else
+      render :new, status: :unprocessable_entity
     end
   end
 
-  # PATCH/PUT /hikes/1 or /hikes/1.json
   def update
-    respond_to do |format|
-      if @hike.update(hike_params)
-        format.html { redirect_to hike_url(@hike), notice: "Hike was successfully updated." }
-        format.json { render :show, status: :ok, location: @hike }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @hike.errors, status: :unprocessable_entity }
-      end
+    if @hike.update(hike_params)
+      redirect_to hike_url(@hike), notice: "Hike was successfully updated."
+
+    else
+      render :edit, status: :unprocessable_entity
     end
   end
 
-  # DELETE /hikes/1 or /hikes/1.json
   def destroy
     @hike.destroy!
+    redirect_to hikes_url, notice: "Hike was successfully destroyed."
+  end
 
-    respond_to do |format|
-      format.html { redirect_to hikes_url, notice: "Hike was successfully destroyed." }
-      format.json { head :no_content }
-    end
+  def hike_details
+    alltrails_link = params[:alltrails_link]
+    hike_details = CA_HIKE_MAP[alltrails_link]
+    title = hike_details['trail_name']
+    title = "#{title} (@#{hike_details['area']})" if hike_details['area'].present?
+    difficulty = DIFFICULTY_MAPPING[hike_details['difficulty'].to_i]
+    render json: hike_details.slice('length', 'elevation', 'duration', 'route_type').merge(title:, difficulty:)
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_hike
-      @hike = Hike.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def hike_params
-      params.require(:hike).permit(:title, :description, :date, :time, :user_id, :length, :elevation, :route_type, :duration, :trailhead_address, :alltrails_link, :suggested_items, :driver_compensation_type, :notes, :metadata)
-    end
+  def set_hike
+    @hike = Hike.find(params[:id])
+  end
+
+  def hike_params
+    params.require(:hike).permit(:title, :description, :date, :time, :user_id, :length, :elevation, :route_type,
+                                 :duration, :trailhead_address, :alltrails_link, :suggested_items,
+                                 :driver_compensation_type, :notes, :metadata)
+  end
 end

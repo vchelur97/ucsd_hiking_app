@@ -1,0 +1,14 @@
+<div class="mx-auto max-w-md overflow-hidden rounded-lg bg-white shadow">
+  <% image_tag(hike.graphic_url class:"aspect-video w-full object-cover" alt:hike.title) %>
+  <div class="p-4">
+    <p class="mb-1 text-sm text-primary-500"><%= hike.host %> • <time><%= hike.date %> <%= hike.time %></time></p>
+    <h3 class="text-xl font-medium text-gray-900"><%= hike.title %></h3>
+    <p class="mt-1 text-gray-500"><%= hike.short_description %></p>
+    <div class="mt-4 flex gap-2">
+      <span class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"> Length: <%= hike.stats['length'] %> </span>
+      <span class="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600"> Elevation: <%= hike.stats['elevation'] %> </span>
+      <span class="inline-flex items-center gap-1 rounded-full bg-orange-50 px-2 py-1 text-xs font-semibold text-orange-600"> Difficulty: <%= hike.stats['difficulty'] %> </span>
+      <!--TODO: Add route type and duration-->
+    </div>
+  </div>
+</div>

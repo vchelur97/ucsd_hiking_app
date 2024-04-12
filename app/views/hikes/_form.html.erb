@@ -1,92 +1,65 @@
-<%= form_with(model: hike, class: "contents") do |form| %>
-  <% if hike.errors.any? %>
-    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
-      <h2><%= pluralize(hike.errors.count, "error") %> prohibited this hike from being saved:</h2>
-
-      <ul>
-        <% hike.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="my-5">
+<%= form_with(model: hike, class: "border rounded-lg mt-2 pl-4 flex flex-wrap place-content-stretch", data: { controller: "hike" }) do |form| %>
+  <p class="my-2 w-full md:w-5/6 md:pr-4">
+    <%= form.label :alltrails_link %>
+    <%= form.text_field :alltrails_link, data: { hike_target: "alltrailsLink" }, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+  </p>
+  <p class="my-2 w-full md:w-5/12 md:pr-4">
     <%= form.label :title %>
-    <%= form.text_field :title, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
-  </div>
-
-  <div class="my-5">
+    <%= form.text_field :title, data: {hike_target: "title"}, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+  </p>
+  <p class="my-2 w-full md:w-5/12 md:pr-4">
+    <%= form.label :stats['length'], "Length" %>
+    <%= form.text_field :stats['length'], data: {hike_target: "length"}, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+  </p>
+  <p class="my-2 w-full md:w-5/12 md:pr-4">
+    <%= form.label :stats['elevation'], "Elevation" %>
+    <%= form.number_field :stats['elevation'], data: {hike_target: "elevation"}, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+  </p>
+  <p class="my-2 w-full md:w-5/12 md:pr-4">
+    <%= form.label :stats['route_type'], "Route type" %>
+    <%= form.text_field :stats['route_type'], data: {hike_target: "routeType"}, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+  </p>
+  <p class="my-2 w-full md:w-5/12 md:pr-4">
+    <%= form.label :stats['duration'], "Duration" %>
+    <%= form.number_field :stats['duration'], data: {hike_target: "duration"}, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+  </p>
+  <p class="my-2 w-full md:w-5/12 md:pr-4">
+    <%= form.label :stats['difficulty'], "Difficulty" %>
+    <%= form.text_field :stats['difficulty'], data: {hike_target: "difficulty"}, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+  </p>
+  <p class="my-2 w-full md:w-5/12 md:pr-4">
     <%= form.label :description %>
     <%= form.text_field :description, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
-  </div>
-
-  <div class="my-5">
+  </p>
+  <p class="my-2 w-full md:w-5/12 md:pr-4">
     <%= form.label :date %>
     <%= form.date_field :date, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
-  </div>
-
-  <div class="my-5">
+  </p>
+  <p class="my-2 w-full md:w-5/12 md:pr-4">
     <%= form.label :time %>
     <%= form.time_field :time, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
-  </div>
-
-  <div class="my-5">
-    <%= form.label :user_id %>
-    <%= form.text_field :user_id, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
-  </div>
-
-  <div class="my-5">
-    <%= form.label :length %>
-    <%= form.text_field :length, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
-  </div>
-
-  <div class="my-5">
-    <%= form.label :elevation %>
-    <%= form.number_field :elevation, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
-  </div>
-
-  <div class="my-5">
-    <%= form.label :route_type %>
-    <%= form.text_field :route_type, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
-  </div>
-
-  <div class="my-5">
-    <%= form.label :duration %>
-    <%= form.number_field :duration, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
-  </div>
-
-  <div class="my-5">
+  </p>
+  <p class="my-2 w-full md:w-5/12 md:pr-4">
     <%= form.label :trailhead_address %>
     <%= form.text_field :trailhead_address, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
-  </div>
-
-  <div class="my-5">
-    <%= form.label :alltrails_link %>
-    <%= form.text_field :alltrails_link, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
-  </div>
-
-  <div class="my-5">
+  </p>
+  <p class="my-2 w-full md:w-5/12 md:pr-4">
     <%= form.label :suggested_items %>
     <%= form.text_field :suggested_items, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
-  </div>
-
-  <div class="my-5">
+  </p>
+  <p class="my-2 w-full md:w-5/12 md:pr-4">
     <%= form.label :driver_compensation_type %>
     <%= form.text_field :driver_compensation_type, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
-  </div>
-
-  <div class="my-5">
+  </p>
+  <p class="my-2 w-full md:w-5/12 md:pr-4">
     <%= form.label :notes %>
     <%= form.text_field :notes, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
-  </div>
-
-  <div class="my-5">
+  </p>
+  <p class="my-2 w-full md:w-5/12 md:pr-4">
     <%= form.label :metadata %>
     <%= form.text_field :metadata, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
-  </div>
-
-  <div class="inline">
-    <%= form.submit class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
+  </p>
+  <div>
+    <%= form.submit class: "bottom-4 left-10 my-4 rounded-lg py-3 px-5 bg-green-200 hover:bg-green-300 inline-block font-medium" %>
   </div>
 <% end %>

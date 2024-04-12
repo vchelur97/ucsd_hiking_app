@@ -31,19 +31,18 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_10_022804) do
   create_table "hikes", force: :cascade do |t|
     t.string "title"
     t.string "description"
+    t.string "short_description"
     t.date "date"
     t.time "time"
     t.bigint "host_id"
-    t.float "length"
-    t.integer "elevation"
-    t.string "route_type"
-    t.integer "duration"
+    t.jsonb "stats"
     t.string "trailhead_address"
     t.string "alltrails_link"
     t.string "suggested_items"
     t.string "driver_compensation_type"
     t.string "notes"
     t.string "status"
+    t.string "graphic_url"
     t.jsonb "metadata"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

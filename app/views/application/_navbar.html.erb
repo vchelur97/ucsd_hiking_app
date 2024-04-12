@@ -6,9 +6,9 @@
     { title: "Hikes", url: hikes_path },
   ] %>
   <nav class="bg-white container mx-auto" data-controller="navbar">
-    <div class="px-2 flex items-center justify-between">
+    <div class="px-2 flex mx-auto items-center justify-between">
       <%= render partial: "sidebar", locals: {menu_items: menu_items} %>
-      <div class="md:flex md:items-center">
+      <div class="lg:flex lg:items-center">
         <%= link_to(root_path) do %>
           <%= image_tag("hiking_logo.svg", class: "size-16", alt: "Hiking Club Logo") %>
         <% end %>
