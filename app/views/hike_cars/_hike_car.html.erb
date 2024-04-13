@@ -1,0 +1,19 @@
+<div id="<%= dom_id hike_car %>">
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Hike:</strong>
+    <%= hike_car.hike_id %>
+  </p>
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Car:</strong>
+    <%= hike_car.car_id %>
+  </p>
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Metadata:</strong>
+    <%= hike_car.metadata %>
+  </p>
+  <% if action_name != "show" %>
+    <%= link_to "Show this hike car", hike_car, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= link_to "Edit this hike car", edit_hike_car_path(hike_car), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
+    <hr class="mt-6">
+  <% end %>
+</div>

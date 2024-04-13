@@ -1,3 +1,4 @@
+<%= turbo_stream_from @hike %>
 <div class="mx-auto md:w-2/3 w-full flex">
   <div class="mx-auto">
     <%= render @hike %>
@@ -8,3 +9,7 @@
     <%= link_to "Back to hikes", hikes_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
   </div>
 </div>
+<div id="hike_cars" class="mx-auto md:w-2/3 w-full flex">
+  <%= render @hike.hike_cars %>
+</div>
+<%= turbo_frame_tag "new_hike_car", src: new_hike_hike_car_path(@hike), target: "_top" %>

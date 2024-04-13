@@ -1,0 +1,2 @@
+module HikeCarsHelper
+end

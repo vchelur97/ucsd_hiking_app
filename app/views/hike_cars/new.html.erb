@@ -1,0 +1,6 @@
+<div class="mx-auto md:w-2/3 w-full">
+  <h1 class="font-bold text-4xl">New hike car</h1>
+  <%= turbo_frame_tag "new_hike_car", target: "_top" do %>
+    <%= render "form", hike_car: @hike_car %>
+  <% end %>
+</div>
