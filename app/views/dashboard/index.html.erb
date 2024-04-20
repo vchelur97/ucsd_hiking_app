@@ -7,7 +7,7 @@
         <p class="text-gray-500">No upcoming hikes</p>
       <% end %>
       <% @upcoming_hikes.each do |hike| %>
-        <%= render "hikes/mini_hike", hike: hike %>
+        <%= render "hikes/hike_card", hike: hike %>
       <% end %>
     </div>
   </div>

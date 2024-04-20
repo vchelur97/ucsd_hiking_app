@@ -7,7 +7,7 @@
         <p class="text-gray-500">No upcoming hikes</p>
       <% else %>
         <% @upcoming_hikes.each do |hike| %>
-          <%= render "mini_hike", hike: hike %>
+          <%= render "hike_card", hike: hike %>
         <% end %>
       <% end %>
     </div>
@@ -23,7 +23,7 @@
           <h2 class="font-bold text-xl my-4 text-center">Week of <%= week.strftime('%B %d, %Y') %></h2>
           <div class="w-full flex flex-wrap">
             <% hikes.sort_by(&:date).each do |hike| %>
-              <%= render "mini_hike", hike: hike %>
+              <%= render "hike_card", hike: hike %>
             <% end %>
           </div>
         <% end %>
