@@ -9,7 +9,8 @@ class HikesController < ApplicationController
   }.freeze
 
   def index
-    @hikes = Hike.where(status: 'published')
+    @upcoming_hikes = Hike.where(status: 'published').where('date >= ?', Date.today).order(date: :asc)
+    @past_hikes = Hike.where(status: 'published').where('date < ?', Date.today).order(date: :desc)
   end
 
   def show
@@ -53,8 +54,7 @@ class HikesController < ApplicationController
     hike_details = CA_HIKE_MAP[alltrails_link]
     title = hike_details['trail_name']
     title = "#{title} (@#{hike_details['area']})" if hike_details['area'].present?
-    difficulty = DIFFICULTY_MAPPING[hike_details['difficulty'].to_i]
-    render json: hike_details.slice('length', 'elevation', 'duration', 'route_type').merge(title:, difficulty:)
+    render json: hike_details.slice('length', 'elevation', 'duration', 'route_type', 'difficulty').merge(title:)
   end
 
   private

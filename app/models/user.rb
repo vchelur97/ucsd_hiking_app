@@ -10,6 +10,17 @@ class User < ApplicationRecord
     user = find_by(email: auth.info.email)
     first_time = user.nil?
     user ||= create(email: auth.info.email, full_name: auth.info.name, avatar_url: auth.info.image)
+    if user.avatar_url.nil?
+      update(user.id, email: auth.info.email, full_name: auth.info.name, avatar_url: auth.info.image)
+    end
     [user, first_time]
+  end
+
+  def admin?
+    roles.include?("admin") || roles.include?("board")
+  end
+
+  def host?(hike)
+    id == hike.host.id
   end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_13_014602) do
+ActiveRecord::Schema[7.1].define(version: 2024_04_19_210758) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -31,21 +31,33 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_13_014602) do
   create_table "hike_cars", force: :cascade do |t|
     t.bigint "hike_id", null: false
     t.bigint "car_id", null: false
-    t.jsonb "metadata"
+    t.jsonb "metadata", default: {}
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["car_id"], name: "index_hike_cars_on_car_id"
     t.index ["hike_id"], name: "index_hike_cars_on_hike_id"
   end
 
+  create_table "hike_participants", force: :cascade do |t|
+    t.bigint "hike_car_id", null: false
+    t.integer "position"
+    t.bigint "user_id", null: false
+    t.jsonb "metadata", default: {}
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["hike_car_id"], name: "index_hike_participants_on_hike_car_id"
+    t.index ["user_id"], name: "index_hike_participants_on_user_id"
+  end
+
   create_table "hikes", force: :cascade do |t|
     t.string "title"
     t.string "description"
     t.string "short_description"
+    t.string "hike_type"
     t.date "date"
     t.time "time"
     t.bigint "host_id"
-    t.jsonb "stats"
+    t.jsonb "stats", default: {}
     t.string "trailhead_address"
     t.string "alltrails_link"
     t.string "suggested_items"
@@ -53,7 +65,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_13_014602) do
     t.string "notes"
     t.string "status"
     t.string "graphic_url"
-    t.jsonb "metadata"
+    t.jsonb "metadata", default: {}
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["host_id"], name: "index_hikes_on_host_id"
@@ -79,6 +91,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_13_014602) do
     t.string "phone_no"
     t.string "discord"
     t.string "preferred_name"
+    t.string "roles", default: [], array: true
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
@@ -96,6 +109,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_13_014602) do
   add_foreign_key "cars", "users"
   add_foreign_key "hike_cars", "cars"
   add_foreign_key "hike_cars", "hikes"
+  add_foreign_key "hike_participants", "hike_cars"
+  add_foreign_key "hike_participants", "users"
   add_foreign_key "hikes", "users", column: "host_id"
   add_foreign_key "sessions", "users"
   add_foreign_key "waivers", "users"

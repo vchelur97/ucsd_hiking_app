@@ -1,5 +1,5 @@
 class DashboardController < ApplicationController
   def index
-    @hikes = Hike.where(status: 'published')
+    @upcoming_hikes = Hike.where(status: 'published').where('date >= ?', Date.today).order(date: :asc)
   end
 end

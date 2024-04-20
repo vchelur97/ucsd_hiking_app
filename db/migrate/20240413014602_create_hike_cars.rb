@@ -3,7 +3,7 @@ class CreateHikeCars < ActiveRecord::Migration[7.1]
     create_table :hike_cars do |t|
       t.references :hike, null: false, foreign_key: true
       t.references :car, null: false, foreign_key: true
-      t.jsonb :metadata
+      t.jsonb :metadata, default: {}
 
       t.timestamps
     end

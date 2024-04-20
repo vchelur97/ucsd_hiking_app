@@ -3,6 +3,7 @@ class AddProfileToUser < ActiveRecord::Migration[7.1]
     add_column :users, :phone_no, :string
     add_column :users, :discord, :string
     add_column :users, :preferred_name, :string
+    add_column :users, :roles, :string, array: true, default: []
 
     create_table :waivers do |t|
       t.references :user, null: false, foreign_key: true
