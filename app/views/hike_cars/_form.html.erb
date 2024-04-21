@@ -1,9 +1,57 @@
-<%= form_with(model: [ @hike_car.hike, @hike_car ], class: "contents") do |form| %>
-  <div class="my-5">
-    <%= form.label :car_id %>
-    <%= form.select :car_id, @user.cars.map{|c| [c.make + ' ' + c.model]} %>
+<% if @user.cars.empty? %>
+  <div class="flex my-5 rounded-md bg-yellow-50 p-4 text-sm text-yellow-500" x-cloak x-show="showAlert" x-data="{ showAlert: true }">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="mr-3 h-5 w-5 flex-shrink-0">
+      <path fill-rule="evenodd" d="M8.485 2.495c.673-1.167 2.357-1.167 3.03 0l6.28 10.875c.673 1.167-.17 2.625-1.516 2.625H3.72c-1.347 0-2.189-1.458-1.515-2.625L8.485 2.495zM10 5a.75.75 0 01.75.75v3.5a.75.75 0 01-1.5 0v-3.5A.75.75 0 0110 5zm0 9a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd" />
+    </svg>
+    <div>To include your car for the hike, please register it in your profile first. <a href="<%= user_path %>" class="underline">Click here to add a car</a>.</div>
+    <button class="ml-auto" x-on:click="showAlert = false">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-5 w-5">
+        <path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" />
+      </svg>
+    </button>
   </div>
-  <div class="inline">
-    <%= form.submit class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
-  </div>
+<% else %>
+  <%= form_with(model: [ @hike_car.hike, @hike_car ], class: "flex mx-auto") do |form| %>
+    <table class="w-full border-collapse bg-white text-left text-sm text-gray-500" cellspacing="0">
+      <thead class="bg-gray-50">
+        <tr>
+          <th scope="col" class="hidden px-6 py-4 font-medium text-center text-gray-900 lg:table-cell">Car</th>
+          <th scope="col" class="hidden px-6 py-4 font-medium text-center text-gray-900 lg:table-cell">Spots</th>
+          <th scope="col" class="hidden px-6 py-4 font-medium text-center text-gray-900 lg:table-cell">Pickup@Time</th>
+          <th scope="col" class="hidden px-6 py-4 font-medium text-center text-gray-900 lg:table-cell">Pickup Address</th>
+          <th scope="col" class="hidden px-6 py-4 font-medium text-center text-gray-900 lg:table-cell">Note</th>
+          <th scope="col" class="hidden px-6 py-4 font-medium text-center text-gray-900 lg:table-cell"></th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-gray-100 border-t border-gray-100">
+        <tr class="hover:bg-gray-50">
+          <td data-th="Car" class="flex justify-center items-center before:w-36 before:font-medium before:content-[attr(data-th)':'] lg:before:content-none lg:table-cell gap-3 px-6 py-4 font-normal text-gray-900">
+            <%= form.label :car_id, hidden:true %>
+            <%= form.select :car_id, @user.cars.map{|c| [c.make + ' ' + c.model]}, class:"w-full lg:w-40" %>
+          </td>
+          <td data-th="Spots" class="flex justify-center items-center before:w-36 before:font-medium before:content-[attr(data-th)':'] lg:before:content-none lg:table-cell gap-3 px-6 py-4 font-normal text-gray-900">
+            <%= form.label :spots_available, hidden:true %>
+            <%= form.number_field :spots_available, class:"w-1/2 lg:w-16" %>
+          </td>
+          <td data-th="Pickup@Time" class="flex justify-center items-center before:w-36 before:font-medium before:content-[attr(data-th)':'] lg:before:content-none lg:table-cell gap-3 px-6 py-4 font-normal text-gray-900">
+            <%= form.label :pickup_time, hidden:true %>
+            <%= form.text_field :pickup_time, class:"w-full lg:w-40", placeholder: "PC Loop@9:30AM"%>
+          </td>
+          <td data-th="Pickup Addr" class="flex justify-center items-center before:w-36 before:font-medium before:content-[attr(data-th)':'] lg:before:content-none lg:table-cell gap-3 px-6 py-4 font-normal text-gray-900">
+            <%= form.label :pickup_address, hidden:true %>
+            <%= form.text_field :pickup_address, class:"w-full lg:w-40", placeholder: "Google maps link"%>
+          </td>
+          <td data-th="Note" class="flex justify-center items-center before:w-36 before:font-medium before:content-[attr(data-th)':'] lg:before:content-none lg:table-cell gap-3 px-6 py-4 font-normal text-gray-900">
+            <%= form.label :note, hidden:true %>
+            <%= form.text_field :note, class:"w-full lg:w-40", placeholder: "Note for passengers"%>
+          </td>
+          <td class="flex justify-center items-center lg:table-cell gap-3 px-6 py-4 font-normal text-gray-900">
+            <div class="flex justify-end gap-4">
+              <%= form.submit "Add car", class: "rounded-lg py-3 px-5 bg-blue-500 hover:bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
+            </div>
+          </td>
+        </tr>
+      </thead>
+    </table>
+  <% end %>
 <% end %>

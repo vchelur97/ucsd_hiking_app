@@ -1,9 +1,9 @@
-<div id=<%= dom_id hike %>">
-  <section>
-    <div class="container px-6 py-4 mx-auto lg:-mx-6 lg:flex lg:items-center">
-      <%= image_tag @hike.graphic_url, class:"w-full lg:mx-6 lg:w-1/2 rounded-xl" %>
+<div id="<%= dom_id hike %>">
+  <section class="md:w-2/3 mx-auto">
+    <div class="px-6 py-4 mx-auto lg:-mx-6 lg:flex lg:items-center">
+      <%= image_tag @hike.graphic_url, class:"w-full mx-auto lg:mx-6 lg:w-1/2 rounded-xl" %>
       <div class="mt-3 lg:w-1/2 lg:mt-0 lg:mx-6">
-        <div class="block text-2xl font-semibold text-gray-800">
+        <div class="block text-center text-2xl font-semibold text-gray-800">
           <%= @hike.title %>
         </div>
         <div class="mt-4 mx-auto max-w-lg">
@@ -36,7 +36,7 @@
             </li>
           </ul>
         </div>
-        <div class="flex items-center mt-3">
+        <div class="flex justify-center items-center mt-3">
           <%= render "application/avatar", user: @hike.host %>
           <div class="mx-4">
             <h1 class="text-sm text-gray-700"><%= @hike.host.full_name %></h1>
@@ -46,13 +46,13 @@
       </div>
     </div>
   </section>
-  <section>
-    <div class="container relative px-6 py-4 mx-auto lg:-mx-6 lg:flex lg:items-center">
+  <section class="md:w-2/3 mx-auto">
+    <div class="relative px-6 py-4 mx-auto lg:-mx-6 lg:flex lg:items-center">
       <div class="mt-6 w-full lg:mx-6 lg:w-1/2 rounded-xl lg:order-2"">
         <iframe class="alltrails" src="<%= @hike.alltrails_link.gsub('https://www.alltrails.com/trail/', 'https://www.alltrails.com/widget/trail/').gsub('https://www.alltrails.com/explore/trail/', 'https://www.alltrails.com/widget/trail/').gsub('https://www.alltrails.com/explore/trails/', 'https://www.alltrails.com/widget/trail/') %>" width="100%" height="450" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" title="AllTrails: Trail Guides and Maps for Hiking, Camping, and Running"></iframe>
       </div>
       <div class="lg:w-1/2 lg:mt-0 lg:mx-6 lg:order-1">
-        <div class="block mt-3 text-2xl font-semibold text-gray-800">
+        <div class="block mt-3 text-2xl text-center font-semibold text-gray-800">
           <time><%= hike.date.strftime('%B %d %A') %> • <%= hike.time.in_time_zone('Pacific Time (US & Canada)').strftime('%I:%M %p') %></time>
         </div>
         <div class="mt-6 mx-auto max-w-lg">
@@ -110,8 +110,8 @@
       </div>
     </div>
   </section>
-  <section>
-    <div class="container px-6 py-4 mx-auto mt-8 lg:-mx-6 lg:flex lg:items-center">
+  <section class="md:w-2/3 mx-auto">
+    <div class="px-6 py-4 mx-auto mt-8 lg:-mx-6 lg:flex lg:items-center">
       <div class="w-full lg:mx-6 lg:w-1/2 rounded-xl">
         <%
         query = ""
@@ -129,9 +129,9 @@
         embed_url = 'https://www.google.com/maps/embed/v1/place' + '?key=' + ENV['GOOGLE_MAPS_API_KEY'] 
         embed_url += '&q=' + query
       %>
-        <iframe src="<%= embed_url %>" width="100%" height="450" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <iframe src="<%= embed_url %>" width="100%" height="450" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
       </div>
-      <div class="lg:w-1/2 lg:mt-0 lg:mx-6">
+      <div class="mt-2 lg:w-1/2 lg:mt-0 lg:mx-6">
         <div class="block text-xl font-semibold text-gray-800">
           Suggested Items
         </div>
