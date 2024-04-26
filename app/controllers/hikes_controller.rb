@@ -50,7 +50,7 @@ class HikesController < ApplicationController
   end
 
   def hike_details
-    alltrails_link = params[:alltrails_link]
+    alltrails_link = params[:alltrails_link].strip.split('?').first
     hike_details = CA_HIKE_MAP[alltrails_link]
     title = hike_details['trail_name']
     title = "#{title} (@#{hike_details['area']})" if hike_details['area'].present?

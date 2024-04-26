@@ -6,6 +6,13 @@
         <div class="block text-center text-2xl font-semibold text-gray-800">
           <%= @hike.title %>
         </div>
+        <div class="flex justify-center items-center mt-3">
+          <%= render "application/avatar", user: @hike.host %>
+          <div class="mx-4">
+            <h1 class="text-sm text-gray-700"><%= @hike.host.full_name %></h1>
+            <p class="text-sm text-gray-500"><%= number_to_phone(@hike.host.phone_no, area_code: true) %></p>
+          </div>
+        </div>
         <div class="mt-4 mx-auto max-w-lg">
           <ul class="space-y-4">
             <li class="flex gap-4">
@@ -35,13 +42,6 @@
               </p>
             </li>
           </ul>
-        </div>
-        <div class="flex justify-center items-center mt-3">
-          <%= render "application/avatar", user: @hike.host %>
-          <div class="mx-4">
-            <h1 class="text-sm text-gray-700"><%= @hike.host.full_name %></h1>
-            <p class="text-sm text-gray-500"><%= number_to_phone(@hike.host.phone_no, area_code: true) %></p>
-          </div>
         </div>
       </div>
     </div>

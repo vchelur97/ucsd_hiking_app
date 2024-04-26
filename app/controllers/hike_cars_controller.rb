@@ -1,7 +1,9 @@
 class HikeCarsController < ApplicationController
-  before_action :set_hike, only: %i[new create]
+  before_action :set_hike
+  before_action :set_hike_car, only: %i[show edit update destroy]
 
   def show
+    @hike_car = HikeCar.find(params[:id])
   end
 
   def new
@@ -9,6 +11,7 @@ class HikeCarsController < ApplicationController
   end
 
   def edit
+    @hike_car = HikeCar.find(params[:id])
   end
 
   def create
@@ -39,7 +42,12 @@ class HikeCarsController < ApplicationController
     @hike = Hike.find(params[:hike_id])
   end
 
+  def set_hike_car
+    @hike_car = HikeCar.find(params[:id])
+  end
+
   def hike_car_params
-    params.require(:hike_car).permit(:hike_id, :car_id, :spot_info, :pickup_info)
+    params.require(:hike_car).permit(:hike_id, :car_id, :spots_available, :pickup_time, :pickup_address, :compensation,
+                                     :note)
   end
 end

@@ -1,7 +1,6 @@
 class HikeCar < ApplicationRecord
   belongs_to :hike
   belongs_to :car
-  has_many :hike_participants, dependent: :destroy
-  store :metadata, accessors: %i[spot_info pickup_info]
-  broadcasts_to :hike
+  has_many :participants, class_name: 'HikeParticipant', dependent: :destroy
+  store :metadata, accessors: %i[spots_available pickup_time pickup_address compensation note], coder: JSON
 end

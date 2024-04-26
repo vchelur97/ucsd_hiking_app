@@ -1,10 +1,3 @@
-<div class="mx-auto md:w-2/3 w-full flex">
-  <div class="mx-auto">
-    <%= render @hike_car %>
-    <%= link_to "Edit this hike_car", edit_hike_car_path(@hike_car), class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <div class="inline-block ml-2">
-      <%= button_to "Destroy this hike_car", hike_car_path(@hike_car), method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
-    </div>
-    <%= link_to "Back to hike_cars", hike_cars_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-  </div>
+<div class="mx-auto items-center justify-center w-full flex">
+  <%= render @hike_car %>
 </div>

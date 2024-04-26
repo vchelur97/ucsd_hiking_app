@@ -1,5 +1,20 @@
 <%= turbo_frame_tag "new_hike_car", target: "_top" do %>
-  <section class="my-4 mx-auto 2xl:w-2/3 w-full flex">
-    <%= render "form", hike_car: @hike_car %>
+  <section class="my-8 px-4 mx-auto xl:w-2/3 w-full">
+    <% if @user.cars.empty? %>
+      <div class="flex my-5 rounded-md bg-yellow-50 p-4 text-sm text-yellow-500" x-cloak x-show="showAlert" x-data="{ showAlert: true }">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="mr-3 h-5 w-5 flex-shrink-0">
+          <path fill-rule="evenodd" d="M8.485 2.495c.673-1.167 2.357-1.167 3.03 0l6.28 10.875c.673 1.167-.17 2.625-1.516 2.625H3.72c-1.347 0-2.189-1.458-1.515-2.625L8.485 2.495zM10 5a.75.75 0 01.75.75v3.5a.75.75 0 01-1.5 0v-3.5A.75.75 0 0110 5zm0 9a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd" />
+        </svg>
+        <div>To include your car for the hike, please register it in your profile first. <a href="<%= user_path %>" class="underline">Click here to add a car</a>.</div>
+        <button class="ml-auto" x-on:click="showAlert = false">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-5 w-5">
+            <path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" />
+          </svg>
+        </button>
+      </div>
+    <% else %>
+      <h2 class="font-semibold mt-6 text-2xl text-center"> Add your car </h2>
+      <%= render "form", hike_car: @hike_car %>
+    <% end %>
   </section>
 <% end %>
