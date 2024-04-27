@@ -9,6 +9,4 @@
   <h2 class="font-bold text-3xl text-center"> Carpooling </h2>
   <%= render @hike.hike_cars %>
 </section>
-<section class="md:w-2/3 mx-auto my-4 block">
-  <%= turbo_frame_tag "new_hike_car", src: new_hike_hike_car_path(@hike), target: "_top" %>
-</section>
+<%= turbo_frame_tag "new_hike_car", src: new_hike_hike_car_path(@hike), target: "_top" %>

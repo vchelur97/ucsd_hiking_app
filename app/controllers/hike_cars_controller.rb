@@ -1,5 +1,5 @@
 class HikeCarsController < ApplicationController
-  before_action :set_hike
+  before_action :set_hike, only: %i[new create]
   before_action :set_hike_car, only: %i[show edit update destroy]
 
   def show

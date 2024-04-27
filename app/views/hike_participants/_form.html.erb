@@ -1,0 +1,12 @@
+<%= form_with model: [ @hike_car, @hike_participant ] do |form| %>
+  <td class="py-2 grid grid-cols-3 gap-3 xl:flex xl:gap-0 xl:col-span-2">
+    <%= render "avatar", user: @user %>
+    <div>
+      <div class="text-gray-700"><%= @user.full_name %></div>
+      <div class="text-gray-400"><%= number_to_phone(@user.phone_no, area_code: true) %></div>
+    </div>
+  </td>
+  <td class="py-2 h-16 grid grid-cols-3 gap-3 xl:flex xl:gap-0">
+    <%= form.submit "Join hike", class: "col-start-2 col-span-2 xl:w-full rounded-lg px-2 bg-blue-500 hover:bg-blue-600 text-white cursor-pointer" %>
+  </td>
+<% end %>

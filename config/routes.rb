@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   resources :hikes do
-    resources :hike_cars, except: %i[index] do
+    resources :hike_cars, shallow: true, except: %i[index] do
       resources :hike_participants, shallow: true, except: %i[index update]
     end
   end
