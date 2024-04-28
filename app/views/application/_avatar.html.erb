@@ -1,0 +1,9 @@
+<div class="flex flex-shrink-0 h-10 w-10">
+  <% if user.avatar_url %>
+    <%= image_tag user.avatar_url, class: "h-full w-full rounded-full object-cover object-center ring ring-white", alt: user.full_name.split.map { |name| name[0].upcase }.join %>
+  <% else %>
+    <div class="flex h-full w-full items-center justify-center overflow-hidden rounded-full bg-secondary-100 text-secondary-400">
+      <span class="text-base"> <%= user.full_name.split.map { |name| name[0].upcase }.join %> </span>
+    </div>
+  <% end %>
+</div>

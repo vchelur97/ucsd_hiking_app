@@ -71,11 +71,12 @@ group :test do
   gem "selenium-webdriver"
 end
 
-# Google login
 gem "dotenv-rails"
+gem "foreman"
 gem "omniauth"
 gem "omniauth-google-oauth2"
 gem "omniauth-rails_csrf_protection"
 gem "tailwindcss-rails"
-
 gem "web-push", "~> 3.0"
+
+gem "aws-sdk-s3", "~> 1.148"

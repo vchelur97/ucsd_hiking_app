@@ -8,7 +8,7 @@ class SessionsController < ApplicationController
     session = user.sessions.create
     cookies.signed[:session_id] = session.id
     if first_time
-      redirect_to edit_user_path(user), notice: 'Welcome! Please complete your profile.'
+      redirect_to edit_user_path(user), notice: 'Welcome! Please complete your profile'
     else
       redirect_to root_path
     end
@@ -25,7 +25,7 @@ class SessionsController < ApplicationController
     session = Session.find(cookies.signed[:session_id])
     session.destroy
     cookies.delete(:session_id)
-    redirect_to root_path, notice: 'Logged out!'
+    redirect_to root_path, success: 'Logged out!'
   end
 
   private

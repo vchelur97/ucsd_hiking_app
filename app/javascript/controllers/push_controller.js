@@ -5,7 +5,7 @@ export default class extends Controller {
     if ("Notification" in window) {
       Notification.requestPermission().then((permission) => {
         if (permission === "granted") {
-          console.log("User accepted to allow notifications.")
+          // console.log("User accepted to allow notifications.")
           this.registerServiceWorker();
         } else if (permission === "denied") {
           console.warn("User rejected to allow notifications.");
@@ -21,7 +21,7 @@ export default class extends Controller {
   registerServiceWorker() {
     if ("serviceWorker" in navigator) {
       navigator.serviceWorker
-        .register('service_worker.js')
+        .register('/service_worker.js')
         .then((serviceWorkerRegistration) => {
           serviceWorkerRegistration.pushManager
             .getSubscription()
