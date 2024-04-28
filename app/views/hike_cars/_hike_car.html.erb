@@ -33,11 +33,9 @@
       <%= render hike_car.participants %>
     </div>
     <div class="table-footer-group bg-blue-50 text-blue-900 font-medium">
-      <div class="px-4 grid grid-cols-2 xl:grid-cols-4">
-        <% if hike_car.participants.length < hike_car.spots_available.to_i %>
-          <%= turbo_frame_tag "new_" + dom_id(hike_car) + "_participant", src: new_hike_car_hike_participant_path(hike_car) %>
-        <% end %>
-      </div>
+      <% if hike_car.participants.length < hike_car.spots_available.to_i %>
+        <%= turbo_frame_tag "new_" + dom_id(hike_car) + "_participant", src: new_hike_car_hike_participant_path(hike_car) %>
+      <% end %>
     </div>
   </div>
 </div>

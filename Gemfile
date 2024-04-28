@@ -78,3 +78,5 @@ gem "omniauth-google-oauth2"
 gem "omniauth-rails_csrf_protection"
 gem "tailwindcss-rails"
 gem "web-push", "~> 3.0"
+
+gem "aws-sdk-s3", "~> 1.148"
