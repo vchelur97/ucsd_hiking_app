@@ -16,4 +16,8 @@ class WaiversController < ApplicationController
       render :show, status: :unprocessable_entity, alert: "Waiver could not be signed"
     end
   end
+
+  def show
+    @waiver = @user.waivers.last
+  end
 end

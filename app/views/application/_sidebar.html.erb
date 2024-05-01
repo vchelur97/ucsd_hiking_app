@@ -28,6 +28,7 @@
   </button>
   <div x-ref="sidebarPanel" x-show="open" x-transition.origin.top.left x-on:click.outside="close($refs.sidebarButton)" :id="$id('dropdown-button')" class="absolute left-0 z-10 mt-2 w-60 divide-y divide-gray-100 rounded-lg border border-gray-100 bg-white text-left text-sm shadow-lg">
     <% for item in menu_items %>
+      <% next unless item[:show] %>
       <div class="p-1">
         <%= link_to item[:title], item[:url], class:"flex w-full items-center gap-2 rounded-md px-3 py-2 text-gray-700 hover:bg-gray-100" %>
       </div>

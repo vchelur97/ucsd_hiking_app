@@ -92,7 +92,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_27_190904) do
     t.string "driver_compensation_type"
     t.string "notes"
     t.string "status"
-    t.string "graphic_url"
     t.jsonb "metadata", default: {}
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

@@ -2,8 +2,11 @@
   <div data-controller="push" data-application-server-key="<%= ENV['WEB_PUSH_PUBLIC_KEY'] %>">
   </div>
   <% menu_items = [
-    { title: "Dashboard", url: root_path },
-    { title: "Hikes", url: hikes_path },
+    { title: "Dashboard", url: root_path, show: true },
+    { title: "Hikes", url: hikes_path, show: true },
+    { title: "Waiver", url: user_waiver_path, show: true },
+    { title: "Admin", url: admin_path, show: @user.admin? },
+    { title: "Host", url: new_hike_path, show: @user.admin? },
   ] %>
   <nav class="bg-white container mx-auto" data-controller="navbar">
     <div class="px-2 flex mx-auto items-center justify-between">

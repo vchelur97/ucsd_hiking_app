@@ -26,12 +26,10 @@ class HikesController < ApplicationController
   def create
     @hike = Hike.new(hike_params)
     @hike.host_id = @user.id
-    puts @hike.inspect
 
     if @hike.save
       redirect_to hike_url(@hike), notice: "Hike was successfully created."
     else
-      puts @hike.errors.full_messages
       render :new, status: :unprocessable_entity
     end
   end
@@ -64,9 +62,8 @@ class HikesController < ApplicationController
   end
 
   def hike_params
-    puts params
     params.require(:hike).permit(:alltrails_link, :length, :elevation, :duration, :route_type, :difficulty,
                                  :driver_compensation_type, :title, :description, :date, :time,
-                                 :trailhead_address, :suggested_items, :notes, :status, :metadata)
+                                 :trailhead_address, :suggested_items, :notes, :status, :graphic, :metadata)
   end
 end
