@@ -37,6 +37,6 @@ class HikeParticipantsController < ApplicationController
   end
 
   def hike_participant_params
-    params.require(:hike_participant).permit(:hike_car_id, :user_id, :position, :pickup_info)
+    params.require(:hike_participant).permit(:hike_car_id, :user_id, :pickup_info)
   end
 end
