@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  include Pagy::Backend
   helper_method :user, :signed_waiver?
   before_action :authenticate_user!, :signed_waiver!, :added_phone_number!
   around_action :set_time_zone

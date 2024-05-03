@@ -23,7 +23,11 @@ class HikeParticipantsController < ApplicationController
 
   def destroy
     @hike_participant.destroy!
-    redirect_to hike_participants_url, notice: "Removed from hike"
+
+    respond_to do |format|
+      format.turbo_stream
+      format.html { redirect_to @hike, notice: "Successfully left the hike" }
+    end
   end
 
   private

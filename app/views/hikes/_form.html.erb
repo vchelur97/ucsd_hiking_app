@@ -61,13 +61,21 @@
     <%= form.label :graphic, "Upload hike graphic" %>
     <%= form.file_field :graphic, class: "shadow rounded-md border border-gray-200 w-full" %>
   </div>
+  <div class="col-span-2">
+    <%= form.label :short_description %>
+    <%= form.text_area :short_description, placeholder: "Short blurb for the hike (for Instagram and Discord)", class: "shadow rounded-md border border-gray-200 w-full min-h-64" %>
+  </div>
   <div class="hidden" data-hike-target="status">
     <%= form.label :status, "status" %>
     <%= form.hidden_field :status, value: edit ? hike.status : "", id: "hike_status" %>
   </div>
   <div class="col-span-2">
     <%= form.submit "Save as draft", class: "cursor-pointer mt-4 rounded-lg py-3 px-5 bg-gray-200 hover:bg-gray-300 font-medium", data: { action: "click->hike#setStatusDraft" } %>
-    <%= form.submit "Send for review", class: "cursor-pointer mt-4 rounded-lg py-3 px-5 bg-green-200 hover:bg-green-300 font-medium", data: { action: "click->hike#setStatusReview" } %>
+    <% if @user.admin? %>
+      <%= form.submit "Publish", class: "cursor-pointer mt-4 rounded-lg py-3 px-5 bg-green-200 hover:bg-green-300 font-medium", data: { action: "click->hike#setStatusPublished" } %>
+    <% else %>
+      <%= form.submit "Send for review", class: "cursor-pointer mt-4 rounded-lg py-3 px-5 bg-green-200 hover:bg-green-300 font-medium", data: { action: "click->hike#setStatusReview" } %>
+    <% end %>
     <% if edit %>
       <%= link_to "Cancel edit", hike_path(hike), method: :get, class: "mt-4 rounded-lg py-3 px-5 bg-red-200 hover:bg-red-300 font-medium" %>
     <% else %>

@@ -33,7 +33,11 @@ class HikeCarsController < ApplicationController
 
   def destroy
     @hike_car.destroy!
-    redirect_to hike_cars_url, notice: "Hike car was successfully destroyed."
+
+    respond_to do |format|
+      format.turbo_stream
+      format.html { redirect_to @hike, notice: "Successfully removed car from the hike" }
+    end
   end
 
   private

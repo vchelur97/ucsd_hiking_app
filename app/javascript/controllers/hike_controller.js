@@ -20,6 +20,12 @@ export default class extends Controller {
     this.element.submit();
   }
 
+  setStatusPublished(event) {
+    event.preventDefault();
+    this.statusTarget.children[1].value = "published";
+    this.element.submit();
+  }
+
   fetchHikeDetails() {
     const alltrailsLink = this.alltrailsLinkTarget.children[1].value
     if (!alltrailsLink) {

@@ -9,7 +9,7 @@
         <span class="inline-flex items-center gap-1 rounded-full bg-violet-50 px-2 py-1 text-xs font-semibold text-violet-600"> Length: <%= hike.length %>mi</span>
       <% end %>
       <% if hike.elevation %>
-        <span class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"> Elevation: <%= hike.elevation %>ft</span>
+        <span class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"> Elevation: <%= hike.elevation.to_i %>ft</span>
       <% end %>
       <% if hike.difficulty %>
         <span class="inline-flex items-center gap-1 rounded-full bg-green-50 px-2 py-1 text-xs font-semibold text-green-600"> Difficulty: <%= HikesController::DIFFICULTY_MAPPING[hike.difficulty.to_i] %></span>

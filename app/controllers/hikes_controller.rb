@@ -10,7 +10,13 @@ class HikesController < ApplicationController
 
   def index
     @upcoming_hikes = Hike.where(status: 'published').where('date >= ?', Date.today).order(date: :asc)
-    @past_hikes = Hike.where(status: 'published').where('date < ?', Date.today).order(date: :desc)
+    @pagy, @hikes = pagy_countless(Hike.where(status: 'published')
+                                            .where('date < ?', Date.today)
+                                            .order(date: :desc), items: 3)
+    respond_to do |format|
+      format.html
+      format.turbo_stream
+    end
   end
 
   def show

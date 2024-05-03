@@ -1,0 +1,12 @@
+<%= turbo_stream.append "hikes" do %>
+  <div class="w-full flex flex-wrap">
+    <% @hikes.each do |hike| %>
+      <%= render "hike_card", hike: hike %>
+    <% end %>
+  </div>
+<% end %>
+<% if @pagy.next.present? %>
+  <%= turbo_stream.replace "hikes_pagination" do %>
+    <%= turbo_frame_tag "hikes_pagination", src: hikes_path(page: @pagy.next, format: :turbo_stream), loading: :lazy %>
+  <% end %>
+<% end %>
