@@ -33,7 +33,11 @@ class User < ApplicationRecord
     hike.hike_participants.exists?(user_id: id)
   end
 
-  def driver?(hike_car)
+  def car_driver?(hike_car)
     hike_car.car.user_id == id
+  end
+
+  def hike_driver?(hike)
+    hike.hike_cars.exists?(user_id: id)
   end
 end

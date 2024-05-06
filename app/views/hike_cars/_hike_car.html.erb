@@ -29,7 +29,7 @@
             </div>
           </div>
           <div class="absolute right-4 bottom-12 xl:top-3 py-2">
-            <% if @user.driver?(hike_car) %>
+            <% if @user.car_driver?(hike_car) %>
               <div class="flex gap-1">
                 <%= link_to edit_hike_car_path(hike_car), "x-data":"{ tooltip: 'Edit' }" do %>
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="blue" class="h-5 w-5 cursor-pointer text-secondary-500" x-tooltip="tooltip">

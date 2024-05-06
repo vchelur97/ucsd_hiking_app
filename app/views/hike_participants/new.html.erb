@@ -1,5 +1,5 @@
 <%= turbo_frame_tag "new_" + dom_id(@hike_car) + "_participant", target: "_top" do %>
-  <% if @hike_car.participants.length < @hike_car.spots_available.to_i && !@user.hike_participant?(@hike_car.hike) && !@user.driver?(@hike_car) %>
+  <% if @hike_car.participants.length < @hike_car.spots_available.to_i && !@user.hike_participant?(@hike_car.hike) && !@user.hike_driver?(@hike_car) %>
     <%= render "form", hike_participant: @hike_participant, edit: false %>
   <% end %>
 <% end %>
