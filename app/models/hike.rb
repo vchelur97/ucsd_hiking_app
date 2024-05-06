@@ -4,4 +4,12 @@ class Hike < ApplicationRecord
   has_many :hike_participants, through: :hike_cars, source: :participants
   has_one_attached :graphic
   store :stats, accessors: %i[length elevation duration route_type difficulty], coder: JSON
+
+  def published?
+    status == 'published'
+  end
+
+  def draft?
+    status == 'draft'
+  end
 end

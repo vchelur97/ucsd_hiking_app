@@ -1,6 +1,6 @@
 class HikesController < ApplicationController
   before_action :set_hike, only: %i[show edit update destroy]
-  after_action :notify_users, only: %i[create update]
+  after_action :hike_notification, only: %i[create update]
   DIFFICULTY_MAPPING = {
     1 => 'Easy',
     2 => 'Easy-Moderate',
@@ -74,14 +74,15 @@ class HikesController < ApplicationController
                                  :trailhead_address, :suggested_items, :notes, :status, :graphic, :metadata)
   end
 
-  def notify_users
+  def hike_notification
+    # TODO: This should only be called if the hike status changed from draft to published (not on details update)
     return unless @hike.published?
 
-    title = 'New hike alert!'
-    body = "A new hike has been posted: #{@hike.title}"
-    icon = '/assets/hiking_logo.svg'
+    title = "New hike posted! #{@hike.title}"
+    body = @hike.short_description
+    icon = @hike.graphic.attached? ? url_for(@hike.graphic) : '/assets/hiking_logo.svg'
     link = hike_url(@hike)
 
-    SendNotificationsJob.notify(User.all, title, body, icon, link)
+    notify_users(User.all, title, body, icon, link)
   end
 end

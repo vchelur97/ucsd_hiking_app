@@ -18,7 +18,7 @@ class User < ApplicationRecord
   end
 
   def admin?
-    roles.include?("admin") || roles.include?("board")
+    roles.include?("board")
   end
 
   def host?(hike)

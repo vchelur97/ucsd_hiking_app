@@ -5,12 +5,6 @@ class SendNotificationsJob < ApplicationJob
     send_push_notification(user, title, body, icon, link)
   end
 
-  def notify(users, title, body, icon, link)
-    users.each do |user|
-      perform_later(user, title, body, icon, link)
-    end
-  end
-
   private
 
   def build_vapid_details

@@ -1,6 +1,6 @@
 class HikeParticipantsController < ApplicationController
   before_action :set_hike_car, only: %i[new create]
-  before_action :set_hike_participant, only: %i[show edit destroy]
+  before_action :set_hike_participant, only: %i[show edit update destroy]
 
   def show
   end
@@ -18,6 +18,14 @@ class HikeParticipantsController < ApplicationController
     respond_to do |format|
       format.turbo_stream
       format.html { redirect_to @hike, notice: "Successfully joined the hike" }
+    end
+  end
+
+  def update
+    if @hike_participant.update(hike_participant_params)
+      redirect_to hike_participant_url(@hike_participant)
+    else
+      render :edit, status: :unprocessable_entity
     end
   end
 
@@ -41,6 +49,6 @@ class HikeParticipantsController < ApplicationController
   end
 
   def hike_participant_params
-    params.require(:hike_participant).permit(:hike_car_id, :user_id, :pickup_info)
+    params.require(:hike_participant).permit(:hike_car_id, :user_id, :note)
   end
 end

@@ -68,7 +68,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_27_190904) do
 
   create_table "hike_participants", force: :cascade do |t|
     t.bigint "hike_car_id", null: false
-    t.integer "position"
     t.bigint "user_id", null: false
     t.jsonb "metadata", default: {}
     t.datetime "created_at", null: false

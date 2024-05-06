@@ -1,0 +1,6 @@
+<%= turbo_stream.remove dom_id(@hike_participant) %>
+<% for hike_car in @hike_participant.hike_car.hike.hike_cars %>
+  <%= turbo_stream.replace "new_" + dom_id(hike_car) + "_participant" do %>
+    <%= turbo_frame_tag "new_" + dom_id(hike_car) + "_participant", src: new_hike_car_hike_participant_path(@hike_participant.hike_car), target: "_top" %>
+  <% end %>
+<% end %>

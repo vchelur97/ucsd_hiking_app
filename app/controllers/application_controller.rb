@@ -33,4 +33,11 @@ class ApplicationController < ActionController::Base
   def set_time_zone(&block)
     Time.use_zone("Pacific Time (US & Canada)", &block)
   end
+
+  def notify_users(users, title, body, icon, link)
+    users.each do |user|
+      SendNotificationsJob.perform_later(user, title, body, icon, link)
+    end
+  end
+
 end

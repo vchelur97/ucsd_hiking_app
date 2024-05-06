@@ -1,7 +1,30 @@
-<div class="py-2 flex justify-center gap-3 items-center">
-  <%= render "avatar", user: hike_participant.user %>
-  <div>
-    <div class="text-gray-700"><%= hike_participant.user.preferred_name.present? ? hike_participant.user.preferred_name : hike_participant.user.full_name %></div>
-    <div class="text-gray-400"><%= number_to_phone(hike_participant.user.phone_no, area_code: true) %></div>
+<%= turbo_frame_tag dom_id(hike_participant) do %>
+  <div class="px-4 grid grid-cols-2 xl:grid-cols-4">
+    <div class="py-2 flex justify-center gap-3 items-center">
+      <%= render "avatar", user: hike_participant.user %>
+      <div>
+        <div class="text-gray-700"><%= hike_participant.user.preferred_name.present? ? hike_participant.user.preferred_name : hike_participant.user.full_name %></div>
+        <div class="text-gray-400"><%= number_to_phone(hike_participant.user.phone_no, area_code: true) %></div>
+      </div>
+    </div>
+    <div class="py-2 xl:col-span-2 flex justify-center gap-3 items-center">
+      <div class="text-gray-700"><%= hike_participant.note %></div>
+    </div>
+    <div class="py-2 flex w-full justify-center items-center relative">
+      <% if @user.driver?(hike_participant.hike_car) || @user.admin? || @user.car_participant?(hike_participant.hike_car) %>
+        <div class="flex absolute right-0 gap-1">
+          <%= link_to edit_hike_participant_path(hike_participant), "x-data":"{ tooltip: 'Edit' }" do %>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="blue" class="h-5 w-5 cursor-pointer text-secondary-500" x-tooltip="tooltip">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125" />
+            </svg>
+          <% end %>
+          <%= link_to hike_participant_path(hike_participant), data: {turbo_method: :delete, turbo_frame: "_top", turbo_confirm: "Are you sure you want to leave the hike?"}, "x-data":"{ tooltip: 'Delete' }" do %>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="red" class="h-5 w-5 cursor-pointer text-secondary-500" x-tooltip="tooltip">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+            </svg>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
   </div>
-</div>
+<% end %>
