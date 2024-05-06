@@ -17,12 +17,12 @@ Rails.application.routes.draw do
   resolve('User') { [:user] }
   get 'auth/google_oauth2/callback', to: 'sessions#create'
 
-  get "admin", to: "admin#stats"
-  namespace :admin do
-    resources :users
-    resources :hikes
-    resources :push_notifications
-  end
+  # get "admin", to: "admin#stats"
+  # namespace :admin do
+  #   resources :users
+  #   resources :hikes
+  #   resources :push_notifications
+  # end
 
   get "up" => "rails/health#show", as: :rails_health_check
 
