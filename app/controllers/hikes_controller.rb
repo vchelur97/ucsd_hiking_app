@@ -31,8 +31,9 @@ class HikesController < ApplicationController
   end
 
   def create
-    @hike = Hike.new(hike_params)
+    @hike = Hike.new(hike_params.except(:graphic))
     @hike.host_id = @user.id
+    handle_graphic
 
     if @hike.save
       redirect_to hike_url(@hike), notice: "Hike was successfully created."
@@ -42,7 +43,9 @@ class HikesController < ApplicationController
   end
 
   def update
-    if @hike.update(hike_params)
+    handle_graphic
+
+    if @hike.update(hike_params.except(:graphic))
       redirect_to hike_url(@hike), notice: "Hike was successfully updated."
     else
       render :edit, status: :unprocessable_entity
@@ -63,6 +66,25 @@ class HikesController < ApplicationController
   end
 
   private
+
+  def handle_graphic
+    return unless hike_params[:graphic].present?
+
+    graphic = @hike.date.to_s + '_' + hike_params[:graphic].original_filename
+    key = "graphics/#{graphic}"
+
+    blob = ActiveStorage::Blob.find_by(key: key)
+
+    unless blob
+      blob = ActiveStorage::Blob.create_and_upload!(
+        io: hike_params[:graphic].open,
+        filename: graphic,
+        key: key
+      )
+    end
+
+    @hike.graphic.attach(blob)
+  end
 
   def set_hike
     @hike = Hike.find(params[:id])
