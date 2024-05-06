@@ -1,5 +1,6 @@
 class HikesController < ApplicationController
   before_action :set_hike, only: %i[show edit update destroy]
+  after_action :notify_users, only: %i[create update]
   DIFFICULTY_MAPPING = {
     1 => 'Easy',
     2 => 'Easy-Moderate',
@@ -50,7 +51,7 @@ class HikesController < ApplicationController
 
   def destroy
     @hike.destroy!
-    redirect_to hikes_url, notice: "Hike was successfully destroyed."
+    redirect_to hikes_url, notice: "Hike was successfully deleted."
   end
 
   def hike_details
@@ -71,5 +72,16 @@ class HikesController < ApplicationController
     params.require(:hike).permit(:alltrails_link, :length, :elevation, :duration, :route_type, :difficulty,
                                  :driver_compensation_type, :title, :description, :date, :time,
                                  :trailhead_address, :suggested_items, :notes, :status, :graphic, :metadata)
+  end
+
+  def notify_users
+    return unless @hike.published?
+
+    title = 'New hike alert!'
+    body = "A new hike has been posted: #{@hike.title}"
+    icon = '/assets/hiking_logo.svg'
+    link = hike_url(@hike)
+
+    SendNotificationsJob.notify(User.all, title, body, icon, link)
   end
 end

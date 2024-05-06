@@ -37,6 +37,8 @@ export default class extends Controller {
                   .then((subscription) => {
                     this.saveSubscription(subscription);
                   });
+              } else {
+                this.saveSubscription(existingSubscription);
               }
             });
         })
