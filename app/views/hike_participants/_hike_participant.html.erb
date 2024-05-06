@@ -1,5 +1,5 @@
 <%= turbo_frame_tag dom_id(hike_participant) do %>
-  <div class="px-4 grid grid-cols-2 xl:grid-cols-4">
+  <div class="px-4 relative grid grid-cols-2 xl:grid-cols-4">
     <div class="py-2 flex justify-center gap-3 items-center">
       <%= render "avatar", user: hike_participant.user %>
       <div>
@@ -10,9 +10,9 @@
     <div class="py-2 xl:col-span-2 flex justify-center gap-3 items-center">
       <div class="text-gray-700"><%= hike_participant.note %></div>
     </div>
-    <div class="py-2 flex w-full justify-center items-center relative">
+    <div class="absolute right-4 top-3 py-2">
       <% if @user.driver?(hike_participant.hike_car) || @user.admin? || @user.car_participant?(hike_participant.hike_car) %>
-        <div class="flex absolute right-0 gap-1">
+        <div class="flex gap-1">
           <%= link_to edit_hike_participant_path(hike_participant), "x-data":"{ tooltip: 'Edit' }" do %>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="blue" class="h-5 w-5 cursor-pointer text-secondary-500" x-tooltip="tooltip">
               <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125" />
