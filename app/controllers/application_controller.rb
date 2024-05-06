@@ -1,6 +1,8 @@
 class ApplicationController < ActionController::Base
+  include Pagy::Backend
   helper_method :user, :signed_waiver?
   before_action :authenticate_user!, :signed_waiver!, :added_phone_number!
+  around_action :set_time_zone
   add_flash_types :success, :warning
 
   private
@@ -26,5 +28,9 @@ class ApplicationController < ActionController::Base
 
   def added_phone_number!
     redirect_to edit_user_path, warning: "Add phone number to participate in hikes" unless user.phone_no.present?
+  end
+
+  def set_time_zone(&block)
+    Time.use_zone("Pacific Time (US & Canada)", &block)
   end
 end

@@ -15,7 +15,6 @@ class CreateHikes < ActiveRecord::Migration[7.1]
       t.string :driver_compensation_type
       t.string :notes
       t.string :status
-      t.string :graphic_url
       t.jsonb :metadata, default: {}
 
       t.timestamps

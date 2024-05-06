@@ -1,5 +1,6 @@
 class HikesController < ApplicationController
   before_action :set_hike, only: %i[show edit update destroy]
+  after_action :notify_users, only: %i[create update]
   DIFFICULTY_MAPPING = {
     1 => 'Easy',
     2 => 'Easy-Moderate',
@@ -10,7 +11,13 @@ class HikesController < ApplicationController
 
   def index
     @upcoming_hikes = Hike.where(status: 'published').where('date >= ?', Date.today).order(date: :asc)
-    @past_hikes = Hike.where(status: 'published').where('date < ?', Date.today).order(date: :desc)
+    @pagy, @hikes = pagy_countless(Hike.where(status: 'published')
+                                            .where('date < ?', Date.today)
+                                            .order(date: :desc), items: 3)
+    respond_to do |format|
+      format.html
+      format.turbo_stream
+    end
   end
 
   def show
@@ -26,12 +33,10 @@ class HikesController < ApplicationController
   def create
     @hike = Hike.new(hike_params)
     @hike.host_id = @user.id
-    puts @hike.inspect
 
     if @hike.save
       redirect_to hike_url(@hike), notice: "Hike was successfully created."
     else
-      puts @hike.errors.full_messages
       render :new, status: :unprocessable_entity
     end
   end
@@ -46,7 +51,7 @@ class HikesController < ApplicationController
 
   def destroy
     @hike.destroy!
-    redirect_to hikes_url, notice: "Hike was successfully destroyed."
+    redirect_to hikes_url, notice: "Hike was successfully deleted."
   end
 
   def hike_details
@@ -64,9 +69,19 @@ class HikesController < ApplicationController
   end
 
   def hike_params
-    puts params
     params.require(:hike).permit(:alltrails_link, :length, :elevation, :duration, :route_type, :difficulty,
                                  :driver_compensation_type, :title, :description, :date, :time,
-                                 :trailhead_address, :suggested_items, :notes, :status, :metadata)
+                                 :trailhead_address, :suggested_items, :notes, :status, :graphic, :metadata)
+  end
+
+  def notify_users
+    return unless @hike.published?
+
+    title = 'New hike alert!'
+    body = "A new hike has been posted: #{@hike.title}"
+    icon = '/assets/hiking_logo.svg'
+    link = hike_url(@hike)
+
+    SendNotificationsJob.notify(User.all, title, body, icon, link)
   end
 end

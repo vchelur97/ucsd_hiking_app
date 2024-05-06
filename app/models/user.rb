@@ -3,6 +3,7 @@ class User < ApplicationRecord
   has_many :waivers, dependent: :destroy
   has_many :cars, dependent: :destroy
   has_many :hikes, foreign_key: :host_id, dependent: :destroy
+  has_many :hike_cars, through: :cars
   validates :email, presence: true, uniqueness: true
   validates :phone_no, presence: true, format: { with: /\A\d{10}\z/ }, on: :update
 
@@ -24,8 +25,12 @@ class User < ApplicationRecord
     id == hike.host.id
   end
 
-  def participant?(hike_car)
+  def car_participant?(hike_car)
     hike_car.participants.exists?(user_id: id)
+  end
+
+  def hike_participant?(hike)
+    hike.hike_participants.exists?(user_id: id)
   end
 
   def driver?(hike_car)

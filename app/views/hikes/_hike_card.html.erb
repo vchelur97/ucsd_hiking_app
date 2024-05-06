@@ -1,5 +1,5 @@
 <%= link_to hike_path(hike), class:"mx-auto max-w-md overflow-hidden rounded-lg bg-white shadow mb-4 hover:shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-104" do %>
-  <%= image_tag hike.graphic_url, class:"aspect-video w-full object-cover", alt:hike.title %>
+  <%= image_tag hike.graphic, class:"aspect-video w-full object-cover", alt:hike.title %>
   <div class="p-4">
     <p class="mb-1 text-md text-primary-500"><%= hike.host.full_name %> • <time><%= hike.date.strftime('%B %d %A') %> • <%= hike.time.in_time_zone('Pacific Time (US & Canada)').strftime('%I:%M %p') %></time></p>
     <h3 class="text-xl font-medium text-gray-900"><%= hike.title %></h3>
@@ -9,13 +9,13 @@
         <span class="inline-flex items-center gap-1 rounded-full bg-violet-50 px-2 py-1 text-xs font-semibold text-violet-600"> Length: <%= hike.length %>mi</span>
       <% end %>
       <% if hike.elevation %>
-        <span class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"> Elevation: <%= hike.elevation %>ft</span>
+        <span class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"> Elevation: <%= hike.elevation.to_i %>ft</span>
       <% end %>
       <% if hike.difficulty %>
         <span class="inline-flex items-center gap-1 rounded-full bg-green-50 px-2 py-1 text-xs font-semibold text-green-600"> Difficulty: <%= HikesController::DIFFICULTY_MAPPING[hike.difficulty.to_i] %></span>
       <% end %>
       <% if hike.duration %>
-        <span class="inline-flex items-center gap-1 rounded-full bg-yellow-50 px-2 py-1 text-xs font-semibold text-yellow-600"> Duration: <%= hike.duration / 60 %>h<%= ' ' + (hike.duration % 60).to_s + 'm' if hike.duration % 60 != 0 %></span>
+        <span class="inline-flex items-center gap-1 rounded-full bg-yellow-50 px-2 py-1 text-xs font-semibold text-yellow-600"> Duration: <%= hike.duration.to_i / 60 %>h<%= ' ' + (hike.duration.to_i % 60).to_s + 'm' if hike.duration.to_i % 60 != 0 %></span>
       <% end %>
       <% if hike.route_type %>
         <span class="inline-flex items-center gap-1 rounded-full bg-red-50 px-2 py-1 text-xs font-semibold text-red-600"> Route: <%= hike.route_type  %></span>

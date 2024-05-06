@@ -1,1 +1,4 @@
-<%= turbo_stream.append "hike_participants", @hike_participant %>
+<%= turbo_stream.append dom_id(@hike_car) + "_participants", @hike_participant %>
+<% for hike_car in @hike_car.hike.hike_cars %>
+  <%= turbo_stream.remove "new_" + dom_id(hike_car) + "_participant" %>
+<% end %>

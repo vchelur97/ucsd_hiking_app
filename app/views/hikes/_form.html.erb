@@ -3,33 +3,33 @@
     <%= form.label :alltrails_link, "Alltrails link" %>
     <%= form.text_field :alltrails_link, placeholder: "Inserting link autofills trail stats", class: "shadow rounded-md border border-gray-200 w-full" %>
   </div>
-  <div class="hidden" data-hike-target="length">
+  <div class="<%= 'hidden' unless edit %>" data-hike-target="length">
     <%= form.label :length, "Length" %>
     <%= form.text_field :length, class: "shadow rounded-md border border-gray-200 w-full" %>
   </div>
-  <div class="hidden" data-hike-target="elevation">
+  <div class="<%= 'hidden' unless edit %>" data-hike-target="elevation">
     <%= form.label :elevation, "Elevation" %>
     <%= form.number_field :elevation, class: "shadow rounded-md border border-gray-200 w-full" %>
   </div>
-  <div class="hidden" data-hike-target="routeType">
+  <div class="<%= 'hidden' unless edit %>" data-hike-target="routeType">
     <%= form.label :route_type, "Route type" %>
     <%= form.text_field :route_type, class: "shadow rounded-md border border-gray-200 w-full" %>
   </div>
-  <div class="hidden" data-hike-target="duration">
+  <div class="<%= 'hidden' unless edit %>" data-hike-target="duration">
     <%= form.label :duration, "Duration" %>
     <%= form.number_field :duration, class: "shadow rounded-md border border-gray-200 w-full" %>
   </div>
-  <div class="hidden" data-hike-target="difficulty">
+  <div class="<%= 'hidden' unless edit %>" data-hike-target="difficulty">
     <%= form.label :difficulty, "Difficulty" %>
     <%= form.text_field :difficulty, class: "shadow rounded-md border border-gray-200 w-full" %>
   </div>
-  <div class="hidden" data-hike-target="driverComp">
+  <div class="<%= 'hidden' unless edit %>" data-hike-target="driverComp">
     <%= form.label :driver_compensation_type %>
     <div>
       <%= form.select :driver_compensation_type, ["UCSD rate", "Manual rate"], class: "shadow rounded-md border border-gray-200 w-full" %>
     </div>
   </div>
-  <div class="col-span-2 hidden" data-hike-target="title">
+  <div class="col-span-2 <%= 'hidden' unless edit %>" data-hike-target="title">
     <%= form.label :title %>
     <%= form.text_field :title, class: "shadow rounded-md border border-gray-200 w-full" %>
   </div>
@@ -43,31 +43,43 @@
   </div>
   <div>
     <%= form.label :time %>
-    <%= form.time_field :time, class: "shadow rounded-md border border-gray-200 w-full" %>
+    <%= form.time_field :time, include_seconds: false, class: "shadow rounded-md border border-gray-200 w-full" %>
   </div>
   <div class="col-span-2">
     <%= form.label :trailhead_address %>
-    <%= form.text_field :trailhead_address, placeholder: "Google maps link ()", class: "shadow rounded-md border border-gray-200 w-full" %>
+    <%= form.text_field :trailhead_address, placeholder: "Google maps link", class: "shadow rounded-md border border-gray-200 w-full" %>
   </div>
   <div class="col-span-2">
     <%= form.label :suggested_items %>
-    <%= form.text_field :suggested_items, class: "shadow rounded-md border border-gray-200 w-full" %>
+    <%= form.text_field :suggested_items, placeholder: "Comma-separated list of items", class: "shadow rounded-md border border-gray-200 w-full" %>
   </div>
   <div class="col-span-2">
     <%= form.label :notes, "Any other notes?" %>
     <%= form.text_field :notes, class: "shadow rounded-md border border-gray-200 w-full" %>
   </div>
+  <div class="col-span-2">
+    <%= form.label :graphic, "Upload hike graphic" %>
+    <%= form.file_field :graphic, class: "shadow rounded-md border border-gray-200 w-full" %>
+  </div>
+  <div class="col-span-2">
+    <%= form.label :short_description %>
+    <%= form.text_area :short_description, placeholder: "Short blurb for the hike (for Instagram and Discord)", class: "shadow rounded-md border border-gray-200 w-full min-h-64" %>
+  </div>
   <div class="hidden" data-hike-target="status">
     <%= form.label :status, "status" %>
-    <%= form.hidden_field :status, value: "", id: "hike_status" %>
+    <%= form.hidden_field :status, value: edit ? hike.status : "", id: "hike_status" %>
   </div>
   <div class="col-span-2">
     <%= form.submit "Save as draft", class: "cursor-pointer mt-4 rounded-lg py-3 px-5 bg-gray-200 hover:bg-gray-300 font-medium", data: { action: "click->hike#setStatusDraft" } %>
-    <%= form.submit "Send for review", class: "cursor-pointer mt-4 rounded-lg py-3 px-5 bg-green-200 hover:bg-green-300 font-medium", data: { action: "click->hike#setStatusReview" } %>
-    <% if hike.persisted? %>
-      <%= button_to "Cancel edit", @hike, class: "mt-4 rounded-lg py-3 px-5 bg-red-200 hover:bg-red-300 font-medium" %>
+    <% if @user.admin? %>
+      <%= form.submit "Publish", class: "cursor-pointer mt-4 rounded-lg py-3 px-5 bg-green-200 hover:bg-green-300 font-medium", data: { action: "click->hike#setStatusPublished" } %>
     <% else %>
-      <%= button_to "Cancel", hikes_path, class: "mt-4 rounded-lg py-3 px-5 bg-red-200 hover:bg-red-300 font-medium" %>
+      <%= form.submit "Send for review", class: "cursor-pointer mt-4 rounded-lg py-3 px-5 bg-green-200 hover:bg-green-300 font-medium", data: { action: "click->hike#setStatusReview" } %>
+    <% end %>
+    <% if edit %>
+      <%= link_to "Cancel edit", hike_path(hike), method: :get, class: "mt-4 rounded-lg py-3 px-5 bg-red-200 hover:bg-red-300 font-medium" %>
+    <% else %>
+      <%= link_to "Cancel", hikes_path, class: "mt-4 rounded-lg py-3 px-5 bg-red-200 hover:bg-red-300 font-medium" %>
     <% end %>
   </div>
 <% end %>

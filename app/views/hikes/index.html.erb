@@ -1,8 +1,8 @@
-<div class="w-full">
+<div class="w-11/12 mx-auto">
   <div class="mt-4">
     <h1 class="font-bold text-2xl mb-4 text-center">Upcoming Hikes</h1>
     <%#= link_to "New hike", new_hike_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
-    <div id="hikes" class="min-w-full flex flex-wrap gap-5">
+    <div id="upcoming_hikes" class="min-w-full flex flex-wrap gap-5">
       <% if @upcoming_hikes.empty? %>
         <p class="text-gray-500">No upcoming hikes</p>
       <% else %>
@@ -16,18 +16,10 @@
     <h1 class="font-bold text-2xl mb-4 text-center">Past Hikes</h1>
     <%#= link_to "New hike", new_hike_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
     <div id="hikes" class="min-w-full gap-5">
-      <% if @past_hikes.empty? %>
+      <% if @hikes.empty? %>
         <p class="text-gray-500">No past hikes</p>
-      <% else %>
-        <% @past_hikes.group_by { |hike| hike.date.beginning_of_week }.each do |week, hikes| %>
-          <h2 class="font-bold text-xl my-4 text-center">Week of <%= week.strftime('%B %d, %Y') %></h2>
-          <div class="w-full flex flex-wrap">
-            <% hikes.sort_by(&:date).each do |hike| %>
-              <%= render "hike_card", hike: hike %>
-            <% end %>
-          </div>
-        <% end %>
       <% end %>
     </div>
+    <%= turbo_frame_tag "hikes_pagination", src: hikes_path(format: :turbo_stream), loading: :lazy %>
   </div>
 </div>

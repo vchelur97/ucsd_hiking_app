@@ -6,8 +6,8 @@
       <div class="text-gray-400"><%= number_to_phone(@user.phone_no, area_code: true) %></div>
     </div>
   </div>
-  <!-- TODO: Add notes -->
-  <div class="py-2 h-16 grid grid-cols-3 gap-3 xl:flex xl:gap-0">
-    <%= form.submit "Join hike", class: "col-start-2 col-span-2 xl:w-full rounded-lg px-2 bg-blue-500 hover:bg-blue-600 text-white cursor-pointer" %>
+  <%= form.hidden_field :user_id, value: @user.id %>
+  <div class="py-2 xl:col-start-4 flex justify-center items-center">
+    <%= form.submit "Join hike", class: "h-12 rounded-lg px-2 bg-blue-500 hover:bg-blue-600 text-white cursor-pointer" %>
   </div>
 <% end %>

@@ -1,5 +1,7 @@
-<div class="mx-auto md:w-2/3 w-full">
-  <h1 class="font-bold text-4xl">Editing hike car</h1>
-  <%= render "form", hike_car: @hike_car %>
-  <%= link_to "Show this hike car", hike_cars_path(@hike_car), class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-</div>
+<%= turbo_frame_tag dom_id(@hike_car), target: "_top" do %>
+  <h2 class="font-semibold mt-6 text-2xl text-center"> Edit your car details </h2>
+  <%= render "form", hike_car: @hike_car, edit: true %>
+  <div id="<%= dom_id(@hike_car) %>_participants" class="w-full items-center justify-center bg-white text-sm text-center text-gray-500">
+    <%= render @hike_car.participants %>
+  </div>
+<% end %>

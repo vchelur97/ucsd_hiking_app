@@ -1,44 +1,64 @@
-<div id="<%= dom_id hike_car %>" class="mx-4 my-6 overflow-hidden rounded-lg border border-gray-200 shadow-md">
-  <div class="table w-full items-center justify-center bg-white text-sm text-center text-gray-500">
-    <div class="table-header-group bg-gray-50 text-gray-900 font-medium">
-      <div class="px-4 grid grid-cols-2 xl:grid-cols-4">
-        <div class="py-2 flex justify-center gap-3 items-center">
-          <%= render "avatar", user: hike_car.car.user %>
-          <div>
-            <div class="text-gray-700"><%= hike_car.car.user.full_name %></div>
-            <div class="text-gray-400"><%= number_to_phone(hike_car.car.user.phone_no, area_code: true) %></div>
+<%= turbo_frame_tag dom_id(hike_car) do %>
+  <div class="mx-4 my-6 overflow-hidden rounded-lg border border-gray-200 shadow-md">
+    <div class="table w-full items-center justify-center bg-white text-sm text-center text-gray-500">
+      <div class="table-header-group bg-gray-50 text-gray-900 font-medium">
+        <div class="px-4 grid grid-cols-2 xl:grid-cols-4">
+          <div class="py-2 flex justify-center gap-3 items-center">
+            <%= render "avatar", user: hike_car.car.user %>
+            <div>
+              <div class="text-gray-700"><%= hike_car.car.user.full_name %></div>
+              <div class="text-gray-400"><%= number_to_phone(hike_car.car.user.phone_no, area_code: true) %></div>
+            </div>
           </div>
-        </div>
-        <div class="py-2 flex justify-center items-center">
-          <div>
-            <div class="text-gray-700"><%= hike_car.car.make + ' ' + hike_car.car.model %></div>
-            <div class="text-gray-400"><%= hike_car.car.color %></div>
+          <div class="py-2 flex justify-center items-center">
+            <div>
+              <div class="text-gray-700"><%= hike_car.car.make + ' ' + hike_car.car.model %></div>
+              <div class="text-gray-400"><%= hike_car.car.color %></div>
+            </div>
           </div>
-        </div>
-        <div class="py-2 flex justify-center items-center">
-          <div>
-            <div class="text-gray-700"><%= link_to hike_car.pickup_time.split('@').first, hike_car.pickup_address, class: "text-primary-500" %></div>
-            <div class="text-gray-400">@<%= hike_car.pickup_time.split('@').second %></div>
+          <div class="py-2 flex justify-center items-center">
+            <div>
+              <div class="text-gray-700"><%= link_to hike_car.pickup_time.split('@').first, hike_car.pickup_address, class: "text-primary-500" %></div>
+              <div class="text-gray-400">@<%= hike_car.pickup_time.split('@').second %></div>
+            </div>
           </div>
-        </div>
-        <div class="py-2 flex justify-center items-center">
-          <div>
-            <div class="text-gray-700"><%= number_with_precision(hike_car.compensation, precision: 2) %>$</div>
-            <div class="text-gray-400">per person</div>
+          <div class="py-2 flex w-full justify-center items-center relative">
+            <div>
+              <div class="text-gray-700"><%= number_with_precision(hike_car.compensation, precision: 2) %>$</div>
+              <div class="text-gray-400">per person</div>
+            </div>
+            <% if @user.driver?(hike_car) %>
+              <div class="flex absolute right-0 gap-1">
+                <%= link_to edit_hike_car_path(hike_car), "x-data":"{ tooltip: 'Edit' }" do %>
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="blue" class="h-5 w-5 cursor-pointer text-secondary-500" x-tooltip="tooltip">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125" />
+                  </svg>
+                <% end %>
+                <%= link_to hike_car_path(hike_car), data: {turbo_method: :delete, turbo_frame: "_top", turbo_confirm: "Are you sure you want to remove your car from the hike?"}, "x-data":"{ tooltip: 'Delete' }" do %>
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="red" class="h-5 w-5 cursor-pointer text-secondary-500" x-tooltip="tooltip">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                  </svg>
+                <% end %>
+              </div>
+            <% elsif hike_car.note.present? %>
+              <div class="flex absolute right-0" x-data="{ tooltip: '<%= hike_car.note %>' }">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="green" class="h-6 w-6 cursor-pointer text-secondary-500" x-tooltip.animation.scale="tooltip">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
+                </svg>
+              </div>
+            <% end %>
           </div>
         </div>
       </div>
-    </div>
-    <div class="table-row-group divide-y divide-gray-100 border-t border-gray-100">
-      <%= render hike_car.participants %>
-    </div>
-    <div class="table-footer-group bg-blue-50 text-blue-900 font-medium">
-      <% if hike_car.participants.length < hike_car.spots_available.to_i %>
-        <%= turbo_frame_tag "new_" + dom_id(hike_car) + "_participant", src: new_hike_car_hike_participant_path(hike_car) %>
-      <% end %>
+      <div id="<%= dom_id(hike_car) %>_participants" class="table-row-group divide-y divide-gray-100 border-t border-gray-100">
+        <%= render hike_car.participants %>
+      </div>
+      <div class="table-footer-group bg-blue-50 text-blue-900 font-medium">
+        <%= turbo_frame_tag "new_" + dom_id(hike_car) + "_participant", src: new_hike_car_hike_participant_path(hike_car), target: "_top" %>
+      </div>
     </div>
   </div>
-</div>
+<% end %>
 <!--<div class="overflow-hidden rounded-lg border border-gray-200 shadow-md">
   <table class="w-full border-collapse bg-white text-left text-sm text-gray-500">
     <thead class="bg-gray-50">
