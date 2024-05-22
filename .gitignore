@@ -37,7 +37,6 @@
 /app/assets/builds/*
 !/app/assets/builds/.keep
 
-.devcontainer
 db/images/*
 db/hikes.csv
 db/script.rb

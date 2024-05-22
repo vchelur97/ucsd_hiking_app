@@ -1,0 +1,66 @@
+{
+    "name": "${localWorkspaceFolderBasename}",
+    "dockerComposeFile": "docker-compose.yaml",
+    "service": "app",
+    "features": {
+        // Installs zsh and creates default user vscode
+        // https://github.com/devcontainers/features/tree/main/src/common-utils
+        "ghcr.io/devcontainers/features/common-utils:2": {
+            "configureZshAsDefaultShell": "true",
+            "username": "vscode"
+        },
+        "ghcr.io/devcontainers/features/node:1": {
+            "version": "18"
+        },
+        "ghcr.io/devcontainers/features/git:1": {
+            "version": "latest",
+            "ppa": "false"
+        },
+        "ghcr.io/devcontainers-contrib/features/heroku-cli:1": {}
+    },
+    "postCreateCommand": ". ${NVM_DIR}/nvm.sh && nvm install 18 && npm install -g yarn",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "setobiralo.erb-commenter",
+                "Shopify.ruby-extensions-pack",
+                "aliariff.vscode-erb-beautify"
+            ],
+            "settings": {
+                "workbench.colorTheme": "Spinel",
+                "[erb]": {
+                    "editor.defaultFormatter": "aliariff.vscode-erb-beautify",
+                    "editor.formatOnSave": true,
+                    "editor.tabSize": 2
+                },
+                "[ruby]": {
+                    "editor.defaultFormatter": "Shopify.ruby-lsp",
+                    "editor.formatOnSave": true,
+                    "editor.tabSize": 2,
+                    "editor.formatOnType": true,
+                    "editor.insertSpaces": true,
+                    "files.trimTrailingWhitespace": true,
+                    "files.insertFinalNewline": true,
+                    "files.trimFinalNewlines": true,
+                    "editor.rulers": [
+                        120
+                    ],
+                    "editor.semanticHighlighting.enabled": true
+                }
+            }
+        }
+    },
+    "workspaceFolder": "/home/vscode/${localWorkspaceFolderBasename}",
+    "forwardPorts": [
+        "db:5432",
+        "redis:6379",
+        "devcontainer:3000"
+    ],
+    "mounts": [
+        {
+            "source": "${localEnv:HOME}/.ssh",
+            "target": "/home/vscode/.ssh",
+            "type": "bind"
+        }
+    ]
+}
