@@ -5,9 +5,8 @@ workbox.routing.registerRoute(
   new workbox.strategies.CacheFirst()
 );
 
-self.addEventListener('push', function (event) {
+const pushHandler = async (event) => {
   const notificationData = JSON.parse(event.data.text());
-
   const options = {
     title: notificationData.title,
     body: notificationData.body,
@@ -16,14 +15,13 @@ self.addEventListener('push', function (event) {
       link: notificationData.link,
     }
   };
-
   event.waitUntil(
     self.registration.showNotification(notificationData.title, options)
   );
-});
+};
 
-self.addEventListener('notificationclick', function (event) {
-  link = event.notification.data.link;
+const notificationClickHandler = async (event) => {
+  const link = event.notification.data.link;
   event.notification.close();
 
   event.waitUntil(
@@ -38,4 +36,7 @@ self.addEventListener('notificationclick', function (event) {
         if (clients.openWindow) return clients.openWindow(link);
       }),
   );
-});
+};
+
+self.addEventListener('push', pushHandler);
+self.addEventListener('notificationclick', notificationClickHandler);

@@ -24,10 +24,9 @@ Once you're in the DevContainer, you can use the terminal just like you would on
 
 ### Workspace Folder and Mounts
 
-You can customize the workspace folder and mounts in the `devcontainer.json` file. For example, to set the workspace folder to `/home/vscode/snaplite` and bind mount the `.ssh` directory from your local environment to the container, you can add the following:
+You can customize the mounts in the `devcontainer.json` file. For example, to bind mount the `.ssh` directory from your local environment to the container, you can add the following:
 
 ```jsonc
-"workspaceFolder": "/home/vscode/snaplite",
 "mounts": [
     {
         "source": "${localEnv:HOME}/.ssh",
@@ -45,6 +44,23 @@ Environment variables are set in the `.env` file in the `.devcontainer` director
 
 ```
 DB_HOST=db
+```
+
+### Dotfiles
+
+You can personalize your DevContainer by using dotfiles from a dotfile repository. To do this, follow these steps:
+
+1. Create a dotfile repository on a version control system like GitHub or GitLab.
+2. Add your dotfiles to the repository. Here's an example: https://github.com/crvineeth97/dotfiles
+3. Follow the instructions at https://code.visualstudio.com/docs/devcontainers/containers#_personalizing-with-dotfile-repositories
+
+You can configure the dotfile repository in your VS Code settings by adding the following:
+```json
+{
+    "dotfiles.repository": "crvineeth97/dotfiles",
+    "dotfiles.targetPath": "/home/vscode/dotfiles",
+    "dotfiles.installCommand": "install.sh",
+}
 ```
 
 ## Troubleshooting

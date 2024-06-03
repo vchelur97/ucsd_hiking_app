@@ -6,7 +6,7 @@ export default class extends Controller {
       Notification.requestPermission().then((permission) => {
         if (permission === "granted") {
           // console.log("User accepted to allow notifications.")
-          this.registerServiceWorker();
+          this.makeSubscription();
         } else if (permission === "denied") {
           console.warn("User rejected to allow notifications.");
         } else {
@@ -18,34 +18,27 @@ export default class extends Controller {
     }
   }
 
-  registerServiceWorker() {
-    if ("serviceWorker" in navigator) {
-      navigator.serviceWorker
-        .register('/service_worker.js')
-        .then((serviceWorkerRegistration) => {
-          serviceWorkerRegistration.pushManager
-            .getSubscription()
-            .then((existingSubscription) => {
-              if (!existingSubscription) {
-                serviceWorkerRegistration.pushManager
-                  .subscribe({
-                    userVisibleOnly: true,
-                    applicationServerKey: this.element.getAttribute(
-                      "data-application-server-key"
-                    ),
-                  })
-                  .then((subscription) => {
-                    this.saveSubscription(subscription);
-                  });
-              } else {
-                this.saveSubscription(existingSubscription);
-              }
-            });
-        })
-        .catch((error) => {
-          console.error("Error during registration Service Worker:", error);
+  makeSubscription() {
+    navigator.serviceWorker.ready.then((serviceWorkerRegistration) => {
+      serviceWorkerRegistration.pushManager
+        .getSubscription()
+        .then((existingSubscription) => {
+          if (!existingSubscription) {
+            serviceWorkerRegistration.pushManager
+              .subscribe({
+                userVisibleOnly: true,
+                applicationServerKey: this.element.getAttribute(
+                  "data-application-server-key"
+                ),
+              })
+              .then((subscription) => {
+                this.saveSubscription(subscription);
+              });
+          } else {
+            this.saveSubscription(existingSubscription);
+          }
         });
-    }
+    });
   }
 
   saveSubscription(subscription) {
