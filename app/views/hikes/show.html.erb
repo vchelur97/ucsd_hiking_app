@@ -11,7 +11,7 @@
     <%= render @hike.hike_cars %>
   <% end %>
 </section>
-<% if @hike.date.present? && @hike.date > Date.today %>
+<% if @hike.datetime.present? && @hike.datetime > Date.today %>
   <%= turbo_frame_tag "new_hike_car", src: new_hike_hike_car_path(@hike), target: "_top" %>
   <%= turbo_frame_tag "new_hike_subscription", src: subscribe_hike_path(@hike), method: :get %>
 <% end %>

@@ -5,8 +5,7 @@ class CreateHikes < ActiveRecord::Migration[7.1]
       t.string :description
       t.string :short_description
       t.string :hike_type # official, community, colab
-      t.date :date
-      t.time :time
+      t.datetime :datetime
       t.references :host, foreign_key: { to_table: :users }
       t.jsonb :stats, default: {} # contains length, elevation, duration, difficulty, route_type
       t.string :trailhead_address

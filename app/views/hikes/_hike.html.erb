@@ -69,7 +69,7 @@
       </div>
       <div class="lg:w-1/2 lg:mt-0 lg:mx-6 lg:order-1">
         <div class="block mt-3 text-2xl text-center font-semibold text-gray-800">
-          <time><%= hike.date.strftime('%B %d %A') if hike.date.present? %> • <%= hike.time.in_time_zone('Pacific Time (US & Canada)').strftime('%I:%M %p') if hike.time.present? %></time>
+          <time><%= hike.date %> • <%= hike.time %></time>
         </div>
         <div class="mt-6 mx-auto max-w-lg">
           <ul class="space-y-4">

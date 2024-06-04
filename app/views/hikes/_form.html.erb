@@ -92,7 +92,7 @@
         <span class="text-red-500"><%= @hike.errors[:date].join(", ") %></span>
       <% end %>
     </div>
-    <%= form.date_field :date, class: "shadow rounded-md border border-gray-200 w-full" %>
+    <%= form.date_field :date, value: @hike.datetime&.strftime('%Y-%m-%d'), class: "shadow rounded-md border border-gray-200 w-full" %>
   </div>
   <div>
     <div class="flex">
@@ -102,7 +102,7 @@
         <span class="text-red-500"><%= @hike.errors[:time].join(", ") %></span>
       <% end %>
     </div>
-    <%= form.time_field :time, include_seconds: false, class: "shadow rounded-md border border-gray-200 w-full" %>
+    <%= form.time_field :time, value: @hike.datetime&.strftime('%H:%M'), include_seconds: false, class: "shadow rounded-md border border-gray-200 w-full" %>
   </div>
   <div class="col-span-2">
     <div class="flex">

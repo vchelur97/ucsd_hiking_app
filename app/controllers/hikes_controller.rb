@@ -13,10 +13,10 @@ class HikesController < ApplicationController
   }.freeze
 
   def index
-    @upcoming_hikes = Hike.where(status: 'published').where('date >= ?', Date.today).order(date: :asc)
+    @upcoming_hikes = Hike.where(status: 'published').where('datetime >= ?', Date.today).order(datetime: :asc)
     @pagy, @hikes = pagy_countless(Hike.where(status: 'published')
-                                            .where('date < ?', Date.today)
-                                            .order(date: :desc), items: 3)
+                                            .where('datetime < ?', Date.today)
+                                            .order(datetime: :desc), items: 3)
     respond_to do |format|
       format.html
       format.turbo_stream
@@ -97,7 +97,7 @@ class HikesController < ApplicationController
   def handle_graphic
     return unless hike_params[:graphic].present?
 
-    graphic = "#{@hike.date}_#{hike_params[:graphic].original_filename}"
+    graphic = "#{@hike.datetime}_#{hike_params[:graphic].original_filename}"
     key = "graphics/#{graphic}"
 
     blob = ActiveStorage::Blob.find_by(key:)
@@ -119,10 +119,15 @@ class HikesController < ApplicationController
     permitted = params.require(:hike).permit(:alltrails_link, :length, :elevation, :duration, :route_type, :difficulty,
                                              :driver_compensation_type, :title, :description, :date, :time,
                                              :trailhead_address, :suggested_items, :notes, :status, :graphic,
-                                             :short_description, :metadata)
+                                             :short_description, :metadata, :datetime)
+    if permitted[:date].present? && permitted[:time].present?
+      permitted[:datetime] =
+        "#{permitted[:date]} #{permitted[:time]}".in_time_zone('Pacific Time (US & Canada)').to_datetime
+      permitted.delete(:date)
+      permitted.delete(:time)
+    end
     if permitted[:trailhead_address].present?
-      permitted[:trailhead_address] =
-        get_full_url(permitted[:trailhead_address])
+      permitted[:trailhead_address] = get_full_url(permitted[:trailhead_address])
     end
     permitted
   end

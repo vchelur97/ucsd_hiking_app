@@ -81,8 +81,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_04_044414) do
     t.string "description"
     t.string "short_description"
     t.string "hike_type"
-    t.date "date"
-    t.time "time"
+    t.datetime "datetime"
     t.bigint "host_id"
     t.jsonb "stats", default: {}
     t.string "trailhead_address"
