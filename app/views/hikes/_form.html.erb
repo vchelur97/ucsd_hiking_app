@@ -54,16 +54,33 @@
     </div>
     <%= form.select :difficulty, options_for_select(HikesController::DIFFICULTY_MAPPING.invert), {}, { "data-hike-target": "difficulty", class: "shadow rounded-md border border-gray-200 w-full"} %>
   </div>
-  <div>
-    <div class="flex">
-      <%= form.label :driver_compensation_type, class: "mr-2" %>
-      <% if @hike.errors[:driver_compensation_type].any? %>
-        <span class="text-red-500"><%= @hike.errors[:driver_compensation_type].join(", ") %></span>
-      <% end %>
-    </div>
+  <div class="grid grid-cols-2 gap-4">
     <div>
-      <%= form.select :driver_compensation_type, ["UCSD rate", "Manual rate"], "data-hike-target": "driverComp", class: "shadow rounded-md border border-gray-200 w-full" %>
+      <div class="flex">
+        <%= form.label :driver_compensation_type, "Driver compensation", class: "mr-2" %>
+        <% if @hike.errors[:driver_compensation_type].any? %>
+          <span class="text-red-500"><%= @hike.errors[:driver_compensation_type].join(", ") %></span>
+        <% end %>
+      </div>
+      <div>
+        <%= form.select :driver_compensation_type, ["UCSD rate", "Manual rate"], "data-hike-target": "driverComp", class: "shadow rounded-md border border-gray-200 w-full" %>
+      </div>
     </div>
+    <% if @user.admin? %>
+      <div>
+        <div class="flex">
+          <%= form.label :hike_type, "Hike Type", class: "mr-2" %>
+          <% if @hike.errors[:hike_type].any? %>
+            <span class="text-red-500"><%= @hike.errors[:hike_type].join(", ") %></span>
+          <% end %>
+        </div>
+        <div>
+          <%= form.select :hike_type, ["official", "colab", "community"], class: "shadow rounded-md border border-gray-200 w-full" %>
+        </div>
+      </div>
+    <% else %>
+      <%= form.hidden_field :hike_type, value: "community" %>
+    <% end %>
   </div>
   <div class="col-span-2">
     <div class="flex">

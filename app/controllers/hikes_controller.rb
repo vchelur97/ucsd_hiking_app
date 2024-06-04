@@ -3,6 +3,7 @@ require 'uri'
 
 class HikesController < ApplicationController
   before_action :set_hike, only: %i[show edit update destroy subscribe]
+  after_action :admin_review_notification, only: %i[create update]
 
   DIFFICULTY_MAPPING = {
     1 => 'Easy',
@@ -119,17 +120,15 @@ class HikesController < ApplicationController
     permitted = params.require(:hike).permit(:alltrails_link, :length, :elevation, :duration, :route_type, :difficulty,
                                              :driver_compensation_type, :title, :description, :date, :time,
                                              :trailhead_address, :suggested_items, :notes, :status, :graphic,
-                                             :short_description, :metadata, :datetime)
+                                             :short_description, :metadata, :datetime, :hike_type)
     if permitted[:date].present? && permitted[:time].present?
       permitted[:datetime] =
         "#{permitted[:date]} #{permitted[:time]}".in_time_zone('Pacific Time (US & Canada)').to_datetime
-      permitted.delete(:date)
-      permitted.delete(:time)
     end
     if permitted[:trailhead_address].present?
       permitted[:trailhead_address] = get_full_url(permitted[:trailhead_address])
     end
-    permitted
+    permitted.except(:date, :time)
   end
 
   def hike_notification
@@ -141,5 +140,16 @@ class HikesController < ApplicationController
     link = hike_url(@hike)
 
     notify_users(User.all, title, body, icon, link)
+  end
+
+  def admin_review_notification
+    return unless @hike.review?
+
+    title = 'New hike for review'
+    body = @hike.title
+    icon = @hike.graphic.attached? ? url_for(@hike.graphic) : '/assets/hiking_logo.svg'
+    link = hike_url(@hike)
+
+    notify_users(User.all.select(&:admin?), title, body, icon, link)
   end
 end

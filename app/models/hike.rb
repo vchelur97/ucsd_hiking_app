@@ -11,11 +11,11 @@ class Hike < ApplicationRecord
   validates :short_description, :graphic, presence: true, if: :published?
 
   def date
-    datetime&.to_date&.strftime('%B %d %A')
+    datetime&.to_date&.strftime('%B %d %A') || 'No date'
   end
 
   def time
-    datetime&.strftime('%I:%M %p')
+    datetime&.strftime('%I:%M %p') || 'No time'
   end
 
   def published?
