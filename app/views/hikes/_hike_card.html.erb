@@ -1,7 +1,11 @@
 <%= link_to hike_path(hike), class:"mx-auto max-w-md overflow-hidden rounded-lg bg-white shadow mb-4 hover:shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-104" do %>
-  <%= image_tag hike.graphic, class:"aspect-video w-full object-cover", alt:hike.title %>
+  <% if hike.graphic.attached? %>
+    <%= image_tag hike.graphic, class:"aspect-video w-full object-cover", alt:hike.title %>
+  <% else %>
+    <div class="aspect-video w-full bg-red-200 text-center">Hike graphic hasn't been added</div>
+  <% end %>
   <div class="p-4">
-    <p class="mb-1 text-md text-primary-500"><%= hike.host.full_name %> • <time><%= hike.date.strftime('%B %d %A') %> • <%= hike.time.in_time_zone('Pacific Time (US & Canada)').strftime('%I:%M %p') %></time></p>
+    <p class="mb-1 text-md text-primary-500"><%= hike.host.full_name %> • <time><%= hike.date.strftime('%B %d %A') if hike.date.present? %> • <%= hike.time.in_time_zone('Pacific Time (US & Canada)').strftime('%I:%M %p') if hike.time.present? %></time></p>
     <h3 class="text-xl font-medium text-gray-900"><%= hike.title %></h3>
     <p class="mt-1 text-gray-500"><%= hike.short_description %></p>
     <div class="mt-4 flex flex-wrap gap-2">
