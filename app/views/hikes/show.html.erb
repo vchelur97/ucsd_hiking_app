@@ -1,7 +1,7 @@
 <% if @user.admin? || @user.host?(@hike) %>
   <section class="mx-auto xl:w-2/3 w-full flex justify-center">
     <%= link_to "Edit hike", edit_hike_path(@hike), class: "mt-6 rounded-lg py-3 px-5 bg-gray-100 hover:bg-gray-200 inline-block font-medium" %>
-    <%= link_to "Delete hike", hike_path(@hike), data: {turbo_method: :delete, turbo_frame: "_top", turbo_confirm: "Are you sure you want to delete this hike?"}, class: "inline-block ml-2 mt-6 rounded-lg py-3 px-5 bg-red-100 hover:bg-red-200 font-medium" %>
+    <%= link_to "Delete hike", hike_path(@hike), data: {turbo_method: :delete, turbo_confirm: "Are you sure you want to delete this hike?"}, class: "inline-block ml-2 mt-6 rounded-lg py-3 px-5 bg-red-100 hover:bg-red-200 font-medium" %>
   </section>
 <% end %>
 <%= render @hike %>
@@ -11,6 +11,6 @@
     <%= render @hike.hike_cars %>
   <% end %>
 </section>
-<% if @hike.date > Date.today %>
+<% if @hike.date.present? && @hike.date > Date.today %>
   <%= turbo_frame_tag "new_hike_car", src: new_hike_hike_car_path(@hike), target: "_top" %>
 <% end %>

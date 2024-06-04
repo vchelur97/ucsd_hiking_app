@@ -57,7 +57,7 @@ class HikesController < ApplicationController
 
   def destroy
     @hike.destroy!
-    redirect_to hikes_url, notice: "Hike was successfully deleted."
+    redirect_to root_path, notice: "Hike was successfully deleted."
   end
 
   def hike_details

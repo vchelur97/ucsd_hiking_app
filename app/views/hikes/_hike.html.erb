@@ -4,7 +4,7 @@
       <% if @hike.graphic.attached? %>
         <%= image_tag @hike.graphic, class:"w-full mx-auto lg:mx-6 lg:w-1/2 rounded-xl" %>
       <% else %>
-        <p class="text-gray-500 text-lg leading-loose">No graphic available</p>
+        <p class="text-gray-500 text-lg leading-loose">Hike graphic hasn't been added</p>
       <% end %>
       <div class="mt-3 lg:w-1/2 lg:mt-0 lg:mx-6">
         <div class="block text-center text-2xl font-semibold text-gray-800">
@@ -69,7 +69,7 @@
       </div>
       <div class="lg:w-1/2 lg:mt-0 lg:mx-6 lg:order-1">
         <div class="block mt-3 text-2xl text-center font-semibold text-gray-800">
-          <time><%= hike.date.strftime('%B %d %A') %> • <%= hike.time.in_time_zone('Pacific Time (US & Canada)').strftime('%I:%M %p') %></time>
+          <time><%= hike.date.strftime('%B %d %A') if hike.date.present? %> • <%= hike.time.in_time_zone('Pacific Time (US & Canada)').strftime('%I:%M %p') if hike.time.present? %></time>
         </div>
         <div class="mt-6 mx-auto max-w-lg">
           <ul class="space-y-4">
