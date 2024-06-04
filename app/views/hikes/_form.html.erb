@@ -1,72 +1,152 @@
 <%= form_with(model: hike, class: "mt-4 md:grid md:grid-cols-2 md:gap-y-6 md:gap-x-8", local: true, data: { controller: "hike" }) do |form| %>
   <div class="col-span-2">
-    <%= form.label :alltrails_link, "Alltrails link" %>
-    <span class="place-content-center text-red-700">*</span>
+    <div class="flex">
+      <%= form.label :alltrails_link, "Alltrails link", class: "mr-1" %>
+      <span class="place-content-center text-red-700 mr-2">*</span>
+      <% if @hike.errors[:alltrails_link].any? %>
+        <span class="text-red-500"><%= @hike.errors[:alltrails_link].join(", ") %></span>
+      <% end %>
+    </div>
     <%= form.text_field :alltrails_link, "data-hike-target": "alltrailsLink", placeholder: "Inserting link autofills trail stats below (click out of the box to update stats)", class: "shadow rounded-md border border-gray-200 w-full" %>
   </div>
   <div>
-    <%= form.label :length, "Length" %>
+    <div class="flex">
+      <%= form.label :length, "Length (in miles)", class: "mr-2" %>
+      <% if @hike.errors[:length].any? %>
+        <span class="text-red-500"><%= @hike.errors[:length].join(", ") %></span>
+      <% end %>
+    </div>
     <%= form.text_field :length, "data-hike-target": "length", class: "shadow rounded-md border border-gray-200 w-full" %>
   </div>
   <div>
-    <%= form.label :elevation, "Elevation" %>
+    <div class="flex">
+      <%= form.label :elevation, "Elevation (in feet)", class: "mr-2" %>
+      <% if @hike.errors[:elevation].any? %>
+        <span class="text-red-500"><%= @hike.errors[:elevation].join(", ") %></span>
+      <% end %>
+    </div>
     <%= form.number_field :elevation, "data-hike-target": "elevation", class: "shadow rounded-md border border-gray-200 w-full" %>
   </div>
   <div>
-    <%= form.label :route_type, "Route type" %>
+    <div class="flex">
+      <%= form.label :route_type, "Route type", class: "mr-2" %>
+      <% if @hike.errors[:route_type].any? %>
+        <span class="text-red-500"><%= @hike.errors[:route_type].join(", ") %></span>
+      <% end %>
+    </div>
     <%= form.text_field :route_type, "data-hike-target": "routeType", class: "shadow rounded-md border border-gray-200 w-full" %>
   </div>
   <div>
-    <%= form.label :duration, "Duration" %>
+    <div class="flex">
+      <%= form.label :duration, "Duration (in mins)", class: "mr-2" %>
+      <% if @hike.errors[:duration].any? %>
+        <span class="text-red-500"><%= @hike.errors[:duration].join(", ") %></span>
+      <% end %>
+    </div>
     <%= form.number_field :duration, "data-hike-target": "duration", class: "shadow rounded-md border border-gray-200 w-full" %>
   </div>
   <div>
-    <%= form.label :difficulty, "Difficulty" %>
-    <%= form.text_field :difficulty, "data-hike-target": "difficulty", class: "shadow rounded-md border border-gray-200 w-full" %>
+    <div class="flex">
+      <%= form.label :difficulty, "Difficulty", class: "mr-2" %>
+      <% if @hike.errors[:difficulty].any? %>
+        <span class="text-red-500"><%= @hike.errors[:difficulty].join(", ") %></span>
+      <% end %>
+    </div>
+    <%= form.select :difficulty, options_for_select(HikesController::DIFFICULTY_MAPPING.invert), {}, { "data-hike-target": "difficulty", class: "shadow rounded-md border border-gray-200 w-full"} %>
   </div>
   <div>
-    <%= form.label :driver_compensation_type %>
+    <div class="flex">
+      <%= form.label :driver_compensation_type, class: "mr-2" %>
+      <% if @hike.errors[:driver_compensation_type].any? %>
+        <span class="text-red-500"><%= @hike.errors[:driver_compensation_type].join(", ") %></span>
+      <% end %>
+    </div>
     <div>
       <%= form.select :driver_compensation_type, ["UCSD rate", "Manual rate"], "data-hike-target": "driverComp", class: "shadow rounded-md border border-gray-200 w-full" %>
     </div>
   </div>
   <div class="col-span-2">
-    <%= form.label :title %>
-    <span class="place-content-center text-red-700">*</span>
+    <div class="flex">
+      <%= form.label :title, class: "mr-1" %>
+      <span class="place-content-center text-red-700 mr-2">*</span>
+      <% if @hike.errors[:title].any? %>
+        <span class="text-red-500"><%= @hike.errors[:title].join(", ") %></span>
+      <% end %>
+    </div>
     <%= form.text_field :title, "data-hike-target": "title", class: "shadow rounded-md border border-gray-200 w-full" %>
   </div>
   <div class="col-span-2 row-span-3">
-    <%= form.label :description %>
+    <div class="flex">
+      <%= form.label :description, class: "mr-2" %>
+      <% if @hike.errors[:description].any? %>
+        <span class="text-red-500"><%= @hike.errors[:description].join(", ") %></span>
+      <% end %>
+    </div>
     <%= form.text_area :description, placeholder: "Full description of the hike (including instructions)", class: "shadow rounded-md border border-gray-200 w-full min-h-64" %>
   </div>
   <div>
-    <%= form.label :date %>
-    <span class="place-content-center text-red-700">*</span>
+    <div class="flex">
+      <%= form.label :date, class: "mr-1" %>
+      <span class="place-content-center text-red-700 mr-2">*</span>
+      <% if @hike.errors[:date].any? %>
+        <span class="text-red-500"><%= @hike.errors[:date].join(", ") %></span>
+      <% end %>
+    </div>
     <%= form.date_field :date, class: "shadow rounded-md border border-gray-200 w-full" %>
   </div>
   <div>
-    <%= form.label :time %>
-    <span class="place-content-center text-red-700">*</span>
+    <div class="flex">
+      <%= form.label :time, class: "mr-1" %>
+      <span class="place-content-center text-red-700 mr-2">*</span>
+      <% if @hike.errors[:time].any? %>
+        <span class="text-red-500"><%= @hike.errors[:time].join(", ") %></span>
+      <% end %>
+    </div>
     <%= form.time_field :time, include_seconds: false, class: "shadow rounded-md border border-gray-200 w-full" %>
   </div>
   <div class="col-span-2">
-    <%= form.label :trailhead_address %>
+    <div class="flex">
+      <%= form.label :trailhead_address, class: "mr-2" %>
+      <% if @hike.errors[:trailhead_address].any? %>
+        <span class="text-red-500"><%= @hike.errors[:trailhead_address].join(", ") %></span>
+      <% end %>
+    </div>
     <%= form.text_field :trailhead_address, placeholder: "Google maps link", class: "shadow rounded-md border border-gray-200 w-full" %>
   </div>
   <div class="col-span-2">
-    <%= form.label :suggested_items %>
+    <div class="flex">
+      <%= form.label :suggested_items, class: "mr-2" %>
+      <% if @hike.errors[:suggested_items].any? %>
+        <span class="text-red-500"><%= @hike.errors[:suggested_items].join(", ") %></span>
+      <% end %>
+    </div>
     <%= form.text_field :suggested_items, placeholder: "Comma-separated list of items", class: "shadow rounded-md border border-gray-200 w-full" %>
   </div>
   <div class="col-span-2">
-    <%= form.label :notes, "Any other notes?" %>
+    <div class="flex">
+      <%= form.label :notes, "Any other notes?", class: "mr-2" %>
+      <% if @hike.errors[:notes].any? %>
+        <span class="text-red-500"><%= @hike.errors[:notes].join(", ") %></span>
+      <% end %>
+    </div>
     <%= form.text_field :notes, class: "shadow rounded-md border border-gray-200 w-full" %>
   </div>
   <div class="col-span-2">
-    <%= form.label :graphic, "Upload hike graphic" %>
+    <div class="flex">
+      <%= form.label :graphic, "Upload hike graphic", class: "mr-2" %>
+      <% if @hike.errors[:graphic].any? %>
+        <span class="text-red-500"><%= @hike.errors[:graphic].join(", ") %></span>
+      <% end %>
+    </div>
     <%= form.file_field :graphic, class: "shadow rounded-md border border-gray-200 w-full" %>
   </div>
   <div class="col-span-2">
-    <%= form.label :short_description %>
+    <div class="flex">
+      <%= form.label :short_description, class: "mr-2" %>
+      <% if @hike.errors[:short_description].any? %>
+        <span class="text-red-500"><%= @hike.errors[:short_description].join(", ") %></span>
+      <% end %>
+    </div>
     <%= form.text_area :short_description, placeholder: "Short blurb for the hike (for Instagram and Discord)", class: "shadow rounded-md border border-gray-200 w-full min-h-64" %>
   </div>
   <div class="hidden">
@@ -77,7 +157,7 @@
     <%= form.submit "Save as draft", class: "cursor-pointer mt-4 rounded-lg py-3 px-5 bg-gray-200 hover:bg-gray-300 font-medium", data: { action: "click->hike#setStatusDraft" } %>
     <%= form.submit "Send for review", class: "cursor-pointer mt-4 rounded-lg py-3 px-5 bg-blue-200 hover:bg-blue-300 font-medium", data: { action: "click->hike#setStatusReview" } %>
     <% if @user.admin? %>
-      <%= form.submit "Publish", class: "cursor-pointer mt-4 rounded-lg py-3 px-5 bg-green-200 hover:bg-green-300 font-medium", data: { action: "click->hike#setStatusPublished" } %>
+      <%= form.submit "Publish", class: "cursor-pointer mt-4 rounded-lg py-3 px-5 bg-green-200 hover:bg-green-300 font-medium", data: { action: "click->hike#confirmPublish click->hike#setStatusPublished"} %>
     <% end %>
     <% if edit %>
       <%= link_to "Cancel edit", hike_path(hike), method: :get, class: "mt-4 rounded-lg py-3 px-5 bg-red-200 hover:bg-red-300 font-medium" %>

@@ -8,6 +8,12 @@ export default class extends Controller {
     this.alltrailsLinkTarget.addEventListener("focusout", this.fetchHikeDetails.bind(this))
   }
 
+  confirmPublish(event) {
+    if (!confirm("Are you sure you want to publish?")) {
+      event.preventDefault()
+    }
+  }
+
   setStatusDraft(event) {
     event.preventDefault();
     this.statusTarget.value = "draft";
@@ -44,7 +50,7 @@ export default class extends Controller {
           this.lengthTarget.value = data.length
         }
         if (data.elevation) {
-          this.elevationTarget.value = data.elevation
+          this.elevationTarget.value = Math.floor(data.elevation)
         }
         if (data.route_type) {
           this.routeTypeTarget.value = data.route_type
@@ -53,7 +59,7 @@ export default class extends Controller {
           this.difficultyTarget.value = data.difficulty
         }
         if (data.duration) {
-          this.durationTarget.value = data.duration
+          this.durationTarget.value = Math.floor(data.duration)
         }
       })
   }
