@@ -1,0 +1,11 @@
+<%= turbo_frame_tag "new_hike_subscription" do %>
+  <div class="my-6 text-center">
+    <% if @user.subscribed?(hike) %>
+      <h2>You are subsribed to receive notifications when a new car is added to this hike.</h2>
+      <%= button_to "Unsubscribe", subscribe_hike_path(hike), method: :delete, class: "rounded-lg py-3 px-5 bg-red-100 hover:bg-red-200 inline-block font-medium" %>
+    <% else %>
+      <h2>Subscribe to receive notifications when a new car is added to this hike.</h2>
+      <%= button_to "Subscribe", subscribe_hike_path(hike), method: :post, class: "rounded-lg py-3 px-5 bg-blue-100 hover:bg-blue-200 inline-block font-medium" %>
+    <% end %>
+  </div>
+<% end %>

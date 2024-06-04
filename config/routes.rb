@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
   resources :hikes do
+    member do
+      match 'subscribe', to: 'hikes#subscribe', via: %i[get post delete]
+    end
     resources :hike_cars, shallow: true, except: %i[index] do
       resources :hike_participants, shallow: true, except: %i[index]
     end
@@ -13,13 +16,6 @@ Rails.application.routes.draw do
   end
   resolve('User') { [:user] }
   get 'auth/google_oauth2/callback', to: 'sessions#create'
-
-  # get "admin", to: "admin#stats"
-  # namespace :admin do
-  #   resources :users
-  #   resources :hikes
-  #   resources :push_notifications
-  # end
 
   get "up" => "rails/health#show", as: :rails_health_check
 

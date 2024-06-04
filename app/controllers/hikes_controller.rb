@@ -2,8 +2,8 @@ require 'net/http'
 require 'uri'
 
 class HikesController < ApplicationController
-  before_action :set_hike, only: %i[show edit update destroy]
-  after_action :hike_notification, only: %i[create update]
+  before_action :set_hike, only: %i[show edit update destroy subscribe]
+
   DIFFICULTY_MAPPING = {
     1 => 'Easy',
     2 => 'Easy-Moderate',
@@ -28,6 +28,7 @@ class HikesController < ApplicationController
 
   def new
     @hike = Hike.new
+    hike_notification
   end
 
   def edit
@@ -47,8 +48,10 @@ class HikesController < ApplicationController
 
   def update
     handle_graphic
+    was_draft = @hike.status == 'draft'
 
     if @hike.update(hike_params.except(:graphic))
+      hike_notification if was_draft && @hike.status == 'published'
       redirect_to hike_url(@hike), notice: "Hike was successfully updated."
     else
       render :edit, status: :unprocessable_entity
@@ -66,6 +69,19 @@ class HikesController < ApplicationController
     title = hike_details['trail_name']
     title = "#{title} (@#{hike_details['area']})" if hike_details['area'].present?
     render json: hike_details.slice('length', 'elevation', 'duration', 'route_type', 'difficulty').merge(title:)
+  end
+
+  def subscribe
+    case request.method_symbol
+    when :post
+      if params[:_method] == 'delete'
+        @hike.subscribers.delete(@user.id)
+      elsif @hike.subscribers.exclude?(@user.id)
+        @hike.subscribers << @user.id
+      end
+      @hike.save
+    end
+    render partial: 'subscription', locals: { hike: @hike }
   end
 
   private
@@ -112,7 +128,6 @@ class HikesController < ApplicationController
   end
 
   def hike_notification
-    # TODO: This should only be called if the hike status changed from draft to published (not on details update)
     return unless @hike.published?
 
     title = "New hike posted! #{@hike.title}"

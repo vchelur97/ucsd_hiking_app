@@ -38,6 +38,10 @@ class User < ApplicationRecord
   end
 
   def hike_driver?(hike)
-    hike.hike_cars.exists?(user_id: id)
+    hike.hike_cars.exists?(car_id: cars.ids)
+  end
+
+  def subscribed?(hike)
+    hike.subscribers.include?(id)
   end
 end
