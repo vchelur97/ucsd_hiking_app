@@ -39,5 +39,4 @@ class ApplicationController < ActionController::Base
       SendNotificationsJob.perform_later(user, title, body, icon, link)
     end
   end
-
 end

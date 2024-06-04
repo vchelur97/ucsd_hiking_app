@@ -1,3 +1,6 @@
+require 'net/http'
+require 'uri'
+
 class HikesController < ApplicationController
   before_action :set_hike, only: %i[show edit update destroy]
   after_action :hike_notification, only: %i[create update]
@@ -67,21 +70,27 @@ class HikesController < ApplicationController
 
   private
 
+  def get_full_url(short_url)
+    uri = URI.parse(short_url)
+    response = Net::HTTP.get_response(uri)
+    return response['location'] if response.code == '302'
+
+    short_url
+  end
+
   def handle_graphic
     return unless hike_params[:graphic].present?
 
-    graphic = @hike.date.to_s + '_' + hike_params[:graphic].original_filename
+    graphic = "#{@hike.date}_#{hike_params[:graphic].original_filename}"
     key = "graphics/#{graphic}"
 
-    blob = ActiveStorage::Blob.find_by(key: key)
+    blob = ActiveStorage::Blob.find_by(key:)
 
-    unless blob
-      blob = ActiveStorage::Blob.create_and_upload!(
-        io: hike_params[:graphic].open,
-        filename: graphic,
-        key: key
-      )
-    end
+    blob ||= ActiveStorage::Blob.create_and_upload!(
+      io: hike_params[:graphic].open,
+      filename: graphic,
+      key:
+    )
 
     @hike.graphic.attach(blob)
   end
@@ -91,9 +100,15 @@ class HikesController < ApplicationController
   end
 
   def hike_params
-    params.require(:hike).permit(:alltrails_link, :length, :elevation, :duration, :route_type, :difficulty,
-                                 :driver_compensation_type, :title, :description, :date, :time,
-                                 :trailhead_address, :suggested_items, :notes, :status, :graphic, :metadata)
+    permitted = params.require(:hike).permit(:alltrails_link, :length, :elevation, :duration, :route_type, :difficulty,
+                                             :driver_compensation_type, :title, :description, :date, :time,
+                                             :trailhead_address, :suggested_items, :notes, :status, :graphic,
+                                             :short_description, :metadata)
+    if permitted[:trailhead_address].present?
+      permitted[:trailhead_address] =
+        get_full_url(permitted[:trailhead_address])
+    end
+    permitted
   end
 
   def hike_notification

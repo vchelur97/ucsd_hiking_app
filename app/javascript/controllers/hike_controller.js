@@ -10,24 +10,24 @@ export default class extends Controller {
 
   setStatusDraft(event) {
     event.preventDefault();
-    this.statusTarget.children[1].value = "draft";
+    this.statusTarget.value = "draft";
     this.element.submit();
   }
 
   setStatusReview(event) {
     event.preventDefault();
-    this.statusTarget.children[1].value = "review";
+    this.statusTarget.value = "review";
     this.element.submit();
   }
 
   setStatusPublished(event) {
     event.preventDefault();
-    this.statusTarget.children[1].value = "published";
+    this.statusTarget.value = "published";
     this.element.submit();
   }
 
   fetchHikeDetails() {
-    const alltrailsLink = this.alltrailsLinkTarget.children[1].value
+    const alltrailsLink = this.alltrailsLinkTarget.value
     if (!alltrailsLink) {
       return
     }
@@ -38,31 +38,23 @@ export default class extends Controller {
       .then(data => {
         console.log(data)
         if (data.title) {
-          this.titleTarget.children[1].value = data.title
+          this.titleTarget.value = data.title
         }
         if (data.length) {
-          this.lengthTarget.children[1].value = data.length
+          this.lengthTarget.value = data.length
         }
         if (data.elevation) {
-          this.elevationTarget.children[1].value = data.elevation
+          this.elevationTarget.value = data.elevation
         }
         if (data.route_type) {
-          this.routeTypeTarget.children[1].value = data.route_type
+          this.routeTypeTarget.value = data.route_type
         }
         if (data.difficulty) {
-          this.difficultyTarget.children[1].value = data.difficulty
+          this.difficultyTarget.value = data.difficulty
         }
         if (data.duration) {
-          this.durationTarget.children[1].value = data.duration
+          this.durationTarget.value = data.duration
         }
-      }).finally(() => {
-        this.titleTarget.classList.remove("hidden")
-        this.lengthTarget.classList.remove("hidden")
-        this.elevationTarget.classList.remove("hidden")
-        this.routeTypeTarget.classList.remove("hidden")
-        this.difficultyTarget.classList.remove("hidden")
-        this.durationTarget.classList.remove("hidden")
-        this.driverCompTarget.classList.remove("hidden")
       })
   }
 }
