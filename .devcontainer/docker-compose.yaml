@@ -1,7 +1,7 @@
 version: '3'
 services:
   app:
-    image: ruby:3.3.0
+    image: ruby:3.3.2
     volumes:
       - ../..:/home/vscode:cached
     # Overrides default command so things don't shut down after the process ends.
