@@ -50,7 +50,7 @@
                 </svg>
               </div>
               <div class="block text-md text-gray-500">
-                <%= simple_format(@hike.description) %>
+                <%= simple_format(auto_link(@hike.description, :html => { :class => 'text-primary-500' })) %>
               </div>
             </li>
           </ul>
@@ -167,7 +167,7 @@
           Notes/Instructions
         </div>
         <div class="mt-3 flex overflow-hidden text-md text-gray-500">
-          <%= @hike.notes %>
+          <%= auto_link(@hike.notes, :html => { :class => "text-primary-500" }) %>
         </div>
       </div>
     </div>
