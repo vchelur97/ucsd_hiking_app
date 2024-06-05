@@ -15,8 +15,9 @@ Rails.application.routes.draw do
     resources :cars, except: %i[index]
   end
   resolve('User') { [:user] }
-  get 'auth/google_oauth2/callback', to: 'sessions#create'
 
+  get 'auth/google_oauth2/callback' => 'sessions#create'
+  get 'help' => 'static#help'
   get "up" => "rails/health#show", as: :rails_health_check
 
   root "dashboard#index"

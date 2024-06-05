@@ -10,7 +10,8 @@ class User < ApplicationRecord
   def self.create_from_omniauth(auth)
     user = find_by(email: auth.info.email)
     first_time = user.nil?
-    user ||= create(email: auth.info.email, full_name: auth.info.name, avatar_url: auth.info.image)
+    roles = auth.info.email.ends_with?("@ucsd.edu") ? ["hiker"] : []
+    user ||= create(email: auth.info.email, full_name: auth.info.name, avatar_url: auth.info.image, roles:)
     if user.avatar_url.nil?
       update(user.id, email: auth.info.email, full_name: auth.info.name, avatar_url: auth.info.image)
     end
@@ -21,8 +22,16 @@ class User < ApplicationRecord
     roles.include?("board")
   end
 
+  def hiker?
+    roles.include?("hiker")
+  end
+
   def host?(hike)
     id == hike.host.id
+  end
+
+  def allowed?
+    email.ends_with?("@ucsd.edu") || hiker?
   end
 
   def car_participant?(hike_car)
@@ -43,5 +52,9 @@ class User < ApplicationRecord
 
   def subscribed?(hike)
     hike.subscribers.include?(id)
+  end
+
+  def allowed_notifications?
+    sessions.any? { |session| session.push_endpoint.present? }
   end
 end

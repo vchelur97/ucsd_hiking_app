@@ -1,16 +1,20 @@
 class ApplicationController < ActionController::Base
   include Pagy::Backend
   helper_method :user, :signed_waiver?
-  before_action :authenticate_user!, :signed_waiver!, :added_phone_number!
+  before_action :authenticate_user!, :no_access!, :signed_waiver!, :added_phone_number!
   around_action :set_time_zone
   add_flash_types :success, :warning
 
   private
 
   def user
-    session = Session.find_by(id: cookies.signed[:session_id])
-    cookies.delete(:session_id) unless session
     @user ||= session&.user
+  end
+
+  def session
+    @session = Session.find_by(id: cookies.signed[:session_id])
+    cookies.delete(:session_id) unless @session
+    @session
   end
 
   def authenticate_user!
@@ -38,5 +42,9 @@ class ApplicationController < ActionController::Base
     users.each do |user|
       SendNotificationsJob.perform_later(user, title, body, icon, link)
     end
+  end
+
+  def no_access!
+    redirect_to help_path unless user.allowed?
   end
 end
