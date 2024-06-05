@@ -58,6 +58,7 @@ group :development do
   gem "rubocop"
   gem "ruby-lsp-rails"
 
+  gem 'derailed'
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
   # gem "rack-mini-profiler"
 
