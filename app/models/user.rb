@@ -12,7 +12,6 @@ class User < ApplicationRecord
     first_time = user.nil?
     roles = auth.info.email.ends_with?("@ucsd.edu") ? ["hiker"] : []
     user ||= create(email: auth.info.email, full_name: auth.info.name, avatar_url: auth.info.image, roles:)
-    update(user.id, roles:) if user.roles.empty? && roles.present?
     if user.avatar_url.nil?
       update(user.id, email: auth.info.email, full_name: auth.info.name,
                       avatar_url: auth.info.image)

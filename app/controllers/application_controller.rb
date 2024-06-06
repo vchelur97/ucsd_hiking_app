@@ -21,6 +21,10 @@ class ApplicationController < ActionController::Base
     redirect_to new_user_session_path unless user
   end
 
+  def no_access!
+    redirect_to help_path unless user.allowed?
+  end
+
   def signed_waiver?
     waiver = Waiver.where(user:).last
     waiver && waiver.version == Waiver::LATEST_VERSION
@@ -42,9 +46,5 @@ class ApplicationController < ActionController::Base
     users.each do |user|
       SendNotificationsJob.perform_later(user, title, body, icon, link)
     end
-  end
-
-  def no_access!
-    redirect_to help_path unless user.allowed?
   end
 end
