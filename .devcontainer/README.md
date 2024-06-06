@@ -51,13 +51,13 @@ DB_HOST=db
 You can personalize your DevContainer by using dotfiles from a dotfile repository. To do this, follow these steps:
 
 1. Create a dotfile repository on a version control system like GitHub or GitLab.
-2. Add your dotfiles to the repository. Here's an example: https://github.com/crvineeth97/dotfiles
+2. Add your dotfiles to the repository. Here's an example: https://github.com/crvineeth97/dotfiles (Warning: This is a personal repository and may not be suitable for your use case. The .gitconfig file contains my name and email address. The install.sh script WILL OVERWRITE your existing dotfiles if you install it on your local machine. It should be fine to use in a DevContainer. Use at your own risk.)
 3. Follow the instructions at https://code.visualstudio.com/docs/devcontainers/containers#_personalizing-with-dotfile-repositories
 
 You can configure the dotfile repository in your VS Code settings by adding the following:
 ```json
 {
-    "dotfiles.repository": "crvineeth97/dotfiles",
+    "dotfiles.repository": "<GitHub Repository URL>", // e.g. "crvineeth97/dotfiles"
     "dotfiles.targetPath": "/home/vscode/dotfiles",
     "dotfiles.installCommand": "install.sh",
 }
