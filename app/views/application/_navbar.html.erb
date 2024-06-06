@@ -1,11 +1,11 @@
-<% if @user && signed_waiver? %>
+<% if @user %>
   <div data-controller="push" data-application-server-key="<%= ENV['WEB_PUSH_PUBLIC_KEY'] %>">
   </div>
   <% menu_items = [
-    { title: "Dashboard", url: root_path, show: @user.hiker? },
-    { title: "Hikes", url: hikes_path, show: @user.hiker? },
-    { title: "Waiver", url: user_waiver_path, show: @user.hiker? },
-    { title: "Host", url: new_hike_path, show: @user.hiker? },
+    { title: "Dashboard", url: root_path, show: @user.hiker? && signed_waiver? },
+    { title: "Hikes", url: hikes_path, show: @user.hiker? && signed_waiver? },
+    { title: "Waiver", url: user_waiver_path, show: @user.hiker? && signed_waiver? },
+    { title: "Host", url: new_hike_path, show: @user.hiker? && signed_waiver? },
     { title: "Help", url: help_path, show: !@user.allowed? },
     { title: "Instagram", url: "https://www.instagram.com/ucsdhiking/", show: true },
     { title: "Discord", url: "https://discord.gg/6nErhJKKfV", show: true }
