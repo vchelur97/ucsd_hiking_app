@@ -1,27 +1,61 @@
-<%= form_with(model: [ @car.user, @car ], local: true, class: "border rounded-lg mt-2 px-4 flex flex-wrap place-content-stretch") do |form| %>
+<%= form_with(model: [ @car.user, @car ], class: "border rounded-lg mt-2 px-4 flex flex-wrap place-content-stretch") do |form| %>
   <div class="md:grid md:grid-cols-2 md:gap-x-8">
     <div class="my-2 w-full">
-      <%= form.label :make, class: "font-medium" %>
+      <div class="flex">
+        <%= form.label :make, class: "font-medium mr-1" %>
+        <span class="place-content-center text-red-700 mr-2">*</span>
+        <% if @car.errors[:make].any? %>
+          <span class="text-red-500"><%= @car.errors[:make].join(", ") %></span>
+        <% end %>
+      </div>
       <%= form.text_field :make, class: "shadow rounded-lg border border-gray-200 px-3 py-2 mt-2" %>
     </div>
     <div class="my-2 w-full">
-      <%= form.label :model, class: "font-medium" %>
+      <div class="flex">
+        <%= form.label :model, class: "font-medium mr-1" %>
+        <span class="place-content-center text-red-700 mr-2">*</span>
+        <% if @car.errors[:model].any? %>
+          <span class="text-red-500"><%= @car.errors[:model].join(", ") %></span>
+        <% end %>
+      </div>
       <%= form.text_field :model, class: "shadow rounded-lg border border-gray-200 px-3 py-2 mt-2" %>
     </div>
     <div class="my-2 w-full">
-      <%= form.label :color, class: "font-medium" %>
+      <div class="flex">
+        <%= form.label :color, class: "font-medium mr-1" %>
+        <span class="place-content-center text-red-700 mr-2">*</span>
+        <% if @car.errors[:color].any? %>
+          <span class="text-red-500"><%= @car.errors[:color].join(", ") %></span>
+        <% end %>
+      </div>
       <%= form.text_field :color, class: "shadow rounded-lg border border-gray-200 px-3 py-2 mt-2" %>
     </div>
     <div class="my-2 w-full">
-      <%= form.label :capacity, class: "font-medium" %>
+      <div class="flex">
+        <%= form.label :capacity, class: "font-medium mr-1" %>
+        <span class="place-content-center text-red-700 mr-2">*</span>
+        <% if @car.errors[:capacity].any? %>
+          <span class="text-red-500"><%= @car.errors[:capacity].join(", ") %></span>
+        <% end %>
+      </div>
       <%= form.number_field :capacity, class: "shadow rounded-lg border border-gray-200 px-3 py-2 mt-2" %>
     </div>
     <div class="my-2 w-full">
-      <%= form.label :license_plate, class: "font-medium" %>
+      <div class="flex">
+        <%= form.label :license_plate, class: "font-medium mr-2" %>
+        <% if @car.errors[:license_plate].any? %>
+          <span class="text-red-500"><%= @car.errors[:license_plate].join(", ") %></span>
+        <% end %>
+      </div>
       <%= form.text_field :license_plate, class: "shadow rounded-lg border border-gray-200 px-3 py-2 mt-2" %>
     </div>
     <div class="my-2 w-full">
-      <%= form.label :mpg, "MPG", class: "font-medium" %>
+      <div class="flex">
+        <%= form.label :mpg, "MPG", class: "font-medium mr-2" %>
+        <% if @car.errors[:mpg].any? %>
+          <span class="text-red-500"><%= @car.errors[:mpg].join(", ") %></span>
+        <% end %>
+      </div>
       <%= form.text_field :mpg, class: "shadow rounded-lg border border-gray-200 px-3 py-2 mt-2" %>
     </div>
   </div>

@@ -14,18 +14,22 @@
           <%= car.capacity %>
         </div>
       </div>
-      <div class="my-2 w-full">
-        <strong class="font-medium">License plate</strong>
-        <div class="shadow rounded-lg border border-gray-200 px-3 py-2 mt-2">
-          <%= car.license_plate %>
+      <% if car.license_plate.present? %>
+        <div class="my-2 w-full">
+          <strong class="font-medium">License plate</strong>
+          <div class="shadow rounded-lg border border-gray-200 px-3 py-2 mt-2">
+            <%= car.license_plate %>
+          </div>
         </div>
-      </div>
-      <div class="my-2 w-full">
-        <strong class="font-medium">MPG</strong>
-        <div class="shadow rounded-lg border border-gray-200 px-3 py-2 mt-2">
-          <%= car.mpg %>
+      <% end %>
+      <% if car.mpg.present? %>
+        <div class="my-2 w-full">
+          <strong class="font-medium">MPG</strong>
+          <div class="shadow rounded-lg border border-gray-200 px-3 py-2 mt-2">
+            <%= car.mpg %>
+          </div>
         </div>
-      </div>
+      <% end %>
     </div>
     <div class="w-full md:self-start">
       <%= link_to "Edit car", edit_user_car_path(car), class: "my-4 inline-block rounded-lg py-3 px-5 bg-gray-100 hover:bg-gray-200 font-medium" %>
