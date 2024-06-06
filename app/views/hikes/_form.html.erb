@@ -52,7 +52,7 @@
         <span class="text-red-500"><%= @hike.errors[:difficulty].join(", ") %></span>
       <% end %>
     </div>
-    <%= form.select :difficulty, options_for_select(HikesController::DIFFICULTY_MAPPING.invert), {}, { "data-hike-target": "difficulty", class: "shadow rounded-md border border-gray-200 w-full"} %>
+    <%= form.select :difficulty, options_for_select(HikesController::DIFFICULTY_MAPPING.invert, @hike.difficulty), {}, { "data-hike-target": "difficulty", class: "shadow rounded-md border border-gray-200 w-full"} %>
   </div>
   <div class="grid grid-cols-2 gap-4">
     <div>

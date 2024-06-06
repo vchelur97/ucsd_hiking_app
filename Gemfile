@@ -73,6 +73,7 @@ group :test do
 end
 
 gem "aws-sdk-s3", "~> 1.148"
+gem "csv", "~> 3.3"
 gem "dotenv-rails", "~> 3.1"
 gem "foreman", "~> 0.88.1"
 gem "omniauth", "~> 2.1"
