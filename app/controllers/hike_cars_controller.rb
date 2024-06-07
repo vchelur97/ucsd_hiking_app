@@ -11,7 +11,6 @@ class HikeCarsController < ApplicationController
   end
 
   def edit
-    @hike_car = HikeCar.find(params[:id])
   end
 
   def create
