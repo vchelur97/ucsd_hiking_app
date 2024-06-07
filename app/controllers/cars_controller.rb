@@ -31,6 +31,8 @@ class CarsController < ApplicationController
   def destroy
     @car.destroy!
     redirect_to @user, success: "Car was successfully removed"
+  rescue ActiveRecord::InvalidForeignKey
+    redirect_to @user, alert: "Car could not be removed. It is being referenced by a hike."
   end
 
   private

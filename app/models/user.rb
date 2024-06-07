@@ -31,12 +31,12 @@ class User < ApplicationRecord
     id == hike.host.id
   end
 
-  def email_verified?(p_email)
+  def self.email_verified?(p_email)
     p_email.ends_with?("ucsd.edu") || p_email.ends_with?("ucsd.com")
   end
 
   def allowed?
-    email_verified?(email) || hiker?
+    self.class.email_verified?(email) || hiker?
   end
 
   def car_participant?(hike_car)

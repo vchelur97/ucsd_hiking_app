@@ -1,4 +1,4 @@
-<%= form_with(model: car, class: "border rounded-lg mt-2 px-4 flex flex-wrap place-content-stretch") do |form| %>
+<%= form_with(model: car, data: { turbo_frame: "_top" }, class: "border rounded-lg mt-2 px-4 flex flex-wrap place-content-stretch") do |form| %>
   <div class="md:grid md:grid-cols-2 md:gap-x-8">
     <div class="my-2 w-full">
       <div class="flex">

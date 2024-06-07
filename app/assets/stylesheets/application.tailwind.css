@@ -11,3 +11,23 @@
 }
 
 */
+.pagy {
+  @apply inline-flex items-center -space-x-px rounded-md text-sm shadow-sm;
+  a:not(.gap) {
+    @apply inline-flex items-center border border-gray-300 bg-white px-4 py-2 text-gray-500 hover:bg-gray-50;
+    &.current {
+      @apply z-10 inline-flex items-center border border-gray-300 bg-gray-100 px-4 py-2 font-medium text-gray-700;
+    }
+  }
+  .gap {
+    @apply inline-flex items-center border border-gray-300 bg-white px-4 py-2 text-gray-700;
+  }
+  
+  [aria-label="Previous"] {
+    @apply inline-flex items-center rounded-l-md border border-gray-300 bg-white px-2 py-2 font-medium text-gray-500 hover:bg-gray-50;
+  }
+
+  [aria-label="Next"] {
+    @apply inline-flex items-center space-x-2 rounded-r-md border border-gray-300 bg-white px-4 py-2 font-medium text-gray-500 hover:bg-gray-50;
+  }
+}
