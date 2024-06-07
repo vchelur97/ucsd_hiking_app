@@ -1,4 +1,4 @@
-<%= turbo_frame_tag "edit_car" do %>
+<%= turbo_frame_tag dom_id(car) do %>
   <div id="<%= dom_id car %>" class="border rounded-lg mt-2 px-4">
     <h2 class="mt-2 font-bold text-xl"> <%= car.make %> <%= car.model %> </h2>
     <div class="md:grid md:grid-cols-2 md:gap-x-8">
@@ -32,7 +32,7 @@
       <% end %>
     </div>
     <div class="w-full md:self-start">
-      <%= link_to "Edit car", edit_user_car_path(car), class: "my-4 inline-block rounded-lg py-3 px-5 bg-gray-100 hover:bg-gray-200 font-medium" %>
+      <%= link_to "Edit car", edit_car_path(car), class: "my-4 inline-block rounded-lg py-3 px-5 bg-gray-100 hover:bg-gray-200 font-medium" %>
     </div>
   </div>
 <% end %>

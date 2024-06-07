@@ -12,9 +12,12 @@ Rails.application.routes.draw do
   resource :user, except: %i[new create] do
     resource :waiver, only: %i[new create show]
     resource :session, only: %i[new create update destroy]
-    resources :cars, except: %i[index], path: ''
   end
   resolve('User') { [:user] }
+
+  scope :user do
+    resources :cars, except: %i[index]
+  end
 
   get 'auth/google_oauth2/callback' => 'sessions#create'
   get 'help' => 'static#help'

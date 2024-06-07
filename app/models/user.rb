@@ -10,7 +10,7 @@ class User < ApplicationRecord
   def self.create_from_omniauth(auth)
     user = find_by(email: auth.info.email)
     first_time = user.nil?
-    roles = auth.info.email.ends_with?("@ucsd.edu") ? ["hiker"] : []
+    roles = email_verified?(auth.info.email) ? ["hiker"] : []
     user ||= create(email: auth.info.email, full_name: auth.info.name, avatar_url: auth.info.image, roles:)
     if user.avatar_url.nil?
       update(user.id, email: auth.info.email, full_name: auth.info.name,
@@ -31,8 +31,12 @@ class User < ApplicationRecord
     id == hike.host.id
   end
 
+  def email_verified?(p_email)
+    p_email.ends_with?("ucsd.edu") || p_email.ends_with?("ucsd.com")
+  end
+
   def allowed?
-    email.ends_with?("@ucsd.edu") || hiker?
+    email_verified?(email) || hiker?
   end
 
   def car_participant?(hike_car)
