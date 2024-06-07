@@ -35,7 +35,7 @@ class User < ApplicationRecord
     p_email.ends_with?("ucsd.edu") || p_email.ends_with?("ucsd.com")
   end
 
-  def allowed?
+  def allowed_site_access?
     self.class.email_verified?(email) || hiker?
   end
 

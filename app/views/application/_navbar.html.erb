@@ -6,7 +6,7 @@
     { title: "Hikes", url: hikes_path, show: @user.hiker? && signed_waiver? },
     { title: "Waiver", url: user_waiver_path, show: @user.hiker? && signed_waiver? },
     { title: "Host", url: new_hike_path, show: @user.hiker? && signed_waiver? },
-    { title: "Help", url: help_path, show: !@user.allowed? },
+    { title: "Help", url: help_path, show: !@user.allowed_site_access? },
     { title: "Instagram", url: "https://www.instagram.com/ucsdhiking/", show: true },
     { title: "Discord", url: "https://discord.gg/6nErhJKKfV", show: true }
   ] %>

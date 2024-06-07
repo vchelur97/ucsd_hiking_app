@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
   end
 
   def no_access!
-    redirect_to help_path unless user.allowed?
+    redirect_to help_path unless user.allowed_site_access?
   end
 
   def signed_waiver?
