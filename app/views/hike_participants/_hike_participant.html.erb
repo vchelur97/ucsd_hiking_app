@@ -4,12 +4,19 @@
       <%= render "avatar", user: hike_participant.user %>
       <div>
         <div class="text-gray-700"><%= hike_participant.user.preferred_name.present? ? hike_participant.user.preferred_name : hike_participant.user.full_name %></div>
-        <div class="text-gray-400"><%= number_to_phone(hike_participant.user.phone_no, area_code: true) %></div>
       </div>
     </div>
-    <div class="py-2 xl:col-span-2 flex justify-center gap-3 items-center">
-      <div class="text-gray-700"><%= hike_participant.note %></div>
+    <div class="py-2 flex justify-center items-center">
+      <div>
+        <%= link_to number_to_phone(hike_participant.user.phone_no, area_code: true), "tel:#{hike_participant.user.phone_no}", class: "text-primary-500 text-md"  %>
+        <div class="text-gray-400"><%= hike_participant.user.discord %></div>
+      </div>
     </div>
+    <% if hike_participant.note.present? %>
+      <div class="py-2 col-span-2 flex justify-center items-center">
+        <div class="text-gray-700"><%= hike_participant.note %></div>
+      </div>
+    <% end %>
     <div class="absolute right-4 top-3 py-2">
       <div class="flex gap-1">
         <% if @user == hike_participant.user %>

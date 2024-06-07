@@ -7,7 +7,7 @@
             <%= render "avatar", user: hike_car.car.user %>
             <div>
               <div class="text-gray-700"><%= hike_car.car.user.full_name %></div>
-              <div class="text-gray-400"><%= number_to_phone(hike_car.car.user.phone_no, area_code: true) %></div>
+              <%= link_to number_to_phone(hike_car.car.user.phone_no, area_code: true), "tel:#{hike_car.car.user.phone_no}", class: "text-primary-500 text-xs" %>
             </div>
           </div>
           <div class="py-2 flex justify-center items-center">
