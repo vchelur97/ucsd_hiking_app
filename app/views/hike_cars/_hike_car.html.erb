@@ -4,8 +4,10 @@
       <div class="table-header-group bg-gray-50 text-gray-900 font-medium">
         <div class="px-4 relative grid grid-cols-2 xl:grid-cols-4">
           <div class="py-2 flex justify-center gap-3 items-center">
-            <%= render "avatar", user: hike_car.car.user %>
-            <div>
+            <div class="flex-shrink-0">
+              <%= render "avatar", user: hike_car.car.user %>
+            </div>
+            <div class="flex flex-col items-center w-full">
               <div class="text-gray-700"><%= hike_car.car.user.full_name %></div>
               <%= link_to number_to_phone(hike_car.car.user.phone_no, area_code: true), "tel:#{hike_car.car.user.phone_no}", class: "text-primary-500 text-xs" %>
             </div>
@@ -18,7 +20,7 @@
           </div>
           <div class="py-2 flex justify-center items-center">
             <div>
-              <div class="text-gray-700"><%= link_to hike_car.pickup_time.split('@').first, hike_car.pickup_address, class: "text-primary-500" %></div>
+              <%= link_to hike_car.pickup_time.split('@').first, hike_car.pickup_address, class: "text-primary-500" %>
               <div class="text-gray-400">@<%= hike_car.pickup_time.split('@').second %></div>
             </div>
           </div>

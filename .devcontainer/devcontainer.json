@@ -27,7 +27,9 @@
                 "setobiralo.erb-commenter",
                 "Shopify.ruby-extensions-pack",
                 "aliariff.vscode-erb-beautify",
-                "mechatroner.rainbow-csv"
+                "mechatroner.rainbow-csv",
+                "bradlc.vscode-tailwindcss",
+                "eamodio.gitlens"
             ],
             "settings": {
                 "workbench.colorTheme": "Spinel",

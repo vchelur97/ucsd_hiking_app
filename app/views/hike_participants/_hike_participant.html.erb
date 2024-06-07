@@ -1,15 +1,17 @@
 <%= turbo_frame_tag dom_id(hike_participant) do %>
   <div class="px-4 relative grid grid-cols-2 xl:grid-cols-4">
     <div class="py-2 flex justify-center gap-3 items-center">
-      <%= render "avatar", user: hike_participant.user %>
-      <div>
+      <div class="flex-shrink-0">
+        <%= render "avatar", user: hike_participant.user %>
+      </div>
+      <div class="flex flex-col items-center w-full">
         <div class="text-gray-700"><%= hike_participant.user.preferred_name.present? ? hike_participant.user.preferred_name : hike_participant.user.full_name %></div>
       </div>
     </div>
     <div class="py-2 flex justify-center items-center">
       <div>
-        <%= link_to number_to_phone(hike_participant.user.phone_no, area_code: true), "tel:#{hike_participant.user.phone_no}", class: "text-primary-500 text-md"  %>
-        <div class="text-gray-400"><%= hike_participant.user.discord %></div>
+        <%= link_to number_to_phone(hike_participant.user.phone_no, area_code: true), "tel:#{hike_participant.user.phone_no}", class: "text-primary-500 text-sm"  %>
+        <div class="text-gray-400 text-sm"><%= hike_participant.user.discord %></div>
       </div>
     </div>
     <% if hike_participant.note.present? %>
