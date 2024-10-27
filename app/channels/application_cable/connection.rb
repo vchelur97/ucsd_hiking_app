@@ -9,7 +9,7 @@ module ApplicationCable
     private
 
     def find_verified_user
-      session = Session.find_by(id: cookies.signed[:session_id])
+      session = Session.find_by(id: cookies.permanent.signed[:session_id])
       cookies.delete(:session_id) unless session
       if (user = session&.user)
         user

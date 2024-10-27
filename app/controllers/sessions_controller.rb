@@ -6,7 +6,7 @@ class SessionsController < ApplicationController
   def create
     user, first_time = User.create_from_omniauth(auth)
     session = user.sessions.create
-    cookies.signed[:session_id] = session.id
+    cookies.permanent.signed[:session_id] = session.id
     if first_time
       redirect_to edit_user_path(user), notice: 'Welcome! Please complete your profile'
     else
@@ -15,14 +15,14 @@ class SessionsController < ApplicationController
   end
 
   def update
-    session = Session.find(cookies.signed[:session_id])
+    session = Session.find(cookies.permanent.signed[:session_id])
     session.update!(push_endpoint: params[:push_endpoint], push_p256dh: params[:push_p256dh],
                     push_auth: params[:push_auth])
     render json: { status: 'success' }
   end
 
   def destroy
-    session = Session.find(cookies.signed[:session_id])
+    session = Session.find(cookies.permanent.signed[:session_id])
     session.destroy
     cookies.delete(:session_id)
     redirect_to root_path, success: 'Logged out!'
