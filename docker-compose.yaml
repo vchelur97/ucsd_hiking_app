@@ -1,31 +1,32 @@
-version: '3'
 services:
   app:
     build:
       context: .
     container_name: app
     restart: unless-stopped
-    ports:
-      - "5001:3000"
     depends_on:
       - db
       - redis
+    env_file:
+      - .env
     network_mode: service:db
   redis:
-    image: redis:latest
+    image: redis:7
     container_name: redis
     restart: unless-stopped
     volumes:
       - redis_data:/data
     network_mode: service:db
   db:
-    image: postgres:latest
+    image: postgres:16
     container_name: db
     restart: unless-stopped
     environment:
       POSTGRES_DB: ucsd_hiking_app_production
       POSTGRES_USER: ucsd_hiking_app
       POSTGRES_PASSWORD: ${UCSD_HIKING_APP_DATABASE_PASSWORD}
+    ports:
+      - "5001:3000"
     volumes:
       - postgres_data:/var/lib/postgresql/data
   
