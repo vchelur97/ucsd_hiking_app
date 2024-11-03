@@ -1,35 +1,43 @@
 services:
-  app:
+  ucsdhiking_app:
     build:
       context: .
-    container_name: app
+    container_name: ucsdhiking_app
     restart: unless-stopped
     depends_on:
-      - db
-      - redis
+      - ucsdhiking_db
+      - ucsdhiking_redis
     env_file:
       - .env
-    network_mode: service:db
-  redis:
+    ports:
+      - "5003:3000"
+    networks:
+      - network_default
+  ucsdhiking_redis:
     image: redis:7
-    container_name: redis
+    container_name: ucsdhiking_redis
     restart: unless-stopped
+    ports:
+      - "5004:3001"
     volumes:
-      - redis_data:/data
-    network_mode: service:db
-  db:
+      - /root/services/ucsdhiking/redis:/data
+    networks:
+      - network_default
+  ucsdhiking_db:
     image: postgres:16
-    container_name: db
+    container_name: ucsdhiking_db
     restart: unless-stopped
     environment:
       POSTGRES_DB: ucsd_hiking_app_production
       POSTGRES_USER: ucsd_hiking_app
       POSTGRES_PASSWORD: ${UCSD_HIKING_APP_DATABASE_PASSWORD}
+    networks:
+      - network_default
     ports:
-      - "5001:3000"
+      - "5005:5432"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
-  
-volumes:
-  postgres_data:
-  redis_data:
+      - /root/services/ucsdhiking/db:/var/lib/postgresql/data
+
+networks:
+  network_default:
+    external: true
