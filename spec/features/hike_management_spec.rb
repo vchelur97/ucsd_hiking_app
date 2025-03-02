@@ -28,6 +28,16 @@ RSpec.feature "Hike Management", type: :feature do
       expect(@hike.status).to eq('draft')
     end
 
+    it 'tests autofilling of hike details', js: true do
+      visit new_hike_path
+      fill_in 'Alltrails link', with: 'https://www.alltrails.com/trail/us/california/el-cajon-mountain-trail'
+      fill_in 'Description', with: 'A challenging hike with great views'
+      wait_for_turbo
+
+      expect(page).to have_field('Length', with: '11.0')
+      expect(page).to have_field('Elevation', with: '3579')
+    end
+
     it 'validates required fields' do
       visit new_hike_path
       hike_attrs = attributes_for(:hike)
@@ -45,6 +55,16 @@ RSpec.feature "Hike Management", type: :feature do
       click_button 'Send for review'
 
       expect(page).to have_content("can't be blank")
+    end
+
+    it 'allows updating a hike' do
+      hike = create(:hike, :draft, host: @user)
+      visit edit_hike_path(hike)
+
+      fill_in 'Title', with: 'Updated Title'
+      click_button 'Save as draft'
+
+      expect(hike.reload.title).to eq('Updated Title')
     end
   end
 
@@ -82,6 +102,17 @@ RSpec.feature "Hike Management", type: :feature do
 
       expect(page).not_to have_button("Publish")
     end
+
+    it 'allows deleting a draft hike', js: true do
+      visit hike_path(draft_hike)
+
+      click_link "Delete hike"
+      wait_for_element("button", text: "Delete")
+      click_button "Delete"
+
+      expect(page).to have_content('Hike was successfully deleted')
+      expect(Hike.exists?(draft_hike.id)).to be false
+    end
   end
 
   describe 'Viewing hike details' do
@@ -95,6 +126,12 @@ RSpec.feature "Hike Management", type: :feature do
       expect(page).to have_content(hike.duration)
       expect(page).to have_content(hike.route_type)
       expect(page).to have_content(hike.host.full_name)
+    end
+
+    it 'allows viewing the hike index' do
+      visit hikes_path
+      expect(page).to have_content(hike.title)
+      expect(page).to have_content(hike.short_description)
     end
   end
 end

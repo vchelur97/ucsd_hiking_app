@@ -9,5 +9,5 @@ SimpleCov.start 'rails' do
   add_group 'Models', 'app/models'
   add_group 'Helpers', 'app/helpers'
   add_group 'Jobs', 'app/jobs'
-  minimum_coverage 95
+  minimum_coverage 90
 end

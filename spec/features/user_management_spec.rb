@@ -49,10 +49,31 @@ RSpec.feature "User Management", type: :feature do
     end
   end
 
+  context "User manages profile", js: true do
+    before do
+      user_login
+    end
+
+    scenario "Updates profile information" do
+      visit edit_user_path
+      fill_in "user_phone_no", with: "1234567890"
+      click_button "Update User"
+      expect(page).to have_content("Profile was successfully updated")
+      expect(User.first.phone_no).to eq("1234567890")
+    end
+
+    scenario "Views profile information" do
+      visit user_path
+      expect(page).to have_content(User.first.email)
+      expect(page).to have_content(User.first.phone_no)
+    end
+  end
+
   context "User manages cars" do
     before do
       user_login
     end
+
     scenario "User creates a new car" do
       car_attributes = attributes_for(:car)
       visit user_path
@@ -74,11 +95,23 @@ RSpec.feature "User Management", type: :feature do
       expect(page).to have_content(Car.last.model)
     end
 
-    scenario "User deletes a car" do
+    scenario "User updates car information" do
+      car = create(:car, user: User.first)
+      visit edit_car_path(car)
+      fill_in "car_make", with: "Updated Make"
+      click_button "Update Car"
+      expect(page).to have_content("Updated Make")
+    end
+
+    scenario "User deletes a car", js: true do
       car = create(:car, user: User.first)
       visit user_path
       click_link "Edit car"
+
       click_link "Delete car"
+      wait_for_element("button", text: "Delete")
+      click_button "Delete"
+
       expect(page).not_to have_content(car.make)
       expect(page).not_to have_content(car.model)
     end

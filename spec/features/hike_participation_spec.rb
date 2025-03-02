@@ -33,6 +33,7 @@ RSpec.feature "Hike Participation", type: :feature, js: true do
         click_button "Join hike"
       end
 
+      wait_for_turbo
       visit hike_path(hike)
 
       participant = HikeParticipant.last
@@ -67,7 +68,6 @@ RSpec.feature "Hike Participation", type: :feature, js: true do
         click_button "Add car"
       end
 
-      # Wait for turbo operations to complete after submission
       wait_for_turbo
       visit hike_path(hike)
 
@@ -75,6 +75,48 @@ RSpec.feature "Hike Participation", type: :feature, js: true do
       expect(hike_car.car).to eq(user_car)
       expect(hike_car.spots_available).to eq("3")
       expect(hike_car.note).to eq("Will stop for coffee")
+    end
+  end
+
+  describe 'managing car details' do
+    let!(:hike_car) { create(:hike_car, hike: hike, car: user_car) }
+
+    it 'allows updating car details' do
+      visit edit_hike_car_path(hike_car)
+
+      fill_in "Spots", with: "4"
+      fill_in "Note", with: "Updated pickup details"
+      click_button "Update"
+
+      wait_for_turbo
+      expect(hike_car.reload.spots_available).to eq("4")
+      expect(hike_car.note).to eq("Updated pickup details")
+    end
+
+    it 'shows car details in the hike view' do
+      visit hike_path(hike)
+
+      within("##{dom_id(hike_car)}") do
+        expect(page).to have_content(user_car.make)
+        expect(page).to have_content(user_car.model)
+        expect(page).to have_content(hike_car.spots_available)
+      end
+    end
+  end
+
+  describe 'deleting a car' do
+    let!(:hike_car) { create(:hike_car, hike: hike, car: user_car) }
+
+    it 'allows deleting a car from the hike' do
+      visit hike_path(hike)
+
+      click_link "delete_#{dom_id(hike_car)}"
+      wait_for_element("button", text: "Delete")
+      click_button "Delete"
+
+      wait_for_turbo
+      visit hike_path(hike)
+      expect(HikeCar.exists?(hike_car.id)).to be false
     end
   end
 
@@ -87,6 +129,7 @@ RSpec.feature "Hike Participation", type: :feature, js: true do
       wait_for_turbo
 
       click_link "delete_#{dom_id(participant)}"
+      wait_for_element("button", text: "Delete")
       click_button "Delete"
 
       wait_for_turbo
