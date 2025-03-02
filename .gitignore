@@ -42,3 +42,8 @@ db/images/*
 db/hikes.csv
 db/script.rb
 db/users.csv
+
+coverage
+.clinerules-*
+memory-bank
+projectBrief.md

@@ -17,6 +17,7 @@
         "ghcr.io/devcontainers/features/git:1": {
             "ppa": "true"
         },
+        "ghcr.io/kreemer/features/chrometesting:1": {},
         "ghcr.io/devcontainers-contrib/features/heroku-cli:1": {}
     },
     "remoteUser": "vscode",

@@ -2,7 +2,6 @@
   <div class="col-span-2">
     <div class="flex">
       <%= form.label :alltrails_link, "Alltrails link", class: "mr-1" %>
-      <span class="place-content-center text-red-700 mr-2">*</span>
       <% if @hike.errors[:alltrails_link].any? %>
         <span class="text-red-500"><%= @hike.errors[:alltrails_link].join(", ") %></span>
       <% end %>
@@ -12,6 +11,7 @@
   <div>
     <div class="flex">
       <%= form.label :length, "Length (in miles)", class: "mr-2" %>
+      <span class="place-content-center text-red-700 mr-2">*</span>
       <% if @hike.errors[:length].any? %>
         <span class="text-red-500"><%= @hike.errors[:length].join(", ") %></span>
       <% end %>
@@ -21,6 +21,7 @@
   <div>
     <div class="flex">
       <%= form.label :elevation, "Elevation (in feet)", class: "mr-2" %>
+      <span class="place-content-center text-red-700 mr-2">*</span>
       <% if @hike.errors[:elevation].any? %>
         <span class="text-red-500"><%= @hike.errors[:elevation].join(", ") %></span>
       <% end %>
@@ -30,6 +31,7 @@
   <div>
     <div class="flex">
       <%= form.label :route_type, "Route type", class: "mr-2" %>
+      <span class="place-content-center text-red-700 mr-2">*</span>
       <% if @hike.errors[:route_type].any? %>
         <span class="text-red-500"><%= @hike.errors[:route_type].join(", ") %></span>
       <% end %>
@@ -39,6 +41,7 @@
   <div>
     <div class="flex">
       <%= form.label :duration, "Duration (in mins)", class: "mr-2" %>
+      <span class="place-content-center text-red-700 mr-2">*</span>
       <% if @hike.errors[:duration].any? %>
         <span class="text-red-500"><%= @hike.errors[:duration].join(", ") %></span>
       <% end %>
@@ -95,6 +98,7 @@
   <div class="col-span-2 row-span-3">
     <div class="flex">
       <%= form.label :description, class: "mr-2" %>
+      <span class="place-content-center text-red-700 mr-2">*</span>
       <% if @hike.errors[:description].any? %>
         <span class="text-red-500"><%= @hike.errors[:description].join(", ") %></span>
       <% end %>
@@ -124,6 +128,7 @@
   <div class="col-span-2">
     <div class="flex">
       <%= form.label :trailhead_address, class: "mr-2" %>
+      <span class="place-content-center text-red-700 mr-2">*</span>
       <% if @hike.errors[:trailhead_address].any? %>
         <span class="text-red-500"><%= @hike.errors[:trailhead_address].join(", ") %></span>
       <% end %>
@@ -133,6 +138,7 @@
   <div class="col-span-2">
     <div class="flex">
       <%= form.label :suggested_items, class: "mr-2" %>
+      <span class="place-content-center text-red-700 mr-2">*</span>
       <% if @hike.errors[:suggested_items].any? %>
         <span class="text-red-500"><%= @hike.errors[:suggested_items].join(", ") %></span>
       <% end %>

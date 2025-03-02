@@ -4,18 +4,21 @@ class User < ApplicationRecord
   has_many :cars, dependent: :destroy
   has_many :hikes, foreign_key: :host_id, dependent: :destroy
   has_many :hike_cars, through: :cars
-  validates :email, presence: true, uniqueness: true
+
+  validates :email, presence: true, uniqueness: true,
+                    format: { with: /\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/, message: "is invalid" }
+  validates :full_name, presence: true, length: { maximum: 50 }
   validates :phone_no, presence: true, format: { with: /\A\d{10}\z/ }, on: :update
 
   def self.create_from_omniauth(auth)
+    raise ArgumentError, "Email is required" if auth.blank? || auth.info.blank? || auth.info.email.blank?
+
+    full_name = auth.info.name.presence || auth.info.email
     user = find_by(email: auth.info.email)
     first_time = user.nil?
     roles = email_verified?(auth.info.email) ? ["hiker"] : []
-    user ||= create(email: auth.info.email, full_name: auth.info.name, avatar_url: auth.info.image, roles:)
-    if user.avatar_url.nil?
-      update(user.id, email: auth.info.email, full_name: auth.info.name,
-                      avatar_url: auth.info.image)
-    end
+    user ||= create(email: auth.info.email, full_name: full_name, avatar_url: auth.info.image, roles: roles)
+    update(user.id, email: auth.info.email, full_name: full_name, avatar_url: auth.info.image) if user.avatar_url.nil?
     [user, first_time]
   end
 
