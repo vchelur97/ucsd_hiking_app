@@ -18,7 +18,7 @@
             "ppa": "true"
         },
         "ghcr.io/kreemer/features/chrometesting:1": {},
-        "ghcr.io/devcontainers-contrib/features/heroku-cli:1": {}
+        "ghcr.io/devcontainers-extras/features/heroku-cli:1": {}
     },
     "remoteUser": "vscode",
     "postCreateCommand": ". ${NVM_DIR}/nvm.sh && nvm install 18 && npm install -g yarn && gem install bundler rails pg rubocop ruby-lsp-rails htmlbeautifier foreman redis tailwindcss-rails",

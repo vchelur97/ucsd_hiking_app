@@ -3,6 +3,7 @@ source "https://rubygems.org"
 ruby "3.3.2"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
+gem "rack", ">= 3.1.16"
 gem "rails", "~> 7.1.3", ">= 7.1.3.2"
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
@@ -83,6 +84,7 @@ gem "aws-sdk-s3", "~> 1.148"
 gem "csv", "~> 3.3"
 gem "dotenv-rails", "~> 3.1"
 gem "foreman", "~> 0.88.1"
+gem "nokogiri", ">= 1.18.9"
 gem "omniauth", "~> 2.1"
 gem "omniauth-google-oauth2", "~> 1.1"
 gem "omniauth-rails_csrf_protection", "~> 1.0"
